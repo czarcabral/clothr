@@ -14,17 +14,16 @@
 import UIKit
 
 class ViewController: UIViewController {
-
+    
+    // assigns the blue square to swipeLabel
     @IBOutlet weak var swipeLabel: UILabel!
     
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		// Do any additional setup after loading the view, typically from a nib.
         
-        /*---------------------------------------
-         * Swiping Feature
-         ----------------------------------------*/
-        
+      
+        //function that assisns the gesture movement
         let swipeGesture = UIPanGestureRecognizer(target: self, action: #selector(wasDragged(gestureRecognizer:)))
         swipeLabel.addGestureRecognizer(swipeGesture)
 	}
