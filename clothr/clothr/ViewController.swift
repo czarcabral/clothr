@@ -12,6 +12,7 @@
 //
 
 import UIKit
+import Parse
 
 class ViewController: UIViewController {
     
@@ -21,6 +22,13 @@ class ViewController: UIViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		// Do any additional setup after loading the view, typically from a nib.
+        
+        // testing if object can be saved into database
+        let testObject = PFObject(className: "Testing")
+        testObject["test"] = "clothes"
+        testObject.saveInBackground { (success,error) in
+            print("object Saved")
+        }
         
       
         //function that assisns the gesture movement
@@ -52,9 +60,8 @@ class ViewController: UIViewController {
             
         }
         
-        //print(swipeLabel.center.x)
-        
-    }
+    } // end of was dragged function
+
     
-}
+} // end of UIviewcontrollor
 

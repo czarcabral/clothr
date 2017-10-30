@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Parse
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -16,6 +17,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 	func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
 		// Override point for customization after application launch.
+        
+       //setting up configuration for parse server
+        
+        let config = ParseClientConfiguration  { (theConfig) in
+            theConfig.applicationId = "clothr"
+            theConfig.server = "http://clothr.herokuapp.com/parse"
+            theConfig.clientKey = "clotherMasterKey115"
+        }
+        
+        // line to view parse server dashboard hosted on your own host computer
+        //parse-dashboard --appId clothr --masterKey clotherMasterKey115 --serverURL "http://clothr.herokuapp.com/parse"
+        
+        Parse.initialize(with: config)
+        
 		return true
 	}
 
