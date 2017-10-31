@@ -120,6 +120,7 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+<<<<<<< HEAD
 		53B514741FA67B5000DF2CB2 /* POPSUGARShopSense */ = {
 			isa = PBXGroup;
 			children = (
@@ -206,6 +207,31 @@
 				53B515541FA6937D00DF2CB2 /* Security.framework */,
 			);
 			name = Frameworks;
+=======
+		0D8B72C61FA20169006DF04C /* View */ = {
+			isa = PBXGroup;
+			children = (
+				A98208A41F9C2554003F96F7 /* LaunchScreen.storyboard */,
+				A982089F1F9C2554003F96F7 /* Main.storyboard */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		0D8B72CA1FA6C0DC006DF04C /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				A982089D1F9C2554003F96F7 /* ViewController.swift */,
+				A982089B1F9C2554003F96F7 /* AppDelegate.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		0D8B72CB1FA6C2D3006DF04C /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+>>>>>>> 37b86284226c0cde10bb920a38e8ed738622e4ea
 			sourceTree = "<group>";
 		};
 		A982088F1F9C2554003F96F7 = {
@@ -231,10 +257,16 @@
 		A982089A1F9C2554003F96F7 /* clothr */ = {
 			isa = PBXGroup;
 			children = (
+<<<<<<< HEAD
 				A982089B1F9C2554003F96F7 /* AppDelegate.swift */,
 				A982089D1F9C2554003F96F7 /* ViewController.swift */,
 				53B515521FA682B200DF2CB2 /* PrefixHeader.pch */,
 				A982089F1F9C2554003F96F7 /* Main.storyboard */,
+=======
+				0D8B72CB1FA6C2D3006DF04C /* Model */,
+				0D8B72CA1FA6C0DC006DF04C /* Controller */,
+				0D8B72C61FA20169006DF04C /* View */,
+>>>>>>> 37b86284226c0cde10bb920a38e8ed738622e4ea
 				A98208A21F9C2554003F96F7 /* Assets.xcassets */,
 				A98208A71F9C2554003F96F7 /* Info.plist */,
 			);
