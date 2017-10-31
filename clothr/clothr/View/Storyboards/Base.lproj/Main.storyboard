@@ -4,7 +4,8 @@
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13174"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -43,6 +44,13 @@
                                 </attributedString>
                                 <nil key="highlightedColor"/>
                             </label>
+<<<<<<< HEAD:clothr/clothr/Base.lproj/Main.storyboard
+                            <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Cgn-ai-VNw">
+                                <rect key="frame" x="16" y="172" width="343" height="322"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <gestureRecognizers/>
+                            </imageView>
+=======
                             <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SwipeLabel" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4sD-ft-6b8">
                                 <rect key="frame" x="112.5" y="258.5" width="150" height="150"/>
                                 <color key="backgroundColor" red="0.3929186948130704" green="0.77316419605541509" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -56,17 +64,14 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+>>>>>>> 37b86284226c0cde10bb920a38e8ed738622e4ea:clothr/clothr/View/Storyboards/Base.lproj/Main.storyboard
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <constraints>
-                            <constraint firstItem="4sD-ft-6b8" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="SJX-oc-OPg"/>
-                            <constraint firstItem="4sD-ft-6b8" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="i3Z-Bi-Ghu"/>
-                        </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <navigationItem key="navigationItem" id="k1B-5L-hYA"/>
                     <connections>
-                        <outlet property="swipeLabel" destination="4sD-ft-6b8" id="gPH-bL-jM5"/>
+                        <outlet property="image" destination="Cgn-ai-VNw" id="eec-YW-fkW"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -162,6 +167,9 @@
                                 <state key="normal" title="Log In">
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
+                                <connections>
+                                    <segue destination="n7P-hK-bja" kind="show" id="cRk-aj-NMM"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ntE-4w-mUL">
                                 <rect key="frame" x="30" y="488" width="315" height="30"/>
