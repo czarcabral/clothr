@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Bucket
+   type = "1"
+   version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "POPSUGARShopSense/helperfunctions.m"
+            timestampString = "531101874.178029"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "44"
+            endingLineNumber = "44"
+            landmarkName = "-fillProductBuffer"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[helperfunctions fillProductBuffer]"
+                  moduleName = "clothr"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/andrewguterres/Desktop/clothr/clothr/POPSUGARShopSense/helperfunctions.m"
+                  timestampString = "531081659.206152"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "44"
+                  endingLineNumber = "44"
+                  offsetFromSymbolStart = "128">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__36-[helperfunctions fillProductBuffer]_block_invoke"
+                  moduleName = "clothr"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/andrewguterres/Desktop/clothr/clothr/POPSUGARShopSense/helperfunctions.m"
+                  timestampString = "531081659.220441"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "48"
+                  endingLineNumber = "48"
+                  offsetFromSymbolStart = "100">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "POPSUGARShopSense/helperfunctions.m"
+            timestampString = "531101874.182114"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "49"
+            endingLineNumber = "49"
+            landmarkName = "-fillProductBuffer"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__36-[helperfunctions fillProductBuffer]_block_invoke"
+                  moduleName = "clothr"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/andrewguterres/Desktop/clothr/clothr/POPSUGARShopSense/helperfunctions.m"
+                  timestampString = "531082082.32812"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "67"
+                  endingLineNumber = "67"
+                  offsetFromSymbolStart = "448">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__copy_helper_block_"
+                  moduleName = "clothr"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/andrewguterres/Desktop/clothr/clothr/POPSUGARShopSense/helperfunctions.m"
+                  timestampString = "531082082.337725"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "67"
+                  endingLineNumber = "67"
+                  offsetFromSymbolStart = "100">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__destroy_helper_block_"
+                  moduleName = "clothr"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/andrewguterres/Desktop/clothr/clothr/POPSUGARShopSense/helperfunctions.m"
+                  timestampString = "531082082.356409"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "67"
+                  endingLineNumber = "67"
+                  offsetFromSymbolStart = "60">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__36-[helperfunctions fillProductBuffer]_block_invoke.24"
+                  moduleName = "clothr"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/andrewguterres/Desktop/clothr/clothr/POPSUGARShopSense/helperfunctions.m"
+                  timestampString = "531082082.362698"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "68"
+                  endingLineNumber = "68"
+                  offsetFromSymbolStart = "80">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
+</Bucket>
