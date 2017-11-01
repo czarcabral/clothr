@@ -39,6 +39,7 @@
 		A982089E1F9C2554003F96F7 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A982089D1F9C2554003F96F7 /* ViewController.swift */; };
 		A98208A11F9C2554003F96F7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A982089F1F9C2554003F96F7 /* Main.storyboard */; };
 		A98208A31F9C2554003F96F7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A98208A21F9C2554003F96F7 /* Assets.xcassets */; };
+		DE99345AA2CA430F80B9C6CD /* Pods_clothr.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F29F83D1CF4B868A7F8C0D32 /* Pods_clothr.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -105,12 +106,15 @@
 		53B515591FA693B000DF2CB2 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		53B515D91FA6A21800DF2CB2 /* helperfunctions.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = helperfunctions.m; path = POPSUGARShopSense/helperfunctions.m; sourceTree = SOURCE_ROOT; };
 		53B515DB1FA6A23900DF2CB2 /* helperfunctions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = helperfunctions.h; sourceTree = "<group>"; };
+		961327B95E2AFB2E34C4E80C /* Pods-clothr.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-clothr.release.xcconfig"; path = "Pods/Target Support Files/Pods-clothr/Pods-clothr.release.xcconfig"; sourceTree = "<group>"; };
 		A98208981F9C2554003F96F7 /* clothr.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = clothr.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A982089B1F9C2554003F96F7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A982089D1F9C2554003F96F7 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		A98208A01F9C2554003F96F7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		A98208A21F9C2554003F96F7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A98208A71F9C2554003F96F7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F29F83D1CF4B868A7F8C0D32 /* Pods_clothr.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_clothr.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F8A9F2AE3013D2823654FB99 /* Pods-clothr.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-clothr.debug.xcconfig"; path = "Pods/Target Support Files/Pods-clothr/Pods-clothr.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -118,6 +122,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DE99345AA2CA430F80B9C6CD /* Pods_clothr.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -208,6 +213,7 @@
 				53B515561FA693A000DF2CB2 /* SystemConfiguration.framework */,
 				53B515551FA6938700DF2CB2 /* MobileCoreServices.framework */,
 				53B515541FA6937D00DF2CB2 /* Security.framework */,
+				F29F83D1CF4B868A7F8C0D32 /* Pods_clothr.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -221,6 +227,7 @@
 				A98208991F9C2554003F96F7 /* Products */,
 				53B514961FA67B5000DF2CB2 /* AFNetworking */,
 				53B515531FA6937D00DF2CB2 /* Frameworks */,
+				EB21BB0960D2DE2F1AD0D753 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -247,6 +254,15 @@
 			path = clothr;
 			sourceTree = "<group>";
 		};
+		EB21BB0960D2DE2F1AD0D753 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				F8A9F2AE3013D2823654FB99 /* Pods-clothr.debug.xcconfig */,
+				961327B95E2AFB2E34C4E80C /* Pods-clothr.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -254,9 +270,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = A98208AA1F9C2554003F96F7 /* Build configuration list for PBXNativeTarget "clothr" */;
 			buildPhases = (
+				B93E8F0BBD20BB9AF26D8512 /* [CP] Check Pods Manifest.lock */,
 				A98208941F9C2554003F96F7 /* Sources */,
 				A98208951F9C2554003F96F7 /* Frameworks */,
 				A98208961F9C2554003F96F7 /* Resources */,
+				F3370404C74691D5C905FBAD /* [CP] Embed Pods Frameworks */,
+				2589152630340B7DFADE3B07 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -313,6 +332,62 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		2589152630340B7DFADE3B07 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-clothr/Pods-clothr-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		B93E8F0BBD20BB9AF26D8512 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-clothr-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F3370404C74691D5C905FBAD /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-clothr/Pods-clothr-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Bolts/Bolts.framework",
+				"${BUILT_PRODUCTS_DIR}/Parse/Parse.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Bolts.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Parse.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-clothr/Pods-clothr-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		A98208941F9C2554003F96F7 /* Sources */ = {
@@ -474,6 +549,7 @@
 		};
 		A98208AB1F9C2554003F96F7 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F8A9F2AE3013D2823654FB99 /* Pods-clothr.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -491,6 +567,7 @@
 		};
 		A98208AC1F9C2554003F96F7 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 961327B95E2AFB2E34C4E80C /* Pods-clothr.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;

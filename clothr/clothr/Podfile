@@ -1,10 +1,12 @@
 # Uncomment the next line to define a global platform for your project
- platform :ios, '5.0'
+ platform :ios, '9.0'
+
+project 'clothr.xcodeproj'
 
 target 'clothr' do
   # Comment the next line if you're not using Swift and don't want to use dynamic frameworks
   use_frameworks!
-pod 'POPSUGARShopSense', :git => 'https://github.com/PopSugar/objc-POPSUGAR-ShopSense-client.git'
-  # Pods for clothr
 
+  # Pods for clothr
+pod 'Parse'
 end

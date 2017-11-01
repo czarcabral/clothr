@@ -31,8 +31,8 @@ class SaveViewController: UIViewController, UITableViewDelegate, UITableViewData
 //        {
 //            print(products[i])
 //        }
-        let thisProduct: PSSProduct? = savedProducts![0] as? PSSProduct
-        print(thisProduct?.name as Any)
+//        let thisProduct: PSSProduct? = savedProducts![0] as? PSSProduct
+//        print(thisProduct?.salePriceLabel as Any)
 //        print(savedProducts.name as Any)
 //        for var i in (0..<checker2)
 //        {
@@ -90,11 +90,13 @@ class SaveViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 //        let cell = UITableViewCell()
-        print("HI")
+        //print("HI")
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! SaveControllerTableViewCell
         getProductImage(cell.productImage, cell,indexPath.row)
         let thisProduct: PSSProduct? = savedProducts![indexPath.row] as? PSSProduct
         //        print(thisProduct?.name as Any)
+        cell.productPrice.text=thisProduct?.regularPriceLabel
+        print(thisProduct?.regularPriceLabel as Any)
         cell.productName.text=thisProduct?.name
             
         
