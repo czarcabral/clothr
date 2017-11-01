@@ -33,13 +33,13 @@
 
 
 
-- (NSArray*)fillProductBuffer
+    - (NSArray*)fillProductBuffer: (NSString *)search
 {
 
 //    NSMutableArray *prod = [[NSMutableArray alloc] init];
     
     PSSProductQuery *productQuery = [[PSSProductQuery alloc] init];
-    productQuery.searchTerm = @"red dress";
+    productQuery.searchTerm = search;
     __weak typeof(self) weakSelf = self;
     [[PSSClient sharedClient] searchProductsWithQuery:productQuery offset:[NSNumber numberWithInt:10] limit:[NSNumber numberWithInt:50] success:^(NSUInteger totalCount, NSArray *availableHistogramTypes, NSArray *products) {
         weakSelf.products = products;

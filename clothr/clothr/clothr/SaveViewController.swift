@@ -25,26 +25,6 @@ class SaveViewController: UIViewController, UITableViewDelegate, UITableViewData
         super.viewDidLoad()
         tableview.delegate=self
         tableview.dataSource=self
-//        let products = UserDefaults.standard.object(forKey: "products") as! Data
-//        let savedProducts=NSKeyedUnarchiver.unarchiveObject(with: products) as? [Any]
-//        for var i in (0..<2)
-//        {
-//            print(products[i])
-//        }
-//        let thisProduct: PSSProduct? = savedProducts![0] as? PSSProduct
-//        print(thisProduct?.salePriceLabel as Any)
-//        print(savedProducts.name as Any)
-//        for var i in (0..<checker2)
-//        {
-//            let check: PSSProduct? = vc.saved[i] as? PSSProduct
-//            print(check?.name as Any)
-//        }
-//        // Do any additional setup after loading the view.
-//        refreshControl = UIRefreshControl()
-////        refreshControl.attributedTitle = NSAttributedString(string:" ")
-//        refreshControl.addTarget(self, action: #selector(SaveViewController.populate), for: UIControlEvents.valueChanged)
-//        tableView.addSubview(refreshControl)
-        
         
     }
     

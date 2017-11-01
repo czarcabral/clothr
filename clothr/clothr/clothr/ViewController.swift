@@ -15,27 +15,38 @@ import UIKit
 
 var imageIndex: NSInteger=0
 var checker: NSInteger=0
-
+var check: NSInteger=0
 var products = [Any]()
 
 
 class ViewController: UIViewController {
     
     var saved = [Any]()
-    @IBOutlet weak var yourItems: UIButton!
+    
+   
+    @IBOutlet weak var saveButton: UIButton!
     @IBOutlet weak var image: UIImageView!
-//-----------------------------------------initial load for swipe screen--------------------------------//
+    @IBOutlet weak var searchProduct: UIButton!
+    @IBOutlet weak var searchField: UITextField!
+    //-----------------------------------------initial load for swipe screen--------------------------------//
     override func viewDidLoad() {
         
         //products.append("HI")
         super.viewDidLoad()
+        searchField.delegate=self
         // Do any additional setup after loading the view, typically from a nib.
-
-        let buffer = helperfunctions()
-        products=buffer.fillProductBuffer()
-        get_image(image)
+        loadData("men's clothing")
         let swipeGesture = UIPanGestureRecognizer(target: self, action: #selector(wasDragged(gestureRecognizer:)))
         image.addGestureRecognizer(swipeGesture)
+    }
+    
+//------------------------------------load swiping image-----------------------------------//
+    
+    func loadData(_ search:NSString)
+    {
+        let buffer = helperfunctions()
+        products=buffer.fillProductBuffer(search as String!)
+        get_image(image)
     }
 
     override func didReceiveMemoryWarning() {
@@ -89,15 +100,6 @@ class ViewController: UIViewController {
                 print("Interested in clothing item")
                 let thisProduct: PSSProduct? = products[imageIndex-1] as? PSSProduct
                 saved.append(thisProduct as Any)
-                if(checker>5)
-                {
-                    
-                    for var i in (0..<checker)
-                    {
-                    let check: PSSProduct? = saved[i] as? PSSProduct
-                    print(check?.name as Any)
-                    }
-                }
                 checker+=1
                 get_image(image)
             }
@@ -114,7 +116,34 @@ class ViewController: UIViewController {
         defaults.set(encodedData, forKey: "products")
         print("saved")
     }
+
+//------------------------------------------search for what user whats---------------------------------//
+   
+    @IBAction func searchPressed(_ sender: Any) {
+        
+            imageIndex=0
+            products.removeAll()
+            loadData(searchField.text! as NSString)
+            loadData(searchField.text! as NSString)
+            //get_image(image)
+       
+    }
     
+//------------------------------------------search field functions---------------------------------------//
+
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        searchField.resignFirstResponder()
+    }
+
+}
+
+//------------------------------------------extension for search field---------------------------------------//
+extension ViewController : UITextFieldDelegate
+{
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
     
 }
 
