@@ -35,20 +35,16 @@
 
     - (NSArray*)fillProductBuffer: (NSString *)search
 {
-
-//    NSMutableArray *prod = [[NSMutableArray alloc] init];
-    
     PSSProductQuery *productQuery = [[PSSProductQuery alloc] init];
     productQuery.searchTerm = search;
     __weak typeof(self) weakSelf = self;
     [[PSSClient sharedClient] searchProductsWithQuery:productQuery offset:[NSNumber numberWithInt:10] limit:[NSNumber numberWithInt:50] success:^(NSUInteger totalCount, NSArray *availableHistogramTypes, NSArray *products) {
         weakSelf.products = products;
-                PSSProduct *thisProduct = self.products[(NSUInteger)0];
-            printf("name: %s\n", [thisProduct.name UTF8String]);
-            printf("salePriceLabel: %s\n", [thisProduct.regularPriceLabel UTF8String]);
-        
-                NSData *data = [NSKeyedArchiver archivedDataWithRootObject:products];
-                [[NSUserDefaults standardUserDefaults] setObject:data forKey:@"name"];
+        //PSSProduct *thisProduct = self.products[(NSUInteger)0];
+        //printf("name: %s\n", [thisProduct.name UTF8String]);
+        //printf("website url: %s\n", [thisProduct. UTF8String]);
+        NSData *data = [NSKeyedArchiver archivedDataWithRootObject:products];
+        [[NSUserDefaults standardUserDefaults] setObject:data forKey:@"name"];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Request failed with error: %@", error);
     }];

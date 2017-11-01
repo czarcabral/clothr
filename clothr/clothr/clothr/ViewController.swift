@@ -16,6 +16,7 @@ import UIKit
 var imageIndex: NSInteger=0
 var checker: NSInteger=0
 var check: NSInteger=0
+var productName: NSString = "men's clothing"
 var products = [Any]()
 
 
@@ -35,7 +36,8 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         searchField.delegate=self
         // Do any additional setup after loading the view, typically from a nib.
-        loadData("men's clothing")
+        
+        loadData(productName)
         let swipeGesture = UIPanGestureRecognizer(target: self, action: #selector(wasDragged(gestureRecognizer:)))
         image.addGestureRecognizer(swipeGesture)
     }
@@ -124,8 +126,8 @@ class ViewController: UIViewController {
             imageIndex=0
             products.removeAll()
             loadData(searchField.text! as NSString)
-            loadData(searchField.text! as NSString)
-            //get_image(image)
+            productName=searchField.text! as NSString
+            get_image(image)
        
     }
     

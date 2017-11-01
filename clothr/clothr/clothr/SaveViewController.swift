@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SafariServices
 var savedIndex: NSInteger=0
 var checker2: NSInteger=5
 
@@ -42,6 +43,7 @@ class SaveViewController: UIViewController, UITableViewDelegate, UITableViewData
 //        print(savedIndex)
         let thisProduct: PSSProduct? = savedProducts![index] as? PSSProduct
         let url = thisProduct?.image.url
+        print(thisProduct?.buyURL as Any)
         let session = URLSession.shared
         
         let task = session.dataTask(with: url!, completionHandler: {
@@ -76,11 +78,25 @@ class SaveViewController: UIViewController, UITableViewDelegate, UITableViewData
         let thisProduct: PSSProduct? = savedProducts![indexPath.row] as? PSSProduct
         //        print(thisProduct?.name as Any)
         cell.productPrice.text=thisProduct?.regularPriceLabel
-        print(thisProduct?.regularPriceLabel as Any)
+        //print(thisProduct?.regularPriceLabel as Any)
         cell.productName.text=thisProduct?.name
-            
-        
         return(cell)
+    }
+//    let url = URL(string: "https://www.google.com")
+//    let vc = SFSafariViewController(url: url!)
+//    present(vc, animated: true, completion: nil)
+    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+        let thisProduct: PSSProduct? = savedProducts![indexPath.row] as? PSSProduct
+        let urlString: String = (thisProduct?.buyURL.absoluteString)!
+        let url = URL(string: urlString)
+        let vc = SFSafariViewController(url: url!)
+//        present(vc, animated: true, completion: nil)
+        if #available(iOS 10.0, *) {
+            present(vc, animated: true, completion: nil)
+//            UIApplication.shared.open((thisProduct?.buyURL)!, options: [:], completionHandler: nil)
+        } else {
+            UIApplication.shared.openURL((thisProduct?.buyURL)!)
+        }
     }
 }
 
