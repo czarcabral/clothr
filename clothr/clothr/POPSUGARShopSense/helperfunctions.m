@@ -21,6 +21,9 @@
 @property (nonatomic, strong) PSSProduct *product;
 @end
 
+typedef void(^myCompletion)(BOOL);
+//BOOL check = false;
+
 @implementation helperfunctions
 
 @synthesize products = _products;
@@ -33,41 +36,71 @@
 
 
 
-    - (NSArray*)fillProductBuffer: (NSString *)search
+    - (void)fillProductBuffer: (NSString *)search
 {
+    __block NSArray *buffer;
+    [self searchQuery:search :^(BOOL finished)
+    {
+        if(finished){
+//            while(!check){}
+            printf("FINISHED");
+            NSData *productData = [[NSUserDefaults standardUserDefaults] objectForKey:@"name"];
+            buffer = [NSKeyedUnarchiver unarchiveObjectWithData:productData];
+            PSSProduct *thisProduct = buffer[(NSUInteger)0];
+            printf("Unarchived name: %s\n", [thisProduct.name UTF8String]);
+            //return buffer;
+            //filledBuffer=buffer;
+        }
+    }];
+    
+    //NSData *productData = [[NSUserDefaults standardUserDefaults] objectForKey:@"name"];
+    //NSArray *buffer = [NSKeyedUnarchiver unarchiveObjectWithData:productData];
+//    return buffer;
+    
+//    NSUserDefaults * defaults = [NSUserDefaults standardUserDefaults];
+//    [defaults setObject:[NSKeyedArchiver archivedDataWithRootObject:myObject] forKey:@"MyObjectKey"];
+//    [defaults synchronize];
+}
+
+-(void) searchQuery:(NSString *)searchTerm :(myCompletion) compblock{
     PSSProductQuery *productQuery = [[PSSProductQuery alloc] init];
-    productQuery.searchTerm = search;
+    productQuery.searchTerm = searchTerm;
+    printf("here: %s\n", [productQuery.searchTerm UTF8String]);
     __weak typeof(self) weakSelf = self;
-    [[PSSClient sharedClient] searchProductsWithQuery:productQuery offset:[NSNumber numberWithInt:10] limit:[NSNumber numberWithInt:50] success:^(NSUInteger totalCount, NSArray *availableHistogramTypes, NSArray *products) {
+    [[PSSClient sharedClient] searchProductsWithQuery:productQuery offset:[NSNumber numberWithInt:0] limit:[NSNumber numberWithInt:25] success:^(NSUInteger totalCount, NSArray *availableHistogramTypes, NSArray *products) {
+        printf("ARCHIVING...\n");
         weakSelf.products = products;
-        //PSSProduct *thisProduct = self.products[(NSUInteger)0];
-        //printf("name: %s\n", [thisProduct.name UTF8String]);
-        //printf("website url: %s\n", [thisProduct. UTF8String]);
-        NSData *data = [NSKeyedArchiver archivedDataWithRootObject:products];
-        [[NSUserDefaults standardUserDefaults] setObject:data forKey:@"name"];
+        PSSProduct *thisProduct = self.products[(NSUInteger)0];
+        printf("Archive name: %s\n", [thisProduct.name UTF8String]);
+        //        printf("website url: %s\n", [thisProduct. UTF8String]);
+        NSUserDefaults *data = [NSUserDefaults standardUserDefaults];
+        [data setObject:[NSKeyedArchiver archivedDataWithRootObject:products] forKey:@"name"];
+        [data synchronize];
+        NSData *productData = [[NSUserDefaults standardUserDefaults] objectForKey:@"name"];
+        NSArray *buffer = [NSKeyedUnarchiver unarchiveObjectWithData:productData];
+        PSSProduct *thisProduct2 = buffer[(NSUInteger)0];
+        printf("Unarchived name2: %s\n", [thisProduct2.name UTF8String]);
+//        check=true;
+        
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Request failed with error: %@", error);
     }];
-    
-    NSData *productData = [[NSUserDefaults standardUserDefaults] objectForKey:@"name"];
-    NSArray *buffer = [NSKeyedUnarchiver unarchiveObjectWithData:productData];
-    return buffer;
+    compblock(NO);
+    return;
 }
 
-
-
 - (void)encodeWithCoder:(nonnull NSCoder *)encoder {
-    [encoder encodeObject:self.name forKey:@"name"];
+    [encoder encodeObject:self.product forKey:@"name"];
     [encoder encodeObject:self.salePriceLabel forKey:@"salePriceLabel"];
-    [encoder encodeObject:self.product forKey:@"product"];
+    //[encoder encodeObject:self.product forKey:@"product"];
 }
 
 - (id)initWithCoder:(nonnull NSCoder *)decoder {
     if((self = [self init]))
     {
-        self.name = [decoder decodeObjectForKey:@"name"];
+        self.product = [decoder decodeObjectForKey:@"name"];
         self.salePriceLabel=[decoder decodeObjectForKey:@"salePriceLabel"];
-        self.product = [decoder decodeObjectForKey:@"product"];
+        //self.product = [decoder decodeObjectForKey:@"product"];
     }
     return self;
 }

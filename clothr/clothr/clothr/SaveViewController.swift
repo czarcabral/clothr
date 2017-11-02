@@ -43,7 +43,7 @@ class SaveViewController: UIViewController, UITableViewDelegate, UITableViewData
 //        print(savedIndex)
         let thisProduct: PSSProduct? = savedProducts![index] as? PSSProduct
         let url = thisProduct?.image.url
-        print(thisProduct?.buyURL as Any)
+//        print(thisProduct?.buyURL as Any)
         let session = URLSession.shared
         
         let task = session.dataTask(with: url!, completionHandler: {

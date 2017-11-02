@@ -38,6 +38,9 @@ class ViewController: UIViewController {
         // Do any additional setup after loading the view, typically from a nib.
         
         loadData(productName)
+        print(productName)
+//        let thisProduct: PSSProduct? = products[imageIndex] as? PSSProduct
+//        print("viewdidLoad: " + (thisProduct?.name)! as Any)
         let swipeGesture = UIPanGestureRecognizer(target: self, action: #selector(wasDragged(gestureRecognizer:)))
         image.addGestureRecognizer(swipeGesture)
     }
@@ -47,8 +50,19 @@ class ViewController: UIViewController {
     func loadData(_ search:NSString)
     {
         let buffer = helperfunctions()
-        products=buffer.fillProductBuffer(search as String!)
-        get_image(image)
+        buffer.fillProductBuffer(search as String!)
+        
+        let when = DispatchTime.now() + 1
+        DispatchQueue.main.asyncAfter(deadline: when) {
+            if let data = UserDefaults.standard.object(forKey: "name") as? NSData {
+                products = NSKeyedUnarchiver.unarchiveObject(with: data as Data) as! [Any]
+            }
+            let thisProduct: PSSProduct? = products[imageIndex] as? PSSProduct
+            print("loadData: " + (thisProduct?.name)! as Any)
+            self.get_image(self.image)
+        }
+//        print("loadData: " + (thisProduct?.name)! as Any)
+//        get_image(image)
     }
 
     override func didReceiveMemoryWarning() {
@@ -125,9 +139,18 @@ class ViewController: UIViewController {
         
             imageIndex=0
             products.removeAll()
+//        DispatchQueue.main.async(execute: {
             loadData(searchField.text! as NSString)
-            productName=searchField.text! as NSString
-            get_image(image)
+//        })
+        let when = DispatchTime.now() + 1 // change 2 to desired number of seconds
+        DispatchQueue.main.asyncAfter(deadline: when) {
+            //loadData(searchField.text! as NSString)
+            let thisProduct: PSSProduct? = products[imageIndex] as? PSSProduct
+            print("searchPressed: " + (thisProduct?.name)! as Any)
+            //productName=searchField.text! as NSString
+            //self.get_image(self.image)
+        }
+    
        
     }
     

@@ -17,7 +17,7 @@
 
 @interface helperfunctions : NSObject <NSCoding, NSCopying>
 
-    - (NSArray*)fillProductBuffer: (NSString*) search;
+    - (void)fillProductBuffer: (NSString*) search;
 
 @end
 #endif /* helperfunctions_h */
