@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="n7P-hK-bja">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="FZD-Zx-GSf">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13174"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -43,8 +44,8 @@
                                 </attributedString>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SwipeLabel" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4sD-ft-6b8">
-                                <rect key="frame" x="112" y="258.5" width="150" height="150"/>
+                            <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="SwipeLabel" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4sD-ft-6b8">
+                                <rect key="frame" x="99" y="246" width="150" height="150"/>
                                 <color key="backgroundColor" red="0.3929186948130704" green="0.77316419605541509" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="150" id="4gx-6g-K9u"/>
@@ -73,6 +74,67 @@
             </objects>
             <point key="canvasLocation" x="476" y="133.5832083958021"/>
         </scene>
+        <!--Clothes View Controller-->
+        <scene sceneID="pJy-18-vEq">
+            <objects>
+                <viewController id="FZD-Zx-GSf" customClass="ClothesViewController" customModule="clothr" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="CVa-oW-tfR">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Size:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kdi-Le-O0s">
+                                <rect key="frame" x="20" y="440" width="37" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Price:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NUe-wx-Zdc">
+                                <rect key="frame" x="13" y="411" width="44" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" text="$5.99" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="mBG-eD-T6o">
+                                <rect key="frame" x="65" y="405" width="240" height="33"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" text="Large" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="s3l-ZF-thG">
+                                <rect key="frame" x="65" y="434" width="69" height="33"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="shirt" translatesAutoresizingMaskIntoConstraints="NO" id="YF0-8r-9Bw">
+                                <rect key="frame" x="50" y="70" width="275" height="275"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="YF0-8r-9Bw" secondAttribute="height" multiplier="1:1" id="mUl-Dh-odS"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="TQy-Zm-asl" firstAttribute="trailing" secondItem="YF0-8r-9Bw" secondAttribute="trailing" constant="50" id="0CZ-yi-FjZ"/>
+                            <constraint firstItem="YF0-8r-9Bw" firstAttribute="top" secondItem="TQy-Zm-asl" secondAttribute="top" constant="50" id="uQX-qf-3T8"/>
+                            <constraint firstItem="YF0-8r-9Bw" firstAttribute="leading" secondItem="TQy-Zm-asl" secondAttribute="leading" constant="50" id="uoB-bF-qTU"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="TQy-Zm-asl"/>
+                    </view>
+                    <connections>
+                        <outlet property="clothitemview" destination="YF0-8r-9Bw" id="1dC-iP-aiG"/>
+                        <outlet property="priceHolder" destination="mBG-eD-T6o" id="tmN-7j-AdE"/>
+                        <outlet property="sizeHolder" destination="s3l-ZF-thG" id="hpP-Zp-HOa"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Qfj-7P-Czg" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="607.20000000000005" y="906.29685157421295"/>
+        </scene>
         <!--View Controller-->
         <scene sceneID="oMe-ke-Kzz">
             <objects>
@@ -82,7 +144,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="20" translatesAutoresizingMaskIntoConstraints="NO" id="nA5-VY-5qH">
-                                <rect key="frame" x="59" y="126" width="257" height="63"/>
+                                <rect key="frame" x="59" y="64" width="257" height="63"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <attributedString key="attributedText">
                                     <fragment content="Your Clothes">
@@ -185,10 +247,11 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jYt-0E-XkZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1063.2" y="133.5832083958021"/>
+            <point key="canvasLocation" x="-1150" y="134"/>
         </scene>
     </scenes>
     <resources>
         <image name="oliver-thomas-klein-144904" width="3024" height="4032"/>
+        <image name="shirt" width="210" height="240"/>
     </resources>
 </document>
