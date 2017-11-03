@@ -52,7 +52,7 @@ class ViewController: UIViewController {
         let buffer = helperfunctions()
         buffer.fillProductBuffer(search as String!)
         
-        let when = DispatchTime.now() + 1
+        let when = DispatchTime.now() + 2
         DispatchQueue.main.asyncAfter(deadline: when) {
             if let data = UserDefaults.standard.object(forKey: "name") as? NSData {
                 products = NSKeyedUnarchiver.unarchiveObject(with: data as Data) as! [Any]
@@ -142,7 +142,7 @@ class ViewController: UIViewController {
 //        DispatchQueue.main.async(execute: {
             loadData(searchField.text! as NSString)
 //        })
-        let when = DispatchTime.now() + 1 // change 2 to desired number of seconds
+        let when = DispatchTime.now() + 2 // change 2 to desired number of seconds
         DispatchQueue.main.asyncAfter(deadline: when) {
             //loadData(searchField.text! as NSString)
             let thisProduct: PSSProduct? = products[imageIndex] as? PSSProduct
