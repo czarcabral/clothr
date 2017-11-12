@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Parse
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -20,8 +21,25 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //window = UIWindow(frame: UIScreen.main.bounds)
         window?.makeKeyAndVisible()
         
+        
+        //setting up configuration for parse server
+        let config = ParseClientConfiguration  { (theConfig) in
+            theConfig.applicationId = "clothr"
+            theConfig.server = "http://clothr.herokuapp.com/parse"
+            theConfig.clientKey = "clotherMasterKey115"
+        }
+        
+        // line to view parse server dashboard hosted on your own host computer
+        //parse-dashboard --appId clothr --masterKey clotherMasterKey115 --serverURL "http://clothr.herokuapp.com/parse"
+        
+        Parse.initialize(with: config)
+        
+        
         return true
 	}
+    
+    
+    
 
 	func applicationWillResignActive(_ application: UIApplication) {
 		// Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.

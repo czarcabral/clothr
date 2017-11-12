@@ -46,6 +46,14 @@ class ViewController: UIViewController {
         image.addGestureRecognizer(swipeGesture)
     }
     
+//-------------------------example add object into database-----------------------------------//
+    
+    // let testObject = PFObject(className: "Testing")
+    // testObject["test"] = "clothes"
+    // testObject.saveInBackground { (success,error) in
+    // print("object Saved")
+    
+    
 //------------------------------------load swiping image-----------------------------------//
     
     func loadData(_ search:NSString)
