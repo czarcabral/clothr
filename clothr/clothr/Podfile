@@ -9,4 +9,5 @@ target 'clothr' do
 
   # Pods for clothr
 pod 'Parse'
+
 end

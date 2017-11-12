@@ -12,6 +12,7 @@
 //
 
 import UIKit
+import Parse 
 
 var imageIndex: NSInteger=0
 var checker: NSInteger=0
