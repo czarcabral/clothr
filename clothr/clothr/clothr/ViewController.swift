@@ -19,7 +19,8 @@ var checker: NSInteger=0
 var check: NSInteger=0
 var productName: NSString = "men's clothing"
 var products = [Any]()
-
+var xCenter = CGFloat(0)
+var yCenter = CGFloat(0)
 
 class ViewController: UIViewController {
     
@@ -42,10 +43,11 @@ class ViewController: UIViewController {
         print(productName)
 //        let thisProduct: PSSProduct? = products[imageIndex] as? PSSProduct
 //        print("viewdidLoad: " + (thisProduct?.name)! as Any)
+        xCenter = image.center.x
+        yCenter = image.center.y
         let swipeGesture = UIPanGestureRecognizer(target: self, action: #selector(wasDragged(gestureRecognizer:)))
         image.addGestureRecognizer(swipeGesture)
     }
-    
 //-------------------------example add object into database-----------------------------------//
     
     // let testObject = PFObject(className: "Testing")
@@ -110,9 +112,8 @@ class ViewController: UIViewController {
     }
 //------------------------------------function to check if pic is drag--------------------------------//
     @objc func wasDragged(gestureRecognizer: UIPanGestureRecognizer) {
-//        print("HI")
         let labelpoint = gestureRecognizer.translation(in: view)
-        image.center = CGPoint(x: view.bounds.width / 2 + labelpoint.x , y: view.bounds.height / 2 + labelpoint.y)
+        image.center = CGPoint(x: xCenter + labelpoint.x , y: yCenter + labelpoint.y)
         
         if gestureRecognizer.state == .ended {
             if image.center.x < (view.bounds.width / 2 - 100) {
@@ -129,7 +130,7 @@ class ViewController: UIViewController {
                 get_image(image)
             }
 
-            image.center = CGPoint(x: view.bounds.width/2 , y: view.bounds.height/2 )
+            image.center = CGPoint(x: xCenter , y: yCenter)
         }
     }
 //-----------------------------------------encode data for saved page--------------------------------//

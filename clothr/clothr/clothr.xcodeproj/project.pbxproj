@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0D1EB9281FBC2AA500BAC9E0 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D1EB9271FBC2AA500BAC9E0 /* HomeViewController.swift */; };
 		0D21904A1FBAEE4D009478DC /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D2190491FBAEE4C009478DC /* RegisterViewController.swift */; };
 		0D21904C1FBAEFF1009478DC /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D21904B1FBAEFF1009478DC /* LoginViewController.swift */; };
 		53A568E11FA83D2900C964DC /* SaveViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53A568E01FA83D2900C964DC /* SaveViewController.swift */; };
@@ -45,6 +46,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0D1EB9271FBC2AA500BAC9E0 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		0D2190491FBAEE4C009478DC /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		0D21904B1FBAEFF1009478DC /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		53A568E01FA83D2900C964DC /* SaveViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveViewController.swift; sourceTree = "<group>"; };
@@ -247,6 +249,7 @@
 			isa = PBXGroup;
 			children = (
 				A982089B1F9C2554003F96F7 /* AppDelegate.swift */,
+				0D1EB9271FBC2AA500BAC9E0 /* HomeViewController.swift */,
 				0D21904B1FBAEFF1009478DC /* LoginViewController.swift */,
 				0D2190491FBAEE4C009478DC /* RegisterViewController.swift */,
 				A982089D1F9C2554003F96F7 /* ViewController.swift */,
@@ -427,6 +430,7 @@
 				53B5150D1FA67B5000DF2CB2 /* PSSProductSize.m in Sources */,
 				53B515141FA67B5100DF2CB2 /* AFImageRequestOperation.m in Sources */,
 				53B515151FA67B5100DF2CB2 /* AFJSONRequestOperation.m in Sources */,
+				0D1EB9281FBC2AA500BAC9E0 /* HomeViewController.swift in Sources */,
 				53B515171FA67B5100DF2CB2 /* AFPropertyListRequestOperation.m in Sources */,
 				53B515031FA67B5000DF2CB2 /* PSSCategoryTree.m in Sources */,
 				53B515071FA67B5000DF2CB2 /* PSSProductCategory.m in Sources */,

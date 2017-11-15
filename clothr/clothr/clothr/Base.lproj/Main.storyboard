@@ -225,7 +225,7 @@
         <!--Welcome-->
         <scene sceneID="Ypn-Od-JaB">
             <objects>
-                <viewController title="Welcome" id="SyM-zk-XI3" sceneMemberID="viewController">
+                <viewController title="Welcome" id="SyM-zk-XI3" customClass="HomeViewController" customModule="clothr" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="DDJ-za-2OW">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -423,6 +423,6 @@
         <image name="photo-1453486030486-0a5ffcd82cd9" width="1513" height="2418"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="1I3-CQ-oXQ"/>
+        <segue reference="BZ7-do-f9e"/>
     </inferredMetricsTieBreakers>
 </document>
