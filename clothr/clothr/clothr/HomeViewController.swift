@@ -5,6 +5,7 @@
 //  Created by Gilbert Aragon on 11/14/17.
 //  Copyright © 2017 cmps115. All rights reserved.
 //
+// The homepage view controller. The first thing the user sees.
 
 import UIKit
 

@@ -5,6 +5,7 @@
 //  Created by Gilbert Aragon on 11/14/17.
 //  Copyright © 2017 cmps115. All rights reserved.
 //
+// Register View Controller. Where user signs up.
 
 import UIKit
 import Parse
@@ -29,11 +30,16 @@ class RegisterViewController: UIViewController {
     }
     
     @IBAction func registerPressed(_ sender: Any) {
+        // create a user
         let user = PFUser()
+        
+        // assign user input to the appropriate new user fields
         user.username = userUsername.text
         user.password = userPassword.text
         user.email = userEmail.text
         
+        // show error if there was a problem signing up
+        // otherwise, create a new user in the database and go to swipe page
         user.signUpInBackground (block: { (success, error) in
             if error != nil {
                 var errorMessage = "Sign Up failed - Try Again"

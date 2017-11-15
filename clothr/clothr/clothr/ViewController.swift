@@ -31,6 +31,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var image: UIImageView!
     @IBOutlet weak var searchProduct: UIButton!
     @IBOutlet weak var searchField: UITextField!
+    
     //-----------------------------------------initial load for swipe screen--------------------------------//
     override func viewDidLoad() {
         
@@ -43,8 +44,14 @@ class ViewController: UIViewController {
         print(productName)
 //        let thisProduct: PSSProduct? = products[imageIndex] as? PSSProduct
 //        print("viewdidLoad: " + (thisProduct?.name)! as Any)
+        
+        // set the x and y variable to be equal to the center of the image
         xCenter = image.center.x
         yCenter = image.center.y
+        
+        // hide the back button
+        self.navigationItem.setHidesBackButton(true, animated: false)
+        
         let swipeGesture = UIPanGestureRecognizer(target: self, action: #selector(wasDragged(gestureRecognizer:)))
         image.addGestureRecognizer(swipeGesture)
     }
@@ -170,6 +177,25 @@ class ViewController: UIViewController {
         searchField.resignFirstResponder()
     }
 
+//------------------------------------------log out button function---------------------------------------//
+    @IBAction func logOutPressed(_ sender: Any) {
+        // show user logged in
+        // print("current user: ", PFUser.current() as Any)
+        
+        // log user out, PFUser.current() = nil
+        PFUser.logOut()
+        _ = PFUser.current()
+        
+        // check user is logged out
+        // print("user: ", PFUser.current() as Any)
+        
+        // go to home page after logging out
+        guard (navigationController?.popToRootViewController(animated: true)) != nil
+            else {
+                print("No View Controller to Pop")
+                return
+        }
+    }
 }
 
 //------------------------------------------extension for search field---------------------------------------//

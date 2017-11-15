@@ -88,7 +88,13 @@
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
-                    <navigationItem key="navigationItem" id="k1B-5L-hYA"/>
+                    <navigationItem key="navigationItem" id="k1B-5L-hYA">
+                        <barButtonItem key="rightBarButtonItem" title="Log Out" id="9iD-pV-bS3">
+                            <connections>
+                                <action selector="logOutPressed:" destination="BYZ-38-t0r" id="bI8-HO-2og"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="image" destination="8ro-UF-EL6" id="EHm-dT-U6l"/>
                         <outlet property="saveButton" destination="ql6-Sq-E9F" id="CfQ-Cq-4Xn"/>
@@ -284,6 +290,9 @@
                         <viewLayoutGuide key="safeArea" id="a4h-9R-fja"/>
                     </view>
                     <navigationItem key="navigationItem" id="J5x-L7-cnC"/>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="push" identifier="goToSwipe" id="P7T-ag-7gL"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jYt-0E-XkZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -423,6 +432,6 @@
         <image name="photo-1453486030486-0a5ffcd82cd9" width="1513" height="2418"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="BZ7-do-f9e"/>
+        <segue reference="P7T-ag-7gL"/>
     </inferredMetricsTieBreakers>
 </document>

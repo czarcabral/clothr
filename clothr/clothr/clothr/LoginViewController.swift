@@ -5,6 +5,7 @@
 //  Created by Gilbert Aragon on 11/14/17.
 //  Copyright © 2017 cmps115. All rights reserved.
 //
+// Login view controller. Page where user logs in.
 
 import UIKit
 import Parse
@@ -32,6 +33,7 @@ class LoginViewController: UIViewController {
             if let password = userPassword.text {
                 PFUser.logInWithUsername(inBackground: username, password: password, block: { (user, error) in
                     if error != nil {
+                        // If login fails, print out an error message
                         var errorMessage = "Login failed - Try Again"
                         
                         if let newError = error as NSError? {
@@ -44,6 +46,7 @@ class LoginViewController: UIViewController {
                         self.errorLabel.text = errorMessage
                         
                     } else {
+                        // If login works, go to next page
                         print("Login successful")
                         self.loginSuccess = true
                         self.performSegue(withIdentifier: "loginToSwipe", sender: self)
