@@ -12,20 +12,23 @@
 //
 
 import UIKit
-import Parse 
+import Parse
 
 var imageIndex: NSInteger=0
 var checker: NSInteger=0
 var check: NSInteger=0
-var productName: NSString = "men's clothing"
+var productName: NSString = "men's shirt"
 var products = [Any]()
+var productBuffer = [Any]()
 var xCenter = CGFloat(0)
 var yCenter = CGFloat(0)
 
 class ViewController: UIViewController {
     
     var saved = [Any]()
-    
+    var pagingIndex=[String: NSNumber]() //dictionary with search term as a key, paging index as value
+    var searchIndex: NSNumber=0
+    var bufferIndex: NSInteger=0
    
     @IBOutlet weak var saveButton: UIButton!
     @IBOutlet weak var image: UIImageView!
@@ -38,6 +41,7 @@ class ViewController: UIViewController {
         //products.append("HI")
         super.viewDidLoad()
         searchField.delegate=self
+        pagingIndex[productName as String!]=0
         // Do any additional setup after loading the view, typically from a nib.
         
         loadData(productName)
@@ -55,20 +59,26 @@ class ViewController: UIViewController {
         let swipeGesture = UIPanGestureRecognizer(target: self, action: #selector(wasDragged(gestureRecognizer:)))
         image.addGestureRecognizer(swipeGesture)
     }
-//-------------------------example add object into database-----------------------------------//
-    
-    // let testObject = PFObject(className: "Testing")
-    // testObject["test"] = "clothes"
-    // testObject.saveInBackground { (success,error) in
-    // print("object Saved")
-    
     
 //------------------------------------load swiping image-----------------------------------//
     
     func loadData(_ search:NSString)
     {
+        productName=search
+        if let pagingCheck=pagingIndex[productName as String!]
+        {
+            print("paging check: ")
+            print(pagingCheck)
+            searchIndex=pagingCheck //sets searching index to index saved in dictionary for searched product
+        } else
+        {
+            pagingIndex[productName as String!]=0
+        }
+        print("Search index: ")
+        print(searchIndex)
         let buffer = helperfunctions()
-        buffer.fillProductBuffer(search as String!)
+        
+        buffer.fillProductBuffer(search as String!, searchIndex)
         
         let when = DispatchTime.now() + 2
         DispatchQueue.main.asyncAfter(deadline: when) {
@@ -79,20 +89,49 @@ class ViewController: UIViewController {
             print("loadData: " + (thisProduct?.name)! as Any)
             self.get_image(self.image)
         }
-//        print("loadData: " + (thisProduct?.name)! as Any)
-//        get_image(image)
+        //        print("loadData: " + (thisProduct?.name)! as Any)
+        //        get_image(image)
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+//---------------------------------load extra products in product array--------------------------------//
+
+    func loadExtraBuffer(_ search: NSString)
+    {
+        productName=search
+        if let pagingCheck=pagingIndex[productName as String!]
+        {
+            searchIndex = (pagingCheck.intValue+searchIndex.intValue+10) as NSNumber
+        }
+        
+        let buffer = helperfunctions()
+        
+        buffer.fillProductBuffer(search as String!, searchIndex)
+        
+        let when = DispatchTime.now() + 2
+        DispatchQueue.main.asyncAfter(deadline: when) {
+            if let data = UserDefaults.standard.object(forKey: "name") as? NSData {
+                productBuffer = NSKeyedUnarchiver.unarchiveObject(with: data as Data) as! [Any]
+            }
+//            let thisProduct: PSSProduct? = products[products.count-1] as? PSSProduct
+//            print("loadData: " + (thisProduct?.name)! as Any)
+//            print(productBuffer.count)
+            products+=productBuffer
+//            print(products.count)
+        }
+    }
+    
 //---------------------------------get image for swiping function--------------------------------//
     func get_image(_ imageView:UIImageView)
     {
-        if(imageIndex>=products.count-1)
+        if(imageIndex==products.count-5)
         {
-            imageIndex=0
+            //imageIndex=0
+            loadExtraBuffer(productName)
         }
         let thisProduct: PSSProduct? = products[imageIndex] as? PSSProduct
         let url = thisProduct?.image.url
@@ -153,12 +192,21 @@ class ViewController: UIViewController {
 //------------------------------------------search for what user whats---------------------------------//
    
     @IBAction func searchPressed(_ sender: Any) {
+        products.removeAll()
         
-            imageIndex=0
-            products.removeAll()
-//        DispatchQueue.main.async(execute: {
-            loadData(searchField.text! as NSString)
-//        })
+        print(pagingIndex[productName as String] as Any)
+        pagingIndex[productName as String] = Int(truncating: pagingIndex[productName as String]!) + imageIndex as NSNumber  //saves the previous paging offset
+        //pagingIndex[productName as String] = pagingIndex[productName as String]?.intValue + imageIndex  //saves the previous paging offset
+        print(pagingIndex[productName as String] as Any)
+        
+        //        print(pagingIndex[searchField.text as! String] as Any)
+        //            imageIndex=0
+        //            products.removeAll()
+        //        DispatchQueue.main.async(execute: {
+        loadData(searchField.text! as NSString)
+        //        })
+        imageIndex=0
+        
         let when = DispatchTime.now() + 2 // change 2 to desired number of seconds
         DispatchQueue.main.asyncAfter(deadline: when) {
             //loadData(searchField.text! as NSString)

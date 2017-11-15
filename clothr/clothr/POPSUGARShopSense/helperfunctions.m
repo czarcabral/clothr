@@ -36,38 +36,38 @@ typedef void(^myCompletion)(BOOL);
 
 
 
-    - (void)fillProductBuffer: (NSString *)search
+- (void)fillProductBuffer:(NSString *)search :(NSNumber *)pagingIndex
 {
     __block NSArray *buffer;
-    [self searchQuery:search :^(BOOL finished)
-    {
-        if(finished){
-//            while(!check){}
-            printf("FINISHED");
-            NSData *productData = [[NSUserDefaults standardUserDefaults] objectForKey:@"name"];
-            buffer = [NSKeyedUnarchiver unarchiveObjectWithData:productData];
-            PSSProduct *thisProduct = buffer[(NSUInteger)0];
-            printf("Unarchived name: %s\n", [thisProduct.name UTF8String]);
-            //return buffer;
-            //filledBuffer=buffer;
-        }
-    }];
+    [self searchQuery:search :pagingIndex :^(BOOL finished)
+     {
+         if(finished){
+             //            while(!check){}
+             printf("FINISHED");
+             NSData *productData = [[NSUserDefaults standardUserDefaults] objectForKey:@"name"];
+             buffer = [NSKeyedUnarchiver unarchiveObjectWithData:productData];
+             PSSProduct *thisProduct = buffer[(NSUInteger)0];
+             printf("Unarchived name: %s\n", [thisProduct.name UTF8String]);
+             //return buffer;
+             //filledBuffer=buffer;
+         }
+     }];
     
     //NSData *productData = [[NSUserDefaults standardUserDefaults] objectForKey:@"name"];
     //NSArray *buffer = [NSKeyedUnarchiver unarchiveObjectWithData:productData];
-//    return buffer;
+    //    return buffer;
     
-//    NSUserDefaults * defaults = [NSUserDefaults standardUserDefaults];
-//    [defaults setObject:[NSKeyedArchiver archivedDataWithRootObject:myObject] forKey:@"MyObjectKey"];
-//    [defaults synchronize];
+    //    NSUserDefaults * defaults = [NSUserDefaults standardUserDefaults];
+    //    [defaults setObject:[NSKeyedArchiver archivedDataWithRootObject:myObject] forKey:@"MyObjectKey"];
+    //    [defaults synchronize];
 }
 
--(void) searchQuery:(NSString *)searchTerm :(myCompletion) compblock{
+-(void) searchQuery:(NSString *)searchTerm :(NSNumber*)pagingIndex :(myCompletion) compblock{
     PSSProductQuery *productQuery = [[PSSProductQuery alloc] init];
     productQuery.searchTerm = searchTerm;
     printf("here: %s\n", [productQuery.searchTerm UTF8String]);
     __weak typeof(self) weakSelf = self;
-    [[PSSClient sharedClient] searchProductsWithQuery:productQuery offset:[NSNumber numberWithInt:0] limit:[NSNumber numberWithInt:25] success:^(NSUInteger totalCount, NSArray *availableHistogramTypes, NSArray *products) {
+    [[PSSClient sharedClient] searchProductsWithQuery:productQuery offset:pagingIndex limit:[NSNumber numberWithInt:10] success:^(NSUInteger totalCount, NSArray *availableHistogramTypes, NSArray *products) {
         printf("ARCHIVING...\n");
         weakSelf.products = products;
         PSSProduct *thisProduct = self.products[(NSUInteger)0];
@@ -80,7 +80,7 @@ typedef void(^myCompletion)(BOOL);
         NSArray *buffer = [NSKeyedUnarchiver unarchiveObjectWithData:productData];
         PSSProduct *thisProduct2 = buffer[(NSUInteger)0];
         printf("Unarchived name2: %s\n", [thisProduct2.name UTF8String]);
-//        check=true;
+        //        check=true;
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Request failed with error: %@", error);
@@ -114,3 +114,4 @@ typedef void(^myCompletion)(BOOL);
 }
 
 @end
+

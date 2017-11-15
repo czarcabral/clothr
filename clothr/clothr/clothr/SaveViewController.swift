@@ -17,7 +17,7 @@ class SaveViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     let vc = ViewController()
 //    let products = UserDefaults.standard.object(forKey: "products") as! Data
-    let savedProducts=NSKeyedUnarchiver.unarchiveObject(with: UserDefaults.standard.object(forKey: "products") as! Data) as? [Any]
+    var savedProducts=NSKeyedUnarchiver.unarchiveObject(with: UserDefaults.standard.object(forKey: "products") as! Data) as? [Any]
 
     @IBOutlet weak var tableview: UITableView!
     
@@ -33,7 +33,7 @@ class SaveViewController: UIViewController, UITableViewDelegate, UITableViewData
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-//------------------------------------method to get middle image for swiping page--------------------------------------------//
+//------------------------------------method to get middle image for swiping page-----------------------------------------//
     func getProductImage(_ imageView:UIImageView, _ cell:SaveControllerTableViewCell, _ index: Int)
     {
 //        if(savedIndex>=savedProducts!.count)
@@ -70,6 +70,8 @@ class SaveViewController: UIViewController, UITableViewDelegate, UITableViewData
         return savedProducts!.count
     }
     
+//------------------------------------load custom made cells-----------------------------------------//
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 //        let cell = UITableViewCell()
         //print("HI")
@@ -82,9 +84,9 @@ class SaveViewController: UIViewController, UITableViewDelegate, UITableViewData
         cell.productName.text=thisProduct?.name
         return(cell)
     }
-//    let url = URL(string: "https://www.google.com")
-//    let vc = SFSafariViewController(url: url!)
-//    present(vc, animated: true, completion: nil)
+    
+//------------------------------------bring user to product's URL to buy-----------------------------------------//
+    
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
         let thisProduct: PSSProduct? = savedProducts![indexPath.row] as? PSSProduct
         let urlString: String = (thisProduct?.buyURL.absoluteString)!
@@ -96,6 +98,19 @@ class SaveViewController: UIViewController, UITableViewDelegate, UITableViewData
 //            UIApplication.shared.open((thisProduct?.buyURL)!, options: [:], completionHandler: nil)
         } else {
             UIApplication.shared.openURL((thisProduct?.buyURL)!)
+        }
+    }
+    
+//------------------------------------method to delete a cell/update saved array-----------------------------------------//
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath)
+    {
+        if editingStyle==UITableViewCellEditingStyle.delete
+        {
+            savedProducts?.remove(at: indexPath.row)
+            let thisProduct: PSSProduct? = savedProducts![0] as? PSSProduct
+            print(thisProduct?.name as Any)
+            tableView.reloadData()
         }
     }
 }
