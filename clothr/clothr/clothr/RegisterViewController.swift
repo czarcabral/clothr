@@ -54,6 +54,14 @@ class RegisterViewController: UIViewController {
                 self.errorLabel.text = errorMessage
             } else {
                 print("Register successful")
+                let savedObject = PFObject(className: "storages")
+                savedObject["user"] = PFUser.current()?.username
+                savedObject["pagingIndexes"] = [String: NSNumber]()
+                savedObject["savedProductImages"] = [Any]()
+                savedObject["savedProductNames"] = [Any]()
+                savedObject["savedProductPrices"] = [Any]()
+                savedObject["savedProductURL"] = [Any]()
+                savedObject.saveInBackground() { (success,error) in print("object saved")}
                 self.registerSuccess = true
                 self.performSegue(withIdentifier: "registerToSwipe", sender: self)
             }

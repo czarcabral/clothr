@@ -25,7 +25,10 @@ var yCenter = CGFloat(0)
 
 class ViewController: UIViewController {
     
-    var saved = [Any]()
+    var savedImages = [Any]()
+    var savedNames = [Any]()
+    var savedPrices = [Any]()
+    var savedURL = [Any]()
     var pagingIndex=[String: NSNumber]() //dictionary with search term as a key, paging index as value
     var searchIndex: NSNumber=0
     var bufferIndex: NSInteger=0
@@ -41,11 +44,9 @@ class ViewController: UIViewController {
         //products.append("HI")
         super.viewDidLoad()
         searchField.delegate=self
-        pagingIndex[productName as String!]=0
         // Do any additional setup after loading the view, typically from a nib.
-        
+        loadUserStorage()
         loadData(productName)
-        print(productName)
 //        let thisProduct: PSSProduct? = products[imageIndex] as? PSSProduct
 //        print("viewdidLoad: " + (thisProduct?.name)! as Any)
         
@@ -60,6 +61,97 @@ class ViewController: UIViewController {
         image.addGestureRecognizer(swipeGesture)
     }
     
+//---------------------------load paging index and saved stuff--------------------------//
+    func loadUserStorage()
+    {
+        let query = PFQuery(className:"storages")
+        query.whereKey("user", equalTo:PFUser.current()?.username as Any)
+        print(PFUser.current()?.username as Any)
+        query.findObjectsInBackground {
+            (objects: [PFObject]?, error: Error?) -> Void in
+            
+            if error == nil {
+                // The find succeeded.
+                print("Successfully retrieved \(objects!.count) scores.")
+                // Do something with the found objects
+                if let objects = objects {
+                    for object in objects {
+                        self.loadUserObject(object.objectId!)
+                    }
+                }
+            } else {
+                // Log details of the failure
+                print("Error loading ")
+            }
+            }
+    }
+
+//---------------------------grabs user paging info and saved arrays-----------------------//
+    
+    func loadUserObject(_ id: String)
+    {
+        let query = PFQuery(className:"storages")
+        query.getObjectInBackground(withId: id)
+        {
+            (query: PFObject?, error: Error?) -> Void in
+            if error != nil
+            {
+                print("error")
+            } else if let user=query
+            {
+                self.savedImages=user["savedProductImages"] as! [Any]
+                self.savedNames=user["savedProductNames"] as! [Any]
+                self.savedPrices=user["savedProductPrices"] as! [Any]
+                self.savedURL=user["savedProductURL"] as! [Any]
+                self.pagingIndex=user["pagingIndexes"] as! [String : NSNumber]
+            }
+        }
+    }
+//-----------------------------updating paging info and saved arrays-----------------------//
+
+    func updateUserStorage()
+    {
+        let query = PFQuery(className:"storages")
+        query.whereKey("user", equalTo:PFUser.current()?.username as Any)
+        print(PFUser.current()?.username as Any)
+        query.findObjectsInBackground {
+            (objects: [PFObject]?, error: Error?) -> Void in
+            
+            if error == nil {
+                // The find succeeded.
+                print("Successfully retrieved \(objects!.count) scores.")
+                // Do something with the found objects
+                if let objects = objects {
+                    for object in objects {
+                        self.updateUserObject(object.objectId!)
+                    }
+                }
+            } else {
+                // Log details of the failure
+                print("Error loading ")
+            }
+        }
+    }
+    
+//-----------------------------updtaing paging info and saved arrays helper------------------//
+    
+    func updateUserObject(_ id: String)
+    {
+        let query = PFQuery(className:"storages")
+        query.getObjectInBackground(withId: id) {
+            (gameScore: PFObject?, error: Error?) -> Void in
+            if error != nil {
+                print(error as Any)
+            } else if let gameScore = gameScore {
+                gameScore["savedProductImages"] = self.savedImages
+                gameScore["savedProductNames"] = self.savedNames
+                gameScore["savedProductURL"] = self.savedURL
+                gameScore["savedProductPrices"] = self.savedPrices
+                gameScore["pagingIndexes"] = self.pagingIndex
+                gameScore.saveInBackground()
+            }
+        }
+    }
 //------------------------------------load swiping image-----------------------------------//
     
     func loadData(_ search:NSString)
@@ -74,6 +166,7 @@ class ViewController: UIViewController {
         {
             pagingIndex[productName as String!]=0
         }
+        print(pagingIndex[productName as String!] as Any)
         print("Search index: ")
         print(searchIndex)
         let buffer = helperfunctions()
@@ -171,7 +264,10 @@ class ViewController: UIViewController {
             if image.center.x > (view.bounds.width / 2 + 100) {
                 print("Interested in clothing item")
                 let thisProduct: PSSProduct? = products[imageIndex-1] as? PSSProduct
-                saved.append(thisProduct as Any)
+                savedImages.append(thisProduct?.image.url.absoluteString as Any)
+                savedNames.append(thisProduct?.name as Any)
+                savedPrices.append(thisProduct?.currentPriceLabel() as Any)
+                savedURL.append(thisProduct?.buyURL.absoluteString as Any)
                 checker+=1
                 get_image(image)
             }
@@ -179,25 +275,43 @@ class ViewController: UIViewController {
             image.center = CGPoint(x: xCenter , y: yCenter)
         }
     }
-//-----------------------------------------encode data for saved page--------------------------------//
+//-----------------------------------------save data for saved page--------------------------------//
 
     @IBAction func saveProducts(_ sender: Any) {
-        //let thisProduct: PSSProduct? = saved[0] as? PSSProduct
-        let encodedData = NSKeyedArchiver.archivedData(withRootObject: saved)
+        updateUserStorage()
+        encodeData()
+    }
+    
+//-----------------------------------------encode data for saveProducts()------------------------------//
+    func encodeData()
+    {
+        let encodedImages = NSKeyedArchiver.archivedData(withRootObject: savedImages)
+        let encodedNames = NSKeyedArchiver.archivedData(withRootObject: savedNames)
+        let encodedPrices = NSKeyedArchiver.archivedData(withRootObject: savedPrices)
+        let encodedURL = NSKeyedArchiver.archivedData(withRootObject: savedURL)
         let defaults = UserDefaults.standard
-        defaults.set(encodedData, forKey: "products")
+        defaults.set(encodedImages, forKey: "images")
+        defaults.set(encodedNames, forKey: "names")
+        defaults.set(encodedPrices, forKey: "prices")
+        defaults.set(encodedURL, forKey: "url")
         print("saved")
     }
 
-//------------------------------------------search for what user whats---------------------------------//
+//------------------------------------------search for what user wants---------------------------------//
    
     @IBAction func searchPressed(_ sender: Any) {
         products.removeAll()
+        if pagingIndex[productName as String!] == nil
+        {
+            pagingIndex[productName as String!]=0
+        } else
+        {
+            print(pagingIndex[productName as String] as Any)
+            pagingIndex[productName as String] = Int(truncating: pagingIndex[productName as String]!) + imageIndex as NSNumber  //saves the previous paging offset
+            //pagingIndex[productName as String] = pagingIndex[productName as String]?.intValue + imageIndex  //saves the previous paging offset
+            print(pagingIndex[productName as String] as Any)
+        }
         
-        print(pagingIndex[productName as String] as Any)
-        pagingIndex[productName as String] = Int(truncating: pagingIndex[productName as String]!) + imageIndex as NSNumber  //saves the previous paging offset
-        //pagingIndex[productName as String] = pagingIndex[productName as String]?.intValue + imageIndex  //saves the previous paging offset
-        print(pagingIndex[productName as String] as Any)
         
         //        print(pagingIndex[searchField.text as! String] as Any)
         //            imageIndex=0

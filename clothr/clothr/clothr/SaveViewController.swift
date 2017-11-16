@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Parse
 import SafariServices
 var savedIndex: NSInteger=0
 var checker2: NSInteger=5
@@ -17,8 +18,11 @@ class SaveViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     let vc = ViewController()
 //    let products = UserDefaults.standard.object(forKey: "products") as! Data
-    var savedProducts=NSKeyedUnarchiver.unarchiveObject(with: UserDefaults.standard.object(forKey: "products") as! Data) as? [Any]
-
+    var savedImages=NSKeyedUnarchiver.unarchiveObject(with: UserDefaults.standard.object(forKey: "images") as! Data) as? [Any]
+    var savedNames=NSKeyedUnarchiver.unarchiveObject(with: UserDefaults.standard.object(forKey: "names") as! Data) as? [Any]
+    var savedPrices=NSKeyedUnarchiver.unarchiveObject(with: UserDefaults.standard.object(forKey: "prices") as! Data) as? [Any]
+    var savedURL=NSKeyedUnarchiver.unarchiveObject(with: UserDefaults.standard.object(forKey: "url") as! Data) as? [Any]
+    
     @IBOutlet weak var tableview: UITableView!
     
     var refreshControl: UIRefreshControl!
@@ -26,7 +30,6 @@ class SaveViewController: UIViewController, UITableViewDelegate, UITableViewData
         super.viewDidLoad()
         tableview.delegate=self
         tableview.dataSource=self
-        
     }
     
     override func didReceiveMemoryWarning() {
@@ -41,12 +44,13 @@ class SaveViewController: UIViewController, UITableViewDelegate, UITableViewData
 //                    savedIndex=0
 //                }
 //        print(savedIndex)
-        let thisProduct: PSSProduct? = savedProducts![index] as? PSSProduct
-        let url = thisProduct?.image.url
+        //let thisProduct: PSSProduct? = savedImages![index] as? PSSProduct
+        let url = NSURL(string: savedImages![index] as! String)
+        let request = URLRequest(url: url! as URL)
 //        print(thisProduct?.buyURL as Any)
         let session = URLSession.shared
         
-        let task = session.dataTask(with: url!, completionHandler: {
+        let task = session.dataTask(with: request, completionHandler: {
             (
             data, response, error) in
             if data != nil
@@ -67,7 +71,7 @@ class SaveViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return savedProducts!.count
+        return savedImages!.count
     }
     
 //------------------------------------load custom made cells-----------------------------------------//
@@ -77,27 +81,27 @@ class SaveViewController: UIViewController, UITableViewDelegate, UITableViewData
         //print("HI")
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! SaveControllerTableViewCell
         getProductImage(cell.productImage, cell,indexPath.row)
-        let thisProduct: PSSProduct? = savedProducts![indexPath.row] as? PSSProduct
+        //let thisProduct: PSSProduct? = savedProducts![indexPath.row] as? PSSProduct
         //        print(thisProduct?.name as Any)
-        cell.productPrice.text=thisProduct?.regularPriceLabel
+        cell.productPrice.text=(savedPrices?[indexPath.row] as! String)
         //print(thisProduct?.regularPriceLabel as Any)
-        cell.productName.text=thisProduct?.name
+        cell.productName.text=(savedNames?[indexPath.row] as! String)
         return(cell)
     }
     
 //------------------------------------bring user to product's URL to buy-----------------------------------------//
     
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
-        let thisProduct: PSSProduct? = savedProducts![indexPath.row] as? PSSProduct
-        let urlString: String = (thisProduct?.buyURL.absoluteString)!
-        let url = URL(string: urlString)
+        //let thisProduct: PSSProduct? = savedProducts![indexPath.row] as? PSSProduct
+        let urlString = NSURL(string: savedURL![indexPath.row] as! String)
+        let url = URL(string: savedURL![indexPath.row] as! String)
         let vc = SFSafariViewController(url: url!)
 //        present(vc, animated: true, completion: nil)
         if #available(iOS 10.0, *) {
             present(vc, animated: true, completion: nil)
 //            UIApplication.shared.open((thisProduct?.buyURL)!, options: [:], completionHandler: nil)
         } else {
-            UIApplication.shared.openURL((thisProduct?.buyURL)!)
+            UIApplication.shared.openURL(urlString! as URL)
         }
     }
     
@@ -107,9 +111,12 @@ class SaveViewController: UIViewController, UITableViewDelegate, UITableViewData
     {
         if editingStyle==UITableViewCellEditingStyle.delete
         {
-            savedProducts?.remove(at: indexPath.row)
-            let thisProduct: PSSProduct? = savedProducts![0] as? PSSProduct
-            print(thisProduct?.name as Any)
+            savedImages?.remove(at: indexPath.row)
+            savedNames?.remove(at: indexPath.row)
+            savedPrices?.remove(at: indexPath.row)
+            savedURL?.remove(at: indexPath.row)
+//            let thisProduct: PSSProduct? = savedProducts![0] as? PSSProduct
+//            print(thisProduct?.name as Any)
             tableView.reloadData()
         }
     }
