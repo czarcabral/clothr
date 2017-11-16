@@ -14,13 +14,10 @@ class LoginViewController: UIViewController {
     
     @IBOutlet weak var userUsername: UITextField!
     @IBOutlet weak var userPassword: UITextField!
-    @IBOutlet weak var errorLabel: UILabel!
     var loginSuccess = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        errorLabel.isHidden = true
     }
 
     override func didReceiveMemoryWarning() {
@@ -28,6 +25,7 @@ class LoginViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    // when login button is pressed, go to the swipe page or send the user an error alert
     @IBAction func loginPressed(_ sender: Any) {
         if let username = userUsername.text {
             if let password = userPassword.text {
@@ -42,9 +40,37 @@ class LoginViewController: UIViewController {
                             }
                         }
                         
-                        self.errorLabel.isHidden = false
-                        self.errorLabel.text = errorMessage
+                        // Create an alert text box
+                        let alert = UIAlertController(title:"", message:"", preferredStyle: .alert)
                         
+                        // Change font of the title and message
+                        let titleFont:[NSAttributedStringKey : Any] = [ NSAttributedStringKey(rawValue: NSAttributedStringKey.font.rawValue) : UIFont(name: "HelveticaNeue", size: 18)! ]
+                        let messageFont:[NSAttributedStringKey : Any] = [ NSAttributedStringKey(rawValue: NSAttributedStringKey.font.rawValue) : UIFont(name: "HelveticaNeue-Thin", size: 14)! ]
+                        
+                        // Try again button to dismiss alert
+                        let tryAgain = UIAlertAction(title: "Try Again", style: .default, handler: { (action) -> Void in })
+                        
+                        // display alert message according to the error
+                        if errorMessage == "password is required." {
+                            let attributedTitle = NSMutableAttributedString(string: "Password Required", attributes: titleFont)
+                            let attributedMessage = NSMutableAttributedString(string: "Please try again.", attributes: messageFont)
+                            alert.setValue(attributedTitle, forKey: "attributedTitle")
+                            alert.setValue(attributedMessage, forKey: "attributedMessage")
+                        } else if errorMessage == "username/email is required." {
+                            let attributedTitle = NSMutableAttributedString(string: "Invalid Username", attributes: titleFont)
+                            let attributedMessage = NSMutableAttributedString(string: "Please try again.", attributes: messageFont)
+                            alert.setValue(attributedTitle, forKey: "attributedTitle")
+                            alert.setValue(attributedMessage, forKey: "attributedMessage")
+                        } else {
+                            let attributedTitle = NSMutableAttributedString(string: "Invalid Username/Password", attributes: titleFont)
+                            let attributedMessage = NSMutableAttributedString(string: "The username and/or password you entered is incorrect. Please try again.", attributes: messageFont)
+                            alert.setValue(attributedTitle, forKey: "attributedTitle")
+                            alert.setValue(attributedMessage, forKey: "attributedMessage")
+                        }
+                        
+                        // Add the try again button and display the alert box
+                        alert.addAction(tryAgain)
+                        self.present(alert, animated: true, completion: nil)
                     } else {
                         // If login works, go to next page
                         print("Login successful")

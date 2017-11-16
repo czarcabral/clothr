@@ -310,29 +310,22 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
-                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="GJ4-fv-JFk">
-                                <rect key="frame" x="30" y="318" width="315" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <nil key="textColor"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
                             <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="tS9-HZ-37i">
-                                <rect key="frame" x="30" y="356" width="315" height="30"/>
+                                <rect key="frame" x="30" y="329" width="315" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Username" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="hyc-4E-JNc">
-                                <rect key="frame" x="30" y="280" width="315" height="30"/>
+                                <rect key="frame" x="30" y="253" width="315" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gBq-Xa-qjk">
-                                <rect key="frame" x="30" y="394" width="315" height="30"/>
+                                <rect key="frame" x="30" y="367" width="315" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.40000000600000002" green="0.80000001190000003" blue="1" alpha="0.8066941352739726" colorSpace="calibratedRGB"/>
                                 <state key="normal" title="Register">
@@ -342,20 +335,19 @@
                                     <action selector="registerPressed:" destination="fDq-3t-hhy" eventType="touchUpInside" id="rgZ-r7-9dw"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u4M-nR-TLU">
-                                <rect key="frame" x="0.0" y="432" width="375" height="30"/>
+                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="GJ4-fv-JFk">
+                                <rect key="frame" x="30" y="291" width="315" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.80000000000000004" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <viewLayoutGuide key="safeArea" id="F8n-6J-F1C"/>
                     </view>
                     <navigationItem key="navigationItem" id="ngw-tD-8HO"/>
                     <connections>
-                        <outlet property="errorLabel" destination="u4M-nR-TLU" id="rnk-xH-rw3"/>
                         <outlet property="userEmail" destination="GJ4-fv-JFk" id="m2b-kn-gvO"/>
                         <outlet property="userPassword" destination="tS9-HZ-37i" id="wth-hP-AFa"/>
                         <outlet property="userUsername" destination="hyc-4E-JNc" id="LIz-mj-MIw"/>
@@ -403,20 +395,12 @@
                                     <action selector="loginPressed:" destination="jR4-6s-Zt8" eventType="touchUpInside" id="FSe-PE-Ui9"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wDF-df-NjZ">
-                                <rect key="frame" x="0.0" y="394" width="375" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.80000000000000004" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <viewLayoutGuide key="safeArea" id="ab5-EK-bjt"/>
                     </view>
                     <navigationItem key="navigationItem" id="6kz-q2-ewu"/>
                     <connections>
-                        <outlet property="errorLabel" destination="wDF-df-NjZ" id="fki-Vw-7ut"/>
                         <outlet property="userPassword" destination="N2Z-0V-R2c" id="vrT-qR-hcq"/>
                         <outlet property="userUsername" destination="Ydc-mc-aMS" id="dES-lf-j8B"/>
                         <segue destination="BYZ-38-t0r" kind="push" identifier="loginToSwipe" id="1I3-CQ-oXQ"/>
@@ -432,6 +416,6 @@
         <image name="photo-1453486030486-0a5ffcd82cd9" width="1513" height="2418"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="P7T-ag-7gL"/>
+        <segue reference="BZ7-do-f9e"/>
     </inferredMetricsTieBreakers>
 </document>
