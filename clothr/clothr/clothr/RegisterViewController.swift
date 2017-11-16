@@ -5,7 +5,7 @@
 //  Created by Gilbert Aragon on 11/14/17.
 //  Copyright © 2017 cmps115. All rights reserved.
 //
-// Register View Controller. Where user signs up.
+//  Register View Controller. Where user signs up.
 
 import UIKit
 import Parse
@@ -65,21 +65,25 @@ class RegisterViewController: UIViewController {
                 if errorMessage == "password is required" {
                     let attributedTitle = NSMutableAttributedString(string: "Password Required", attributes: titleFont)
                     let attributedMessage = NSMutableAttributedString(string: "Please try again.", attributes: messageFont)
+                    
                     alert.setValue(attributedTitle, forKey: "attributedTitle")
                     alert.setValue(attributedMessage, forKey: "attributedMessage")
                 } else if errorMessage == "Email address format is invalid." {
                     let attributedTitle = NSMutableAttributedString(string: "Invalid Email", attributes: titleFont)
                     let attributedMessage = NSMutableAttributedString(string: "Format email as email@example.com \nPlease try again.", attributes: messageFont)
+                    
                     alert.setValue(attributedTitle, forKey: "attributedTitle")
                     alert.setValue(attributedMessage, forKey: "attributedMessage")
                 } else if errorMessage == "Account already exists for this username." {
                     let attributedTitle = NSMutableAttributedString(string: "Whoops!", attributes: titleFont)
                     let attributedMessage = NSMutableAttributedString(string: "Account already exists for this username. Please try again.", attributes: messageFont)
+                    
                     alert.setValue(attributedTitle, forKey: "attributedTitle")
                     alert.setValue(attributedMessage, forKey: "attributedMessage")
                 } else {
                     let attributedTitle = NSMutableAttributedString(string: "Username/Email Required", attributes: titleFont)
                     let attributedMessage = NSMutableAttributedString(string: "Please try again.", attributes: messageFont)
+                    
                     alert.setValue(attributedTitle, forKey: "attributedTitle")
                     alert.setValue(attributedMessage, forKey: "attributedMessage")
                 }

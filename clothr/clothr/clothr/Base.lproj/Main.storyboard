@@ -19,7 +19,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="32" translatesAutoresizingMaskIntoConstraints="NO" id="kwa-zg-92y">
-                                <rect key="frame" x="99" y="64" width="176" height="63"/>
+                                <rect key="frame" x="99" y="20" width="176" height="63"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <attributedString key="attributedText">
                                     <fragment content="CLOTHR">
@@ -36,7 +36,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UDS-Nv-elN">
-                                <rect key="frame" x="99" y="173" width="176" height="56"/>
+                                <rect key="frame" x="99" y="164" width="176" height="56"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal">
                                     <attributedString key="attributedTitle">
@@ -74,7 +74,7 @@
                                 </connections>
                             </button>
                             <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="xZi-Cu-8Xu">
-                                <rect key="frame" x="52" y="135" width="270" height="30"/>
+                                <rect key="frame" x="52" y="126" width="270" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -84,17 +84,24 @@
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="fud-lH-NM7"/>
                                 </connections>
                             </textField>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5l1-0N-gQP">
+                                <rect key="frame" x="319" y="32" width="40" height="40"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button" image="if_00-ELASTOFONT-STORE-READY_user-circle_2703062"/>
+                                <connections>
+                                    <segue destination="6tJ-WT-wyA" kind="push" id="Wch-FR-eGd"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cox-fS-YD7">
+                                <rect key="frame" x="16" y="29" width="45" height="45"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button" image="if_00-ELASTOFONT-STORE-READY_sliders_2738302"/>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
-                    <navigationItem key="navigationItem" id="k1B-5L-hYA">
-                        <barButtonItem key="rightBarButtonItem" title="Log Out" id="9iD-pV-bS3">
-                            <connections>
-                                <action selector="logOutPressed:" destination="BYZ-38-t0r" id="bI8-HO-2og"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" id="Yco-in-pLT"/>
                     <connections>
                         <outlet property="image" destination="8ro-UF-EL6" id="EHm-dT-U6l"/>
                         <outlet property="saveButton" destination="ql6-Sq-E9F" id="CfQ-Cq-4Xn"/>
@@ -106,6 +113,42 @@
                 <exit id="kfR-qr-xUJ" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="16.800000000000001" y="133.5832083958021"/>
+        </scene>
+        <!--Settings-->
+        <scene sceneID="6pt-Ii-n07">
+            <objects>
+                <viewController title="Settings" id="6tJ-WT-wyA" customClass="SettingsViewController" customModule="clothr" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="0Vg-kO-3uO">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cEg-6z-ajM">
+                                <rect key="frame" x="0.0" y="618" width="375" height="49"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="1" green="0.40392156862745099" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <state key="normal">
+                                    <attributedString key="attributedTitle">
+                                        <fragment content="Log Out">
+                                            <attributes>
+                                                <color key="NSColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                <font key="NSFont" size="18" name=".SFNSText"/>
+                                            </attributes>
+                                        </fragment>
+                                    </attributedString>
+                                </state>
+                                <connections>
+                                    <action selector="logOutPressed:" destination="6tJ-WT-wyA" eventType="touchUpInside" id="hMt-l0-Fkd"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <viewLayoutGuide key="safeArea" id="8HF-Qy-fEA"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="Kjw-t1-sAU"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="xup-ad-ik2" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="944.79999999999995" y="-353.07346326836586"/>
         </scene>
         <!--Save View Controller-->
         <scene sceneID="oMe-ke-Kzz">
@@ -208,7 +251,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5Ny-bp-oWt" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="860" y="133.5832083958021"/>
+            <point key="canvasLocation" x="945" y="661"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="ERK-tk-dKg">
@@ -412,10 +455,12 @@
         </scene>
     </scenes>
     <resources>
+        <image name="if_00-ELASTOFONT-STORE-READY_sliders_2738302" width="64" height="64"/>
+        <image name="if_00-ELASTOFONT-STORE-READY_user-circle_2703062" width="64" height="64"/>
         <image name="oliver-thomas-klein-144904" width="3024" height="4032"/>
         <image name="photo-1453486030486-0a5ffcd82cd9" width="1513" height="2418"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="BZ7-do-f9e"/>
+        <segue reference="P7T-ag-7gL"/>
     </inferredMetricsTieBreakers>
 </document>

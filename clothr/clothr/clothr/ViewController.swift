@@ -338,26 +338,17 @@ class ViewController: UIViewController {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         searchField.resignFirstResponder()
     }
-
-//------------------------------------------log out button function---------------------------------------//
-    @IBAction func logOutPressed(_ sender: Any) {
-        // show user logged in
-        // print("current user: ", PFUser.current() as Any)
-        
-        // log user out, PFUser.current() = nil
-        PFUser.logOut()
-        _ = PFUser.current()
-        
-        // check user is logged out
-        // print("user: ", PFUser.current() as Any)
-        
-        // go to home page after logging out
-        guard (navigationController?.popToRootViewController(animated: true)) != nil
-            else {
-                print("No View Controller to Pop")
-                return
-        }
+    
+    // removes the navbar
+    override func viewWillAppear(_ animated: Bool) {
+        self.navigationController?.setNavigationBarHidden(true, animated: animated)
+        super.viewWillAppear(animated)
     }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        self.navigationController?.setNavigationBarHidden(false, animated: animated)
+        super.viewWillDisappear(animated)
+    } 
 }
 
 //------------------------------------------extension for search field---------------------------------------//

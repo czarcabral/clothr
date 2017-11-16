@@ -5,7 +5,7 @@
 //  Created by Gilbert Aragon on 11/14/17.
 //  Copyright © 2017 cmps115. All rights reserved.
 //
-// Login view controller. Page where user logs in.
+//  Login view controller. Page where user logs in.
 
 import UIKit
 import Parse
