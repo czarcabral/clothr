@@ -40,16 +40,11 @@ class ViewController: UIViewController {
     
     //-----------------------------------------initial load for swipe screen--------------------------------//
     override func viewDidLoad() {
-        
-        //products.append("HI")
         super.viewDidLoad()
         searchField.delegate=self
         // Do any additional setup after loading the view, typically from a nib.
         loadUserStorage()
         loadData(productName)
-//        let thisProduct: PSSProduct? = products[imageIndex] as? PSSProduct
-//        print("viewdidLoad: " + (thisProduct?.name)! as Any)
-        
         // set the x and y variable to be equal to the center of the image
         xCenter = image.center.x
         yCenter = image.center.y
@@ -139,16 +134,16 @@ class ViewController: UIViewController {
     {
         let query = PFQuery(className:"storages")
         query.getObjectInBackground(withId: id) {
-            (gameScore: PFObject?, error: Error?) -> Void in
+            (userData: PFObject?, error: Error?) -> Void in
             if error != nil {
                 print(error as Any)
-            } else if let gameScore = gameScore {
-                gameScore["savedProductImages"] = self.savedImages
-                gameScore["savedProductNames"] = self.savedNames
-                gameScore["savedProductURL"] = self.savedURL
-                gameScore["savedProductPrices"] = self.savedPrices
-                gameScore["pagingIndexes"] = self.pagingIndex
-                gameScore.saveInBackground()
+            } else if let userData = userData {
+                userData["savedProductImages"] = self.savedImages
+                userData["savedProductNames"] = self.savedNames
+                userData["savedProductURL"] = self.savedURL
+                userData["savedProductPrices"] = self.savedPrices
+                userData["pagingIndexes"] = self.pagingIndex
+                userData.saveInBackground()
             }
         }
     }
@@ -343,6 +338,7 @@ class ViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.setNavigationBarHidden(true, animated: animated)
         super.viewWillAppear(animated)
+        loadUserStorage()
     }
     
     override func viewWillDisappear(_ animated: Bool) {

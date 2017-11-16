@@ -111,13 +111,60 @@ class SaveViewController: UIViewController, UITableViewDelegate, UITableViewData
     {
         if editingStyle==UITableViewCellEditingStyle.delete
         {
+//            print(savedImages?.count as Any)
             savedImages?.remove(at: indexPath.row)
             savedNames?.remove(at: indexPath.row)
             savedPrices?.remove(at: indexPath.row)
             savedURL?.remove(at: indexPath.row)
 //            let thisProduct: PSSProduct? = savedProducts![0] as? PSSProduct
 //            print(thisProduct?.name as Any)
+            updateUserStorage()
             tableView.reloadData()
+        }
+    }
+    
+//-----------------------------updating paging info and saved arrays-----------------------//
+    
+    func updateUserStorage()
+    {
+        let query = PFQuery(className:"storages")
+        query.whereKey("user", equalTo:PFUser.current()?.username as Any)
+        print(PFUser.current()?.username as Any)
+        query.findObjectsInBackground {
+            (objects: [PFObject]?, error: Error?) -> Void in
+            
+            if error == nil {
+                // The find succeeded.
+                print("Successfully retrieved \(objects!.count) scores.")
+                // Do something with the found objects
+                if let objects = objects {
+                    for object in objects {
+                        self.updateUserObject(object.objectId!)
+                    }
+                }
+            } else {
+                // Log details of the failure
+                print("Error loading ")
+            }
+        }
+    }
+    
+    //-----------------------------updtaing paging info and saved arrays helper------------------//
+    
+    func updateUserObject(_ id: String)
+    {
+        let query = PFQuery(className:"storages")
+        query.getObjectInBackground(withId: id) {
+            (userData: PFObject?, error: Error?) -> Void in
+            if error != nil {
+                print(error as Any)
+            } else if let userData = userData {
+                userData["savedProductImages"] = self.savedImages
+                userData["savedProductNames"] = self.savedNames
+                userData["savedProductURL"] = self.savedURL
+                userData["savedProductPrices"] = self.savedPrices
+                userData.saveInBackground()
+            }
         }
     }
 }
