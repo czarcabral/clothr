@@ -25,6 +25,7 @@ var yCenter = CGFloat(0)
 
 class ViewController: UIViewController {
     
+    
     var savedImages = [Any]()
     var savedNames = [Any]()
     var savedPrices = [Any]()
@@ -33,7 +34,6 @@ class ViewController: UIViewController {
     var pagingIndex=[String: NSNumber]() //dictionary with search term as a key, paging index as value
     var searchIndex: NSNumber=0
     var bufferIndex: NSInteger=0
-   
     @IBOutlet weak var saveButton: UIButton!
     @IBOutlet weak var image: UIImageView!
     @IBOutlet weak var searchProduct: UIButton!
@@ -45,7 +45,11 @@ class ViewController: UIViewController {
         searchField.delegate=self
         // Do any additional setup after loading the view, typically from a nib.
         loadUserStorage()
-        loadData(productName)
+        let when = DispatchTime.now() + 1
+        DispatchQueue.main.asyncAfter(deadline: when) {
+            self.loadData(productName)
+        }
+        
         //updateUserStorage()
         // set the x and y variable to be equal to the center of the image
         xCenter = image.center.x
