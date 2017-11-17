@@ -99,8 +99,9 @@ class SaveViewController: UIViewController, UITableViewDelegate, UITableViewData
     
 //------------------------------------bring user to product's URL to buy-----------------------------------------//
     
-    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         //let thisProduct: PSSProduct? = savedProducts![indexPath.row] as? PSSProduct
+        print("cell selected")
         let urlString = NSURL(string: savedURL![indexPath.row] as! String)
         let url = URL(string: savedURL![indexPath.row] as! String)
         let vc = SFSafariViewController(url: url!)
