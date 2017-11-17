@@ -22,6 +22,7 @@ class SaveViewController: UIViewController, UITableViewDelegate, UITableViewData
     var savedNames=NSKeyedUnarchiver.unarchiveObject(with: UserDefaults.standard.object(forKey: "names") as! Data) as? [Any]
     var savedPrices=NSKeyedUnarchiver.unarchiveObject(with: UserDefaults.standard.object(forKey: "prices") as! Data) as? [Any]
     var savedURL=NSKeyedUnarchiver.unarchiveObject(with: UserDefaults.standard.object(forKey: "url") as! Data) as? [Any]
+    var saleBool=NSKeyedUnarchiver.unarchiveObject(with: UserDefaults.standard.object(forKey: "sales") as! Data) as? [String]
     
     @IBOutlet weak var tableview: UITableView!
     
@@ -79,7 +80,19 @@ class SaveViewController: UIViewController, UITableViewDelegate, UITableViewData
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! SaveControllerTableViewCell
         getProductImage(cell.productImage, cell,indexPath.row)
-        cell.productPrice.text=(savedPrices?[indexPath.row] as! String)
+        let priceCheck = saleBool![indexPath.row]
+        if(priceCheck=="-1")
+        {
+            cell.productPrice.text=(savedPrices?[indexPath.row] as! String)
+            cell.productSale.text=""
+        } else
+        {
+            let attributeString: NSMutableAttributedString =  NSMutableAttributedString(string: savedPrices?[indexPath.row] as! String)
+            attributeString.addAttribute(NSAttributedStringKey.strikethroughStyle, value: 2, range: NSMakeRange(0, attributeString.length))
+            attributeString.addAttribute(NSAttributedStringKey.strikethroughColor, value: UIColor.red, range: NSMakeRange(0, attributeString.length))
+            cell.productSale.attributedText = attributeString
+            cell.productPrice.text=priceCheck
+        }
         cell.productName.text=(savedNames?[indexPath.row] as! String)
         return(cell)
     }
@@ -111,6 +124,7 @@ class SaveViewController: UIViewController, UITableViewDelegate, UITableViewData
             savedNames?.remove(at: indexPath.row)
             savedPrices?.remove(at: indexPath.row)
             savedURL?.remove(at: indexPath.row)
+            saleBool?.remove(at: indexPath.row)
 //            let thisProduct: PSSProduct? = savedProducts![0] as? PSSProduct
 //            print(thisProduct?.name as Any)
             updateUserStorage()
@@ -158,6 +172,7 @@ class SaveViewController: UIViewController, UITableViewDelegate, UITableViewData
                 userData["savedProductNames"] = self.savedNames
                 userData["savedProductURL"] = self.savedURL
                 userData["savedProductPrices"] = self.savedPrices
+                userData["saleBooleans"] = self.saleBool
                 userData.saveInBackground()
             }
         }

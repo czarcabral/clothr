@@ -29,6 +29,7 @@ class ViewController: UIViewController {
     var savedNames = [Any]()
     var savedPrices = [Any]()
     var savedURL = [Any]()
+    var saleBool = [String]()
     var pagingIndex=[String: NSNumber]() //dictionary with search term as a key, paging index as value
     var searchIndex: NSNumber=0
     var bufferIndex: NSInteger=0
@@ -45,6 +46,7 @@ class ViewController: UIViewController {
         // Do any additional setup after loading the view, typically from a nib.
         loadUserStorage()
         loadData(productName)
+        //updateUserStorage()
         // set the x and y variable to be equal to the center of the image
         xCenter = image.center.x
         yCenter = image.center.y
@@ -108,6 +110,7 @@ class ViewController: UIViewController {
                 self.savedNames=user["savedProductNames"] as! [Any]
                 self.savedPrices=user["savedProductPrices"] as! [Any]
                 self.savedURL=user["savedProductURL"] as! [Any]
+                self.saleBool=user["saleBooleans"] as! [String]
                 self.pagingIndex=user["pagingIndexes"] as! [String : NSNumber]
             }
         }
@@ -153,6 +156,7 @@ class ViewController: UIViewController {
                 userData["savedProductURL"] = self.savedURL
                 userData["savedProductPrices"] = self.savedPrices
                 userData["pagingIndexes"] = self.pagingIndex
+                userData["saleBooleans"] = self.saleBool
                 userData.saveInBackground()
             }
         }
@@ -169,7 +173,9 @@ class ViewController: UIViewController {
             searchIndex=pagingCheck //sets searching index to index saved in dictionary for searched product
         } else
         {
+            print(productName)
             pagingIndex[productName as String!]=0
+            updateUserStorage()
         }
         print(pagingIndex[productName as String!] as Any)
         print("Search index: ")
@@ -219,7 +225,8 @@ class ViewController: UIViewController {
 //            print("loadData: " + (thisProduct?.name)! as Any)
 //            print(productBuffer.count)
             products+=productBuffer
-//            print(products.count)
+            print(products.count)
+            print(products[11])
         }
     }
     
@@ -258,12 +265,11 @@ class ViewController: UIViewController {
     @objc func wasDragged(gestureRecognizer: UIPanGestureRecognizer) {
         let labelpoint = gestureRecognizer.translation(in: view)
         image.center = CGPoint(x: xCenter + labelpoint.x , y: yCenter + labelpoint.y)
-        
+
         if gestureRecognizer.state == .ended {
             if image.center.x < (view.bounds.width / 2 - 100) {
                 print("NOT Interested")
                 get_image(image)
-
             }
 
             if image.center.x > (view.bounds.width / 2 + 100) {
@@ -271,8 +277,15 @@ class ViewController: UIViewController {
                 let thisProduct: PSSProduct? = products[imageIndex-1] as? PSSProduct
                 savedImages.append(thisProduct?.image.url.absoluteString as Any)
                 savedNames.append(thisProduct?.name as Any)
-                savedPrices.append(thisProduct?.currentPriceLabel() as Any)
+                savedPrices.append(thisProduct?.regularPriceLabel as Any)
                 savedURL.append(thisProduct?.buyURL.absoluteString as Any)
+                if(thisProduct?.isOnSale())!
+                {
+                    saleBool.append((thisProduct?.salePriceLabel)!)
+                } else
+                {
+                    saleBool.append("-1")
+                }
                 checker+=1
                 get_image(image)
             }
@@ -283,6 +296,16 @@ class ViewController: UIViewController {
 //-----------------------------------------save data for saved page--------------------------------//
 
     @IBAction func saveProducts(_ sender: Any) {
+        if pagingIndex[productName as String!] == nil
+        {
+            pagingIndex[productName as String!]=0
+        } else
+        {
+            print(pagingIndex[productName as String] as Any)
+            pagingIndex[productName as String] = Int(truncating: pagingIndex[productName as String]!) + imageIndex as NSNumber  //saves the previous paging offset
+            //pagingIndex[productName as String] = pagingIndex[productName as String]?.intValue + imageIndex  //saves the previous paging offset
+            print(pagingIndex[productName as String] as Any)
+        }
         updateUserStorage()
         encodeData()
     }
@@ -294,11 +317,13 @@ class ViewController: UIViewController {
         let encodedNames = NSKeyedArchiver.archivedData(withRootObject: savedNames)
         let encodedPrices = NSKeyedArchiver.archivedData(withRootObject: savedPrices)
         let encodedURL = NSKeyedArchiver.archivedData(withRootObject: savedURL)
+        let encodedSales = NSKeyedArchiver.archivedData(withRootObject: saleBool)
         let defaults = UserDefaults.standard
         defaults.set(encodedImages, forKey: "images")
         defaults.set(encodedNames, forKey: "names")
         defaults.set(encodedPrices, forKey: "prices")
         defaults.set(encodedURL, forKey: "url")
+        defaults.set(encodedSales, forKey: "sales")
         print("saved")
     }
 

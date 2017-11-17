@@ -10,6 +10,8 @@ import UIKit
 
 class DetailsViewController: UIViewController {
 
+    var originalCheck = false
+    var imageIndex: NSInteger=0
     @IBOutlet weak var image: UIImageView!
     @IBOutlet weak var whiteBackground: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!
@@ -24,6 +26,10 @@ class DetailsViewController: UIViewController {
         whiteBackground.layer.borderColor=UIColor.lightGray.cgColor
         whiteBackground.layer.borderWidth=4
         whiteBackground.layer.cornerRadius=10.5
+        get_image(image)
+        let changePic = UITapGestureRecognizer(target: self, action: #selector(changeImage))
+        changePic.numberOfTapsRequired=1
+        image.addGestureRecognizer(changePic)
         let goBack=UISwipeGestureRecognizer(target: self, action: #selector(backToSwipe(gestureRecognizer:)))
         goBack.direction=UISwipeGestureRecognizerDirection.down
         self.view.addGestureRecognizer(goBack)
@@ -34,12 +40,19 @@ class DetailsViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+//-------------------------------change the image--------------------------------------//
+    
+    @objc func changeImage()
+    {
+        get_image(image)
+    }
 //-------------------------------what will appear when page is opened------------------//
     
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.setNavigationBarHidden(true, animated: animated)
         super.viewWillAppear(animated)
-        get_image(image)
+//        get_image(image)
         nameLabel.text=product.name
         if(product.isOnSale())
         {
@@ -57,10 +70,6 @@ class DetailsViewController: UIViewController {
         if(product.inStock)
         {
             availability.text="In Stock"
-//            let attributeString: NSMutableAttributedString =  NSMutableAttributedString(string: "In Stock")
-//            attributeString.addAttribute(NSAttributedStringKey.strikethroughStyle, value: 2, range: NSMakeRange(0, attributeString.length))
-//            attributeString.addAttribute(NSAttributedStringKey.strikethroughColor, value: UIColor.red, range: NSMakeRange(0, attributeString.length))
-//            availability.attributedText = attributeString
         } else
         {
             availability.text="Not In Stock"
@@ -71,11 +80,10 @@ class DetailsViewController: UIViewController {
 //---------------------------------get image for detail function--------------------------------//
     func get_image(_ imageView:UIImageView)
     {
-        let thisProduct=product
-        let url = thisProduct.image.url
+        let url = get_url(product)
         let session = URLSession.shared
         
-        let task = session.dataTask(with: url!, completionHandler: {
+        let task = session.dataTask(with: url, completionHandler: {
             (
             data, response, error) in
             if data != nil
@@ -90,8 +98,33 @@ class DetailsViewController: UIViewController {
                 }
             }
         })
-        
+        imageIndex = imageIndex+1
         task.resume()
+    }
+    
+    func get_url(_ product:PSSProduct) -> (URL)
+    {
+        let images=product.alternateImages
+        if((images?.count)==nil)
+        {
+            return product.image.url //there's no alternative images
+        }
+        let check = images![imageIndex] as! PSSProductImage
+        let check2 = images![(images?.count)!-1] as! PSSProductImage
+        
+        if(originalCheck==false)    //if it's the original photo
+        {
+            originalCheck=true
+            return product.image.url
+        } else if (check.url==check2.url) //if its the last in the array, circle back
+        {
+            imageIndex=0
+            originalCheck=false
+            return check2.url
+        } else  //anywhere else
+        {
+            return check.url
+        }
     }
     
 //------------------------------UI functions-------------------------------//

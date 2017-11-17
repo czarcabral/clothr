@@ -100,6 +100,7 @@ class RegisterViewController: UIViewController {
                 savedObject["savedProductNames"] = [Any]()
                 savedObject["savedProductPrices"] = [Any]()
                 savedObject["savedProductURL"] = [Any]()
+                savedObject["saleBooleans"] = [String]()
                 savedObject.saveInBackground() { (success,error) in print("object saved")}
                 self.registerSuccess = true
                 self.performSegue(withIdentifier: "registerToSwipe", sender: self)
