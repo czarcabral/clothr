@@ -51,10 +51,20 @@ class ViewController: UIViewController {
         
         // hide the back button
         self.navigationItem.setHidesBackButton(true, animated: false)
-        
+        let doubleTap = UITapGestureRecognizer(target: self, action: #selector(showDetails(gestureRecognizer:)))
+        doubleTap.numberOfTapsRequired=2
+        image.addGestureRecognizer(doubleTap)
         let swipeGesture = UIPanGestureRecognizer(target: self, action: #selector(wasDragged(gestureRecognizer:)))
         image.addGestureRecognizer(swipeGesture)
     }
+
+@objc func showDetails(gestureRecognizer: UIPanGestureRecognizer)
+{
+    let encodedProduct = NSKeyedArchiver.archivedData(withRootObject: products[imageIndex-1])
+    let defaults = UserDefaults.standard
+    defaults.set(encodedProduct, forKey: "product")
+    performSegue(withIdentifier: "showDetails", sender: self)
+}
     
 //---------------------------load paging index and saved stuff--------------------------//
     func loadUserStorage()

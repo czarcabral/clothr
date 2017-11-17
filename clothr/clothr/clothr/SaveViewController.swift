@@ -77,14 +77,9 @@ class SaveViewController: UIViewController, UITableViewDelegate, UITableViewData
 //------------------------------------load custom made cells-----------------------------------------//
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        let cell = UITableViewCell()
-        //print("HI")
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! SaveControllerTableViewCell
         getProductImage(cell.productImage, cell,indexPath.row)
-        //let thisProduct: PSSProduct? = savedProducts![indexPath.row] as? PSSProduct
-        //        print(thisProduct?.name as Any)
         cell.productPrice.text=(savedPrices?[indexPath.row] as! String)
-        //print(thisProduct?.regularPriceLabel as Any)
         cell.productName.text=(savedNames?[indexPath.row] as! String)
         return(cell)
     }
