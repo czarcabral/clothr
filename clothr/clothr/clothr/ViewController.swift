@@ -273,6 +273,14 @@ class ViewController: UIViewController {
         if gestureRecognizer.state == .ended {
             if image.center.x < (view.bounds.width / 2 - 100) {
                 print("NOT Interested")
+//                let thisProduct: PSSProduct? = products[imageIndex-1] as? PSSProduct
+//                print(thisProduct?.colors[0] as Any)
+//                let color = thisProduct?.colors
+//                //print(color![0])
+//                let thiscolorarray: PSSProductColor? = color![0] as? PSSProductColor
+//                let pcolor: PSSColor? = thiscolorarray?.canonicalColors[0] as? PSSColor
+//                print(pcolor?.colorID as Any)
+//                print(thiscolor?.colorID as Any)
                 get_image(image)
             }
 
