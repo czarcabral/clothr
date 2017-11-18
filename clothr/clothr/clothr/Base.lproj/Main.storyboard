@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="n7P-hK-bja">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="n7P-hK-bja">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -136,8 +136,26 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lgC-oQ-kE5">
+                                <rect key="frame" x="0.0" y="617" width="375" height="50"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.76862745098039209" green="0.18823529411764706" blue="0.29019607843137252" alpha="1" colorSpace="calibratedRGB"/>
+                                <state key="normal">
+                                    <attributedString key="attributedTitle">
+                                        <fragment content="Delete Account">
+                                            <attributes>
+                                                <color key="NSColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                <font key="NSFont" size="18" name=".SFNSText"/>
+                                            </attributes>
+                                        </fragment>
+                                    </attributedString>
+                                </state>
+                                <connections>
+                                    <action selector="deleteAccountPressed:" destination="6tJ-WT-wyA" eventType="touchUpInside" id="hZ6-2L-1rZ"/>
+                                </connections>
+                            </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cEg-6z-ajM">
-                                <rect key="frame" x="0.0" y="618" width="375" height="49"/>
+                                <rect key="frame" x="0.0" y="567" width="375" height="50"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="1" green="0.40392156862745099" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <state key="normal">
@@ -474,6 +492,7 @@
                     <navigationItem key="navigationItem" id="J5x-L7-cnC"/>
                     <connections>
                         <segue destination="BYZ-38-t0r" kind="push" identifier="goToSwipe" id="P7T-ag-7gL"/>
+                        <segue destination="6tJ-WT-wyA" kind="push" id="R27-GC-h1e"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jYt-0E-XkZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -601,6 +620,7 @@
         <image name="photo-1453486030486-0a5ffcd82cd9" width="1513" height="2418"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="R27-GC-h1e"/>
         <segue reference="P7T-ag-7gL"/>
     </inferredMetricsTieBreakers>
 </document>
