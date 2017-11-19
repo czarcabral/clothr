@@ -7,6 +7,7 @@
 //  Andrew Gu(i)terres
 //  Gilbert Aragon
 //  Kianna Mark
+//  Christian Valdez
 //
 //  Copyright © 2017 cmps115. All rights reserved.
 //
@@ -387,11 +388,11 @@ class ViewController: UIViewController {
         super.viewWillAppear(animated)
         loadUserStorage()
     }
-    
+
     override func viewWillDisappear(_ animated: Bool) {
         self.navigationController?.setNavigationBarHidden(false, animated: animated)
         super.viewWillDisappear(animated)
-    } 
+    }
 }
 
 //------------------------------------------extension for search field---------------------------------------//
