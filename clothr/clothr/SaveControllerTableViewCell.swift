@@ -14,6 +14,7 @@ class SaveControllerTableViewCell: UITableViewCell {
     
     @IBOutlet weak var productPrice: UILabel!
     @IBOutlet weak var productName: UILabel!
+    @IBOutlet weak var productSale: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
