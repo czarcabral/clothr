@@ -270,6 +270,19 @@ class ViewController: UIViewController {
     @objc func wasDragged(gestureRecognizer: UIPanGestureRecognizer) {
         let labelpoint = gestureRecognizer.translation(in: view)
         image.center = CGPoint(x: xCenter + labelpoint.x , y: yCenter + labelpoint.y)
+        
+//------------------------------------function scale and drag photo--------------------------------//
+        
+        let xFromCenter = view.bounds.width / 2 - image.center.x
+        
+        //rotation and scaling
+        var rotation = CGAffineTransform(rotationAngle: xFromCenter / 200)
+        let scale = min(75 / abs(xFromCenter),1)
+        var scaledAndRotate = rotation.scaledBy(x: scale, y: scale)
+        
+        image.transform = scaledAndRotate
+        
+
 
         if gestureRecognizer.state == .ended {
             if image.center.x < (view.bounds.width / 2 - 100) {
@@ -303,6 +316,11 @@ class ViewController: UIViewController {
                 get_image(image)
             }
 
+            // put rotation and image back to center
+            rotation = CGAffineTransform(rotationAngle: 0)
+            scaledAndRotate = rotation.scaledBy(x: 1, y: 1)
+            image.transform = scaledAndRotate
+            
             image.center = CGPoint(x: xCenter , y: yCenter)
         }
     }
