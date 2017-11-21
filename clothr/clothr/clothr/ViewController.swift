@@ -39,6 +39,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var image: UIImageView!
     @IBOutlet weak var searchProduct: UIButton!
     @IBOutlet weak var searchField: UITextField!
+    @IBOutlet weak var thumbImage: UIImageView!
     
     //-----------------------------------------initial load for swipe screen--------------------------------//
     override func viewDidLoad() {
@@ -281,8 +282,25 @@ class ViewController: UIViewController {
         var scaledAndRotate = rotation.scaledBy(x: scale, y: scale)
         
         image.transform = scaledAndRotate
-        
 
+        
+ //------------------------------------adding the thumbs up or down--------------------------------//
+        
+        let xForThumb = image.center.x - searchProduct.center.x
+        
+        // dragged to right else left
+        if xForThumb > 0 {
+            thumbImage.image = #imageLiteral(resourceName: "thumbs-up")
+            thumbImage.tintColor = UIColor.green
+            
+        }else {
+            
+            
+            thumbImage.image = #imageLiteral(resourceName: "thumbs-down")
+            thumbImage.tintColor = UIColor.red
+        }
+
+        thumbImage.alpha = abs(xForThumb) / image.center.x
 
         if gestureRecognizer.state == .ended {
             if image.center.x < (view.bounds.width / 2 - 100) {
@@ -321,7 +339,10 @@ class ViewController: UIViewController {
             scaledAndRotate = rotation.scaledBy(x: 1, y: 1)
             image.transform = scaledAndRotate
             
+            thumbImage.alpha = 0
+            
             image.center = CGPoint(x: xCenter , y: yCenter)
+            
         }
     }
 //-----------------------------------------save data for saved page--------------------------------//
