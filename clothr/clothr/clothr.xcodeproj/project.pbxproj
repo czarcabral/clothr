@@ -44,6 +44,7 @@
 		A982089E1F9C2554003F96F7 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A982089D1F9C2554003F96F7 /* ViewController.swift */; };
 		A98208A11F9C2554003F96F7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A982089F1F9C2554003F96F7 /* Main.storyboard */; };
 		A98208A31F9C2554003F96F7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A98208A21F9C2554003F96F7 /* Assets.xcassets */; };
+		A9D862DD1FC389CA0057F038 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9D862DC1FC389CA0057F038 /* Utils.swift */; };
 		DE99345AA2CA430F80B9C6CD /* Pods_clothr.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F29F83D1CF4B868A7F8C0D32 /* Pods_clothr.framework */; };
 /* End PBXBuildFile section */
 
@@ -123,6 +124,7 @@
 		A98208A01F9C2554003F96F7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		A98208A21F9C2554003F96F7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A98208A71F9C2554003F96F7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A9D862DC1FC389CA0057F038 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		F29F83D1CF4B868A7F8C0D32 /* Pods_clothr.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_clothr.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F8A9F2AE3013D2823654FB99 /* Pods-clothr.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-clothr.debug.xcconfig"; path = "Pods/Target Support Files/Pods-clothr/Pods-clothr.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -265,6 +267,7 @@
 				A982089F1F9C2554003F96F7 /* Main.storyboard */,
 				A98208A21F9C2554003F96F7 /* Assets.xcassets */,
 				A98208A71F9C2554003F96F7 /* Info.plist */,
+				A9D862DC1FC389CA0057F038 /* Utils.swift */,
 			);
 			path = clothr;
 			sourceTree = "<group>";
@@ -409,6 +412,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A9D862DD1FC389CA0057F038 /* Utils.swift in Sources */,
 				53B515021FA67B5000DF2CB2 /* PSSCategory.m in Sources */,
 				53B5151A1FA67B5100DF2CB2 /* UIImageView+AFNetworking.m in Sources */,
 				0D2D79841FBDE96000420132 /* SettingsViewController.swift in Sources */,
