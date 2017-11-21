@@ -7,7 +7,6 @@
 //  Andrew Gu(i)terres
 //  Gilbert Aragon
 //  Kianna Mark
-//  Christian Valdez
 //
 //  Copyright © 2017 cmps115. All rights reserved.
 //
