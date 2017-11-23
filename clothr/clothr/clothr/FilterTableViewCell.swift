@@ -38,6 +38,7 @@ class FilterTableViewCell: UITableViewCell, UICollectionViewDataSource, UICollec
     var pickedColors = [String]()
     
     var pickedIndexes=[String: NSInteger]() //indexes for filter collections
+    var pickedUserFilters=[Any]()
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -257,6 +258,12 @@ class FilterTableViewCell: UITableViewCell, UICollectionViewDataSource, UICollec
                     savedFilters!.insertItems(at: [NSIndexPath(row: pickedRetailers.count-1,section:0) as IndexPath])
                     retailerCheck[indexPath.row]=1
                     pickedIndexes[filterCell.currentFilterLabel.text!] = indexPath.row
+                    let pickedRetailer: PSSRetailer? = (retailers![indexPath.row] as! PSSRetailer)
+                    let pickedFilter = PSSProductFilter(type: "Retailer", filterID: pickedRetailer?.retailerID)
+                    pickedUserFilters.append(pickedFilter as Any)
+                    let encodedProduct = NSKeyedArchiver.archivedData(withRootObject: pickedUserFilters)
+                    let defaults = UserDefaults.standard
+                    defaults.set(encodedProduct, forKey: "userFilters")
                     savedFilters?.reloadData()
                 } else if text == "Brand"
                 {
@@ -264,6 +271,12 @@ class FilterTableViewCell: UITableViewCell, UICollectionViewDataSource, UICollec
                     savedFilters!.insertItems(at: [NSIndexPath(row: pickedBrands.count-1,section:0) as IndexPath])
                     brandCheck[indexPath.row]=1
                     pickedIndexes[filterCell.currentFilterLabel.text!] = indexPath.row
+                    let pickedBrand: PSSBrand? = (brands![indexPath.row] as! PSSBrand)
+                    let pickedFilter = PSSProductFilter(type: "Brand", filterID: pickedBrand?.brandID)
+                    pickedUserFilters.append(pickedFilter as Any)
+                    let encodedProduct = NSKeyedArchiver.archivedData(withRootObject: pickedUserFilters)
+                    let defaults = UserDefaults.standard
+                    defaults.set(encodedProduct, forKey: "userFilters")
                     savedFilters?.reloadData()
                 } else if text == "Size"
                 {
@@ -271,6 +284,12 @@ class FilterTableViewCell: UITableViewCell, UICollectionViewDataSource, UICollec
                     savedFilters!.insertItems(at: [NSIndexPath(row: pickedSizes.count-1,section:0) as IndexPath])
                     sizeCheck[indexPath.row]=1
                     pickedIndexes[filterCell.currentFilterLabel.text!] = indexPath.row
+//                    let pickedSize: PSSSize? = (size[indexPath.row] as! PSSSize)
+//                    let pickedFilter = PSSProductFilter(type: "Size", filterID: pickedSize?.sizeID)
+//                    pickedUserFilters.append(pickedFilter as Any)
+//                    let encodedProduct = NSKeyedArchiver.archivedData(withRootObject: pickedUserFilters)
+//                    let defaults = UserDefaults.standard
+//                    defaults.set(encodedProduct, forKey: "userFilters")
                     savedFilters?.reloadData()
                 } else if text == "Color"
                 {
@@ -278,6 +297,12 @@ class FilterTableViewCell: UITableViewCell, UICollectionViewDataSource, UICollec
                     savedFilters!.insertItems(at: [NSIndexPath(row: pickedColors.count-1,section:0) as IndexPath])
                     colorCheck[indexPath.row]=1
                     pickedIndexes[filterCell.currentFilterLabel.text!] = indexPath.row
+                    let pickedColor: PSSColor? = (colors![indexPath.row] as! PSSColor)
+                    let pickedFilter = PSSProductFilter(type: "Color", filterID: pickedColor?.colorID)
+                    pickedUserFilters.append(pickedFilter as Any)
+                    let encodedProduct = NSKeyedArchiver.archivedData(withRootObject: pickedUserFilters)
+                    let defaults = UserDefaults.standard
+                    defaults.set(encodedProduct, forKey: "userFilters")
                     savedFilters?.reloadData()
                 } else if text == "Size of Clothing"
                 {

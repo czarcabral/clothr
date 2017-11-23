@@ -248,6 +248,11 @@ class ViewController: UIViewController {
             loadExtraBuffer(productName)
         }
         let thisProduct: PSSProduct? = products[imageIndex] as? PSSProduct
+        let testArray = thisProduct?.sizes
+        for i in 0...((testArray?.count)!-1)
+        {
+            print(testArray![i] as Any)
+        }
         let url = thisProduct?.image.url
         let session = URLSession.shared
         

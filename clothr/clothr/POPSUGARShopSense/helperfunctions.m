@@ -68,6 +68,9 @@ typedef void(^myCompletion)(BOOL);
 -(void) searchQuery:(NSString *)searchTerm :(NSNumber*)pagingIndex :(myCompletion) compblock{
     PSSProductQuery *productQuery = [[PSSProductQuery alloc] init];
     productQuery.searchTerm = searchTerm;
+    NSData *filterData = [[NSUserDefaults standardUserDefaults] objectForKey:@"userFilters"];
+    NSArray *filters = [NSKeyedUnarchiver unarchiveObjectWithData:filterData];
+    [productQuery addProductFilters:filters];
     printf("here: %s\n", [productQuery.searchTerm UTF8String]);
     __weak typeof(self) weakSelf = self;
     [[PSSClient sharedClient] searchProductsWithQuery:productQuery offset:pagingIndex limit:[NSNumber numberWithInt:10] success:^(NSUInteger totalCount, NSArray *availableHistogramTypes, NSArray *products) {
