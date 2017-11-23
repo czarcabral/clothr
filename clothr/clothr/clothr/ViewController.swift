@@ -60,7 +60,10 @@ class ViewController: UIViewController {
         buffer.fillBrandBuffer()
         buffer.fillRetailerBuffer()
         buffer.fillColorBuffer()
+        
+//        buffer.fillSizeBuffer()
         // hide the back button
+        archiveFilterData()
         self.navigationItem.setHidesBackButton(true, animated: false)
         let doubleTap = UITapGestureRecognizer(target: self, action: #selector(showDetails(gestureRecognizer:)))
         doubleTap.numberOfTapsRequired=2
@@ -248,11 +251,13 @@ class ViewController: UIViewController {
             loadExtraBuffer(productName)
         }
         let thisProduct: PSSProduct? = products[imageIndex] as? PSSProduct
-        let testArray = thisProduct?.sizes
-        for i in 0...((testArray?.count)!-1)
-        {
-            print(testArray![i] as Any)
-        }
+//        let testArray = thisProduct?.sizes
+//        for i in 0...((testArray?.count)!-1)
+//        {
+//            let test: PSSProductSize? = testArray![i] as? PSSProductSize
+////            test?.canonicalSize.sizeID
+//            print(test?.canonicalSize.sizeID)
+//        }
         let url = thisProduct?.image.url
         let session = URLSession.shared
         
@@ -450,5 +455,63 @@ extension ViewController : UITextFieldDelegate
         return true
     }
     
+//------------------------------------------archiving data for filters----------------------------------------//
+    
+    func archiveFilterData()
+    {
+        
+        let when1 = DispatchTime.now() + 1
+        DispatchQueue.main.asyncAfter(deadline: when1) {
+            var retailers = NSKeyedUnarchiver.unarchiveObject(with: UserDefaults.standard.object(forKey: "retailer") as! Data) as? [Any]
+            var brands = NSKeyedUnarchiver.unarchiveObject(with: UserDefaults.standard.object(forKey: "brand") as! Data) as? [Any]
+            var colors = NSKeyedUnarchiver.unarchiveObject(with: UserDefaults.standard.object(forKey: "color") as! Data) as? [Any]
+            let retailerCheck = [NSInteger](repeating:0, count:(retailers?.count)!)
+            let brandCheck = [NSInteger](repeating:0, count:(brands?.count)!)
+            //        sizeCheck = [NSInteger](repeating:0, count:size.count)
+            let colorCheck = [NSInteger](repeating:0, count:(colors?.count)!)
+            //        let retailerCheck = [NSInteger]()
+            UserDefaults.standard.set(NSKeyedArchiver.archivedData(withRootObject: retailerCheck as Any), forKey: "retailerCheck")
+            //        let brandCheck = [NSInteger]()
+            UserDefaults.standard.set(NSKeyedArchiver.archivedData(withRootObject: brandCheck as Any), forKey: "brandCheck")
+            //        let sizeCheck=[NSInteger]()
+            //        UserDefaults.standard.set(NSKeyedArchiver.archivedData(withRootObject: sizeCheck as Any), forKey: "sizeCheck")
+            //        let colorCheck=[NSInteger]()
+            UserDefaults.standard.set(NSKeyedArchiver.archivedData(withRootObject: colorCheck as Any), forKey: "colorCheck")
+        }
+        
+        let savedImages=[Any]()
+            UserDefaults.standard.set(NSKeyedArchiver.archivedData(withRootObject: savedImages as Any), forKey: "images")
+        let brands = [Any]()
+            UserDefaults.standard.set(NSKeyedArchiver.archivedData(withRootObject: brands as Any), forKey: "brand")
+        let pickedBrands = [String]()
+        UserDefaults.standard.set(NSKeyedArchiver.archivedData(withRootObject: pickedBrands as Any), forKey: "pickedBrands")
+        let retailers = [Any]()
+            UserDefaults.standard.set(NSKeyedArchiver.archivedData(withRootObject: retailers as Any), forKey: "retailer")
+        let pickedRetailers=[String]()
+        UserDefaults.standard.set(NSKeyedArchiver.archivedData(withRootObject: pickedRetailers as Any), forKey: "pickedRetailers")
+        let pickedSizes = [String]()
+        UserDefaults.standard.set(NSKeyedArchiver.archivedData(withRootObject: pickedSizes as Any), forKey: "pickedSizes")
+        
+////        let retailerCheck = [NSInteger]()
+//        UserDefaults.standard.set(NSKeyedArchiver.archivedData(withRootObject: retailerCheck as Any), forKey: "retailerCheck")
+////        let brandCheck = [NSInteger]()
+//        UserDefaults.standard.set(NSKeyedArchiver.archivedData(withRootObject: brandCheck as Any), forKey: "brandCheck")
+////        let sizeCheck=[NSInteger]()
+////        UserDefaults.standard.set(NSKeyedArchiver.archivedData(withRootObject: sizeCheck as Any), forKey: "sizeCheck")
+////        let colorCheck=[NSInteger]()
+//        UserDefaults.standard.set(NSKeyedArchiver.archivedData(withRootObject: colorCheck as Any), forKey: "colorCheck")
+        
+        let colors = [Any]()
+        UserDefaults.standard.set(NSKeyedArchiver.archivedData(withRootObject: colors as Any), forKey: "color")
+        let pickedColors = [String]()
+        UserDefaults.standard.set(NSKeyedArchiver.archivedData(withRootObject: pickedColors as Any), forKey: "pickedColors")
+        
+        let pickedIndexes=[String: NSInteger]()
+        UserDefaults.standard.set(NSKeyedArchiver.archivedData(withRootObject: pickedIndexes as Any), forKey: "pickedIndexes")
+        let pickedUserFilters=[Any]()
+            UserDefaults.standard.set(NSKeyedArchiver.archivedData(withRootObject: pickedUserFilters as Any), forKey: "pickedUserFilters")
+    
+    }
 }
+
 

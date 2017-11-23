@@ -21,6 +21,7 @@
 - (void)fillBrandBuffer;
 - (void)fillRetailerBuffer;
 - (void)fillColorBuffer;
+- (void)fillSizeBuffer;
 
 @end
 #endif /* helperfunctions_h */

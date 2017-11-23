@@ -583,6 +583,25 @@ static dispatch_once_t once_token = 0;
 	} failure:failure];
 }
 
+#pragma mark - Sizes
+
+- (void)getSizesSuccess:(void (^)(NSArray *brands))success failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure
+{
+    [self getPath:@"sizes" parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        if ([responseObject[@"sizes"] isKindOfClass:[NSArray class]]) {
+            if (success) {
+                NSArray *sizesRepresentation = responseObject[@"sizes"];
+                NSArray *sizes = [self remoteObjectsForEntityNamed:@"size" fromRepresentations:sizesRepresentation];
+                success(sizes);
+            }
+        } else {
+            if (failure) {
+                failure(operation, [self errorWithInvalidRepresentation:responseObject]);
+            }
+        }
+    } failure:failure];
+}
+
 #pragma mark - Brands
 
 - (void)getBrandsSuccess:(void (^)(NSArray *brands))success failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure

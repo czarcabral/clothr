@@ -177,6 +177,8 @@ extern NSString * const PSSProductHistogramTypeColor;
  */
 - (void)getRetailersSuccess:(void (^)(NSArray *retailers))success failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
 
+- (void)getSizesSuccess:(void (^)(NSArray *sizes))success failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
+
 /** Returns the list of canonical colors available.
  
  @param success A block object to be executed when the request operation finishes successfully. This block has no return value and takes one argument: an array of `PSSColor` objects.

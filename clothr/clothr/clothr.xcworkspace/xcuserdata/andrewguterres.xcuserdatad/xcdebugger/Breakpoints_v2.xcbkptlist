@@ -10,7 +10,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "clothr/ViewController.swift"
-            timestampString = "533116394.623279"
+            timestampString = "533173652.47916"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "42"
@@ -40,13 +40,91 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "clothr/FilterTableViewCell.swift"
-            timestampString = "533116394.623388"
+            timestampString = "533173652.480155"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "256"
-            endingLineNumber = "256"
+            startingLineNumber = "266"
+            endingLineNumber = "266"
             landmarkName = "collectionView(_:didSelectItemAt:)"
             landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "clothr/FilterTableViewCell.swift"
+            timestampString = "533173652.480561"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "26"
+            endingLineNumber = "26"
+            landmarkName = "FilterTableViewCell"
+            landmarkType = "3">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "clothr.FilterTableViewCell.retailers.getter : Swift.Optional&lt;Swift.Array&lt;Any&gt;&gt;"
+                  moduleName = "clothr"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/andrewguterres/Desktop/filterpagecomplete/clothr/clothr/clothr/FilterTableViewCell.swift"
+                  timestampString = "533173337.631534"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "26"
+                  endingLineNumber = "26"
+                  offsetFromSymbolStart = "96">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "clothr.FilterTableViewCell.retailers.setter : Swift.Optional&lt;Swift.Array&lt;Any&gt;&gt;"
+                  moduleName = "clothr"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/andrewguterres/Desktop/filterpagecomplete/clothr/clothr/clothr/FilterTableViewCell.swift"
+                  timestampString = "533173337.634324"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "26"
+                  endingLineNumber = "26"
+                  offsetFromSymbolStart = "124">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "clothr.FilterTableViewCell.init(style: __C.UITableViewCellStyle, reuseIdentifier: Swift.Optional&lt;Swift.String&gt;) -&gt; clothr.FilterTableViewCell"
+                  moduleName = "clothr"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/andrewguterres/Desktop/filterpagecomplete/clothr/clothr/clothr/FilterTableViewCell.swift"
+                  timestampString = "533173337.637086"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "26"
+                  endingLineNumber = "26"
+                  offsetFromSymbolStart = "4140">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "clothr.FilterTableViewCell.init(coder: __ObjC.NSCoder) -&gt; Swift.Optional&lt;clothr.FilterTableViewCell&gt;"
+                  moduleName = "clothr"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/andrewguterres/Desktop/filterpagecomplete/clothr/clothr/clothr/FilterTableViewCell.swift"
+                  timestampString = "533173337.63975"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "26"
+                  endingLineNumber = "26"
+                  offsetFromSymbolStart = "4088">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

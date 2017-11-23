@@ -18,6 +18,7 @@
 @property (nonatomic, strong) NSArray *products;
 @property (nonatomic, strong) NSMutableArray *brands;
 @property (nonatomic, strong) NSMutableArray *colors;
+@property (nonatomic, strong) NSMutableArray *sizes;
 @property (nonatomic, strong) NSMutableArray *retailers;
 @property (nonatomic, strong) NSMutableData *data;
 @property (nonatomic, strong) NSMutableArray *buffer;
@@ -106,6 +107,24 @@ typedef void(^myCompletion)(BOOL);
         }
         NSUserDefaults *data = [NSUserDefaults standardUserDefaults];
         [data setObject:[NSKeyedArchiver archivedDataWithRootObject:brands] forKey:@"brand"];
+        [data synchronize];
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"Request failed with error: %@", error);
+    }];
+}
+
+-(void)fillSizeBuffer
+{
+    __weak typeof(self) weakSelf = self;
+    [[PSSClient sharedClient] getSizesSuccess:^(NSArray *sizes) {
+        //        weakSelf.brands = brands;
+        printf("%lu", (unsigned long)sizes.count);
+        for(int i=0;i<5;i++)
+        {
+            [weakSelf.sizes addObject:sizes[i]];
+        }
+        NSUserDefaults *data = [NSUserDefaults standardUserDefaults];
+        [data setObject:[NSKeyedArchiver archivedDataWithRootObject:sizes] forKey:@"size"];
         [data synchronize];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Request failed with error: %@", error);
