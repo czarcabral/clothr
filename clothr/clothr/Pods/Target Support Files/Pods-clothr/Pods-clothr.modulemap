@@ -1,0 +1,6 @@
+framework module Pods_clothr {
+  umbrella header "Pods-clothr-umbrella.h"
+
+  export *
+  module * { export * }
+}
