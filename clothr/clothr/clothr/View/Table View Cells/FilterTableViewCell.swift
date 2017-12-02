@@ -49,7 +49,6 @@ class FilterTableViewCell: UITableViewCell, UICollectionViewDataSource, UICollec
     var pickedIndexes=NSKeyedUnarchiver.unarchiveObject(with:UserDefaults.standard.object(forKey: "pickedIndexes") as! Data) as? [String: NSInteger] //indexes for filter collections
     var pickedUserFilters=NSKeyedUnarchiver.unarchiveObject(with:UserDefaults.standard.object(forKey: "pickedUserFilters") as! Data) as? [Any]  //array filled with pssproductfilters
     
-    var searchSelect: NSInteger=0
     var brandSearchPressed: NSInteger=0
     var retailerSearchPressed: NSInteger=0
     var searchPressed: NSInteger=0
@@ -59,6 +58,7 @@ class FilterTableViewCell: UITableViewCell, UICollectionViewDataSource, UICollec
         // Initialization code
         searchBar.delegate=self
         searchBar.returnKeyType = UIReturnKeyType.done
+        
 //        searchBar.return
     }
 
@@ -85,11 +85,9 @@ class FilterTableViewCell: UITableViewCell, UICollectionViewDataSource, UICollec
             let text = FilterLabel.text
             if text == "Retailer"
             {
-                searchSelect=0
                 savedCell.savedFilterLabel.text = (pickedRetailers?[indexPath.row] )
             } else if text == "Brand"
             {
-                searchSelect=1
                 savedCell.savedFilterLabel.text=(pickedBrands?[indexPath.row])
             } else if text == "Price Range"
             {
@@ -332,8 +330,10 @@ class FilterTableViewCell: UITableViewCell, UICollectionViewDataSource, UICollec
                         savedFilters!.insertItems(at: [NSIndexPath(row: pickedRetailers!.count-1,section:0) as IndexPath])
                         retailerCheck![filterCell.currentFilterLabel.text!]=1
                         //                    pickedIndexes![filterCell.currentFilterLabel.text!] = indexPath.row
-                        let pickedRetailer: PSSRetailer? = (retailers![indexPath.row] as! PSSRetailer)
+                        let pickedRetailer: PSSRetailer? = (retailers![indexPath.row-1] as! PSSRetailer)
                         let pickedFilter = PSSProductFilter(type: "Retailer", filterID: pickedRetailer?.retailerID)
+                        print(pickedRetailer?.retailerID)
+                        print(pickedRetailer?.name)
                         pickedUserFilters!.append(pickedFilter as Any)
                         saveRetailers()
                         saveUserFilters()
@@ -348,8 +348,21 @@ class FilterTableViewCell: UITableViewCell, UICollectionViewDataSource, UICollec
 //                        let pickedRetailer: PSSRetailer? = (retailers![indexPath.row-1] as! PSSRetailer)
 //                        let pickedFilter = PSSProductFilter(type: "Retailer", filterID: pickedRetailer?.retailerID)
 //                        pickedUserFilters!.append(pickedFilter as Any)
+                        let pickedRetailer: PSSRetailer? = (retailers![indexPath.row-1] as! PSSRetailer)
+                        if let array = pickedUserFilters?.count
+                        {
+                            for index in 0...array-1
+                            {
+                                let pickedFilter: PSSProductFilter? = pickedUserFilters![index] as? PSSProductFilter
+                                if(pickedFilter?.type=="Retailer" && pickedFilter?.filterID==pickedRetailer?.retailerID)
+                                {
+                                    pickedUserFilters?.remove(at: index)
+                                }
+                            }
+                        }
                         saveRetailers()
                         savePickedIndexes()
+                        saveUserFilters()
                         filterCollection?.reloadData()
                         savedFilters?.reloadData()
                     }
@@ -376,20 +389,40 @@ class FilterTableViewCell: UITableViewCell, UICollectionViewDataSource, UICollec
                         savedFilters!.insertItems(at: [NSIndexPath(row: pickedBrands!.count-1,section:0) as IndexPath])
                         brandCheck![filterCell.currentFilterLabel.text!]=1
 //                        pickedIndexes![filterCell.currentFilterLabel.text!] = indexPath.row
-                        let pickedBrand: PSSBrand? = (brands![indexPath.row] as! PSSBrand)
+                        let pickedBrand: PSSBrand? = (brands![indexPath.row-1] as! PSSBrand)
+//                        print(pickedBrand?.brandID)
+//                        print(pickedBrand?.name)
                         let pickedFilter = PSSProductFilter(type: "Brand", filterID: pickedBrand?.brandID)
+                        print("filterid: ")
+                        print(pickedFilter?.filterID as Any)
                         pickedUserFilters!.append(pickedFilter as Any)
                         saveUserFilters()
                         saveBrands()
                         savePickedIndexes()
                         savedFilters?.reloadData()
+                        filterCollection?.reloadData()
                     } else
                     {
                         brandCheck![filterCell.currentFilterLabel.text!]=0
                         pickedBrands!.remove(at: pickedBrands!.index(of: filterCell.currentFilterLabel.text!)!)
                         //                    pickedIndexes!.removeValue(forKey: filterCell.currentFilterLabel.text!)
+                        let pickedBrand: PSSBrand? = (brands![indexPath.row-1] as! PSSBrand)
+                        if let array = pickedUserFilters?.count
+                        {
+                            for index in 0...array-1
+                            {
+                                let pickedFilter: PSSProductFilter? = pickedUserFilters![index] as? PSSProductFilter
+                                if(pickedFilter?.type=="Brand" && pickedFilter?.filterID==pickedBrand?.brandID)
+                                {
+                                    pickedUserFilters?.remove(at: index)
+                                }
+                            }
+                        }
+//                        let pickedFilter = PSSProductFilter(type: "Brand", filterID: pickedBrand?.brandID)
+//                        pickedUserFilters.remove
                         saveBrands()
                         savePickedIndexes()
+                        saveUserFilters()
                         filterCollection?.reloadData()
                         savedFilters?.reloadData()
                     }
@@ -401,8 +434,10 @@ class FilterTableViewCell: UITableViewCell, UICollectionViewDataSource, UICollec
                     savedFilters!.insertItems(at: [NSIndexPath(row: pickedPrices!.count-1,section:0) as IndexPath])
                     priceCheck![filterCell.currentFilterLabel.text!]=1
 //                    pickedIndexes![filterCell.currentFilterLabel.text!] = indexPath.row
-                        let pickedFilter = PSSProductFilter(type: "Price", filterID: (6+indexPath.row) as NSNumber)
+                        let pickedFilter = PSSProductFilter(type: "Price", filterID: (7+indexPath.row) as NSNumber)
                         pickedUserFilters!.append(pickedFilter as Any)
+                        print("filterid: ")
+//                        print(pickedFilter?.filterID)
 //                    let pickedSize: PSSSize? = (size[indexPath.row] as! PSSSize)
 //                    let pickedFilter = PSSProductFilter(type: "Size", filterID: pickedSize?.sizeID)
 //                    pickedUserFilters.append(pickedFilter as Any)
@@ -413,13 +448,28 @@ class FilterTableViewCell: UITableViewCell, UICollectionViewDataSource, UICollec
                     savePickedIndexes()
                     saveUserFilters()
                     savedFilters?.reloadData()
+                    filterCollection?.reloadData()
                     } else
                     {
                         priceCheck![filterCell.currentFilterLabel.text!]=0
                         pickedPrices!.remove(at: pickedPrices!.index(of: filterCell.currentFilterLabel.text!)!)
-                        //                    pickedIndexes!.removeValue(forKey: filterCell.currentFilterLabel.text!)
-                        saveBrands()
+//                        let pickedBrand: PSSBrand? = (brands![indexPath.row-1] as! PSSBrand)
+                        print(pickedUserFilters?.count)
+                        if let array = pickedUserFilters?.count
+                        {
+                            for index in 0...array-1
+                            {
+                                let pickedFilter: PSSProductFilter? = pickedUserFilters![index] as? PSSProductFilter
+                                if(pickedFilter?.type=="Price" && pickedFilter?.filterID==(7+indexPath.row) as NSNumber)
+                                {
+                                    pickedUserFilters?.remove(at: index)
+                                }
+                            }
+                        }
+                        print(pickedUserFilters?.count)
+                        saveSizes()
                         savePickedIndexes()
+                        saveUserFilters()
                         filterCollection?.reloadData()
                         savedFilters?.reloadData()
                     }
@@ -438,13 +488,28 @@ class FilterTableViewCell: UITableViewCell, UICollectionViewDataSource, UICollec
                         saveUserFilters()
                         savePickedIndexes()
                         savedFilters?.reloadData()
+                        filterCollection?.reloadData()
                     } else
                     {
                         colorCheck![filterCell.currentFilterLabel.text!]=0
                         pickedColors!.remove(at: pickedColors!.index(of: filterCell.currentFilterLabel.text!)!)
                     //                    pickedIndexes!.removeValue(forKey: filterCell.currentFilterLabel.text!)
+                        let pickedColor: PSSColor? = (colors![indexPath.row] as! PSSColor)
+                        print(pickedColor?.name)
+                        if let array = pickedUserFilters?.count
+                        {
+                            for index in 0...array-1
+                            {
+                                let pickedFilter: PSSProductFilter? = pickedUserFilters![index] as? PSSProductFilter
+                                if(pickedFilter?.type=="Color" && pickedFilter?.filterID==pickedColor?.colorID)
+                                {
+                                    pickedUserFilters?.remove(at: index)
+                                }
+                            }
+                        }
                         saveColors()
                         savePickedIndexes()
+                        saveUserFilters()
                         filterCollection?.reloadData()
                         savedFilters?.reloadData()
                     }
@@ -461,7 +526,8 @@ class FilterTableViewCell: UITableViewCell, UICollectionViewDataSource, UICollec
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         
-        if searchSelect==0{
+        if FilterLabel.text=="Retailer"{
+//            print("HIHIHIHIHI")
             if searchText.isEmpty
             {
                 searchRetailers = retailers
@@ -474,6 +540,7 @@ class FilterTableViewCell: UITableViewCell, UICollectionViewDataSource, UICollec
             }
         } else
         {
+//            print("HERE")
             if searchText.isEmpty
             {
                 searchBrands = brands
@@ -481,7 +548,7 @@ class FilterTableViewCell: UITableViewCell, UICollectionViewDataSource, UICollec
             } else
             {
                 searchBrands=brands?.filter({brand -> Bool in
-                    return (brand as! PSSRetailer).name.lowercased().contains(searchText.lowercased())
+                    return (brand as! PSSBrand).name.lowercased().contains(searchText.lowercased())
                 })
             }
         }
@@ -514,6 +581,7 @@ class FilterTableViewCell: UITableViewCell, UICollectionViewDataSource, UICollec
     func saveSizes()
     {
         UserDefaults.standard.set(NSKeyedArchiver.archivedData(withRootObject: pickedPrices as Any), forKey: "pickedPrices")
+        UserDefaults.standard.set(NSKeyedArchiver.archivedData(withRootObject: priceCheck as Any), forKey: "priceCheck")
     }
     
     func saveColors()

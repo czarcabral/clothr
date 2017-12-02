@@ -31,6 +31,7 @@ class SaveViewController: UIViewController, UITableViewDelegate, UITableViewData
         super.viewDidLoad()
         tableview.delegate=self
         tableview.dataSource=self
+        tableview.tableFooterView = UIView()
     }
     
     override func didReceiveMemoryWarning() {

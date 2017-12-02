@@ -19,6 +19,7 @@ class FilterViewController: UIViewController, UITableViewDelegate, UITableViewDa
         super.viewDidLoad()
         filterTable.estimatedRowHeight=50;
         filterTable.rowHeight=UITableViewAutomaticDimension
+        filterTable.tableFooterView = UIView()
         // Do any additional setup after loading the view.
     }
 

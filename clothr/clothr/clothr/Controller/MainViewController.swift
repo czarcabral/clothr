@@ -14,6 +14,7 @@
 
 import UIKit
 import Parse
+import SVProgressHUD
 
 var imageIndex: NSInteger=0
 var checker: NSInteger=0
@@ -44,14 +45,15 @@ class ViewController: UIViewController {
     // Initial load for swipe screen
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        SVProgressHUD.setDefaultMaskType(SVProgressHUDMaskType.black)
+        SVProgressHUD.show()
         searchField.delegate = self
         // Do any additional setup after loading the view, typically from a nib.
-        loadUserStorage()
-        let when = DispatchTime.now() + 1
-        DispatchQueue.main.asyncAfter(deadline: when) {
-            self.loadData(productName)
-        }
+//        loadUserStorage()
+//        let when = DispatchTime.now() + 1
+//        DispatchQueue.main.asyncAfter(deadline: when) {
+//            self.loadData(productName)
+//        }
         
         //updateUserStorage()
         // set the x and y variable to be equal to the center of the image
@@ -279,6 +281,7 @@ class ViewController: UIViewController {
             }
         })
         
+        SVProgressHUD.dismiss()
         task.resume()
         imageIndex+=1
     }
@@ -438,9 +441,16 @@ class ViewController: UIViewController {
     
     // removes the navbar
     override func viewWillAppear(_ animated: Bool) {
+        SVProgressHUD.show()
         self.navigationController?.setNavigationBarHidden(true, animated: animated)
         super.viewWillAppear(animated)
         loadUserStorage()
+//        let when = DispatchTime.now() + 2
+//        DispatchQueue.main.asyncAfter(deadline: when) {
+//            print("JIIJIJJIJIJJI")
+//            print(productName)
+            self.loadData(productName)
+//        }
     }
 
     override func viewWillDisappear(_ animated: Bool) {

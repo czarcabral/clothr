@@ -73,6 +73,12 @@ typedef void(^myCompletion)(BOOL);
     NSData *filterData = [[NSUserDefaults standardUserDefaults] objectForKey:@"pickedUserFilters"];
     NSArray *filters = [NSKeyedUnarchiver unarchiveObjectWithData:filterData];
     [productQuery addProductFilters:filters];
+    if(filters.count>0){
+    PSSProductFilter *thisfilter = productQuery.productFilters[(NSUInteger)0];
+    printf("filterid2: %d", [thisfilter.filterID integerValue]);
+    }
+    printf("filtercount: %d", filters.count);
+//    [productQuery addProductFilters:filters];
     printf("here: %s\n", [productQuery.searchTerm UTF8String]);
     __weak typeof(self) weakSelf = self;
     [[PSSClient sharedClient] searchProductsWithQuery:productQuery offset:pagingIndex limit:[NSNumber numberWithInt:10] success:^(NSUInteger totalCount, NSArray *availableHistogramTypes, NSArray *products) {
@@ -80,6 +86,7 @@ typedef void(^myCompletion)(BOOL);
         weakSelf.products = products;
         PSSProduct *thisProduct = self.products[(NSUInteger)0];
         printf("Archive name: %s\n", [thisProduct.name UTF8String]);
+        printf("Archive count: %lu\n", (unsigned long)totalCount);
         //        printf("website url: %s\n", [thisProduct. UTF8String]);
         NSUserDefaults *data = [NSUserDefaults standardUserDefaults];
         [data setObject:[NSKeyedArchiver archivedDataWithRootObject:products] forKey:@"name"];

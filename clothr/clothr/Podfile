@@ -9,5 +9,6 @@ target 'clothr' do
 
   # Pods for clothr
 pod 'Parse'
+pod 'SVProgressHUD'
 
 end
