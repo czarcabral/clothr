@@ -258,6 +258,7 @@ class ViewController: UIViewController {
             //imageIndex=0
             loadExtraBuffer(productName)
         }
+        
         let thisProduct: PSSProduct? = products[imageIndex] as? PSSProduct
         let url = thisProduct?.image.url
         let session = URLSession.shared
@@ -338,7 +339,14 @@ class ViewController: UIViewController {
                     saleBool.append("-1")
                 }
                 checker+=1
-                get_image(image)
+                if imageIndex>=products.count
+                {
+                    imageIndex=0
+                    image.image=UIImage(named: "endOfItems")
+                } else
+                {
+                    get_image(image)
+                }
             }
 
             // put rotation and image back to center
