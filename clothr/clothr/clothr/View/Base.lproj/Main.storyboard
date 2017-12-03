@@ -149,6 +149,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Button" image="if_00-ELASTOFONT-STORE-READY_sliders_2738302"/>
                                 <connections>
+                                    <action selector="saveFilters:" destination="BYZ-38-t0r" eventType="touchUpInside" id="d26-5o-eXQ"/>
                                     <segue destination="9V7-Gt-xUY" kind="show" id="wMG-ep-Smi"/>
                                 </connections>
                             </button>
@@ -227,19 +228,6 @@
                                 </attributedString>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pPM-SS-5xI">
-                                <rect key="frame" x="41" y="591" width="293" height="25"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <attributedString key="attributedText">
-                                    <fragment content="Size?">
-                                        <attributes>
-                                            <font key="NSFont" size="21" name="AmericanTypewriter"/>
-                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
-                                        </attributes>
-                                    </fragment>
-                                </attributedString>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="snf-re-SKn">
                                 <rect key="frame" x="41" y="434" width="293" height="26"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -248,19 +236,6 @@
                                         <attributes>
                                             <font key="NSFont" size="18" name="AmericanTypewriter"/>
                                             <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
-                                        </attributes>
-                                    </fragment>
-                                </attributedString>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WJG-vM-EkC">
-                                <rect key="frame" x="174" y="591" width="293" height="24"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <attributedString key="attributedText">
-                                    <fragment content="Color?">
-                                        <attributes>
-                                            <font key="NSFont" size="21" name="AmericanTypewriter"/>
-                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                         </attributes>
                                     </fragment>
                                 </attributedString>
@@ -282,6 +257,19 @@
                                 <rect key="frame" x="27" y="133" width="321" height="293"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JyC-wF-1mA" userLabel="Brand Label">
+                                <rect key="frame" x="41" y="577" width="293" height="37"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <attributedString key="attributedText">
+                                    <fragment content="Label">
+                                        <attributes>
+                                            <font key="NSFont" size="19" name="AmericanTypewriter"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                        </attributes>
+                                    </fragment>
+                                </attributedString>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="0.50464898767605637" colorSpace="calibratedWhite"/>
                         <viewLayoutGuide key="safeArea" id="zvd-Ed-SpY"/>
@@ -289,6 +277,7 @@
                     <connections>
                         <outlet property="SaleCheckLabel" destination="5II-dD-bFQ" id="QTP-10-7Ce"/>
                         <outlet property="availability" destination="snf-re-SKn" id="6Rz-nd-Dmz"/>
+                        <outlet property="brandLabel" destination="JyC-wF-1mA" id="Ntw-V4-beR"/>
                         <outlet property="image" destination="Xb9-6s-tNT" id="ErW-sd-itJ"/>
                         <outlet property="nameLabel" destination="TU3-vE-Oy5" id="ZC1-ND-Pwc"/>
                         <outlet property="priceLabel" destination="jai-5o-P2l" id="fGo-tm-jTX"/>
@@ -297,7 +286,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1Hf-Dq-zhM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="601" y="1101"/>
+            <point key="canvasLocation" x="600.79999999999995" y="1100.5997001499252"/>
         </scene>
         <!--Filter View Controller-->
         <scene sceneID="cOA-YX-7g2">
@@ -406,10 +395,10 @@
                                                     </connections>
                                                 </collectionView>
                                                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Q8h-SA-jPe">
-                                                    <rect key="frame" x="0.0" y="200" width="375" height="319"/>
+                                                    <rect key="frame" x="0.0" y="200" width="375" height="350"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="350" id="mRB-Ox-K2F"/>
+                                                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="200" id="mRB-Ox-K2F"/>
                                                     </constraints>
                                                     <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="x8g-z8-KHE">
                                                         <size key="itemSize" width="100" height="100"/>
@@ -590,11 +579,11 @@
                                                     </attributedString>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3rq-Rr-lgq">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3rq-Rr-lgq" userLabel="Product Brand">
                                                     <rect key="frame" x="186" y="102" width="181" height="29"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <attributedString key="attributedText">
-                                                        <fragment content="color?">
+                                                        <fragment content="Label">
                                                             <attributes>
                                                                 <font key="NSFont" size="17" name="AmericanTypewriter"/>
                                                                 <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
@@ -623,6 +612,7 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
+                                            <outlet property="productBrand" destination="3rq-Rr-lgq" id="Gzu-xM-Ncs"/>
                                             <outlet property="productImage" destination="iBa-FP-w3h" id="vVh-jM-OhD"/>
                                             <outlet property="productName" destination="MoJ-2G-gSW" id="Xwy-LJ-y2c"/>
                                             <outlet property="productPrice" destination="A8h-KX-cNb" id="yOt-mT-W2e"/>

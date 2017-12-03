@@ -32,9 +32,9 @@ class FilterTableViewCell: UITableViewCell, UICollectionViewDataSource, UICollec
     var pickedRetailers=NSKeyedUnarchiver.unarchiveObject(with:UserDefaults.standard.object(forKey: "pickedRetailers") as! Data) as? [String]
     var searchRetailers = NSKeyedUnarchiver.unarchiveObject(with:UserDefaults.standard.object(forKey: "retailer") as! Data) as? [Any]
     
-    var prices = NSKeyedUnarchiver.unarchiveObject(with:UserDefaults.standard.object(forKey: "prices") as! Data) as? [String]
+    var prices = NSKeyedUnarchiver.unarchiveObject(with:UserDefaults.standard.object(forKey: "price") as! Data) as? [String]
     var pickedPrices = NSKeyedUnarchiver.unarchiveObject(with:UserDefaults.standard.object(forKey: "pickedPrices") as! Data) as? [String]
-    var searchPrices = NSKeyedUnarchiver.unarchiveObject(with:UserDefaults.standard.object(forKey: "prices") as! Data) as? [String]
+    var searchPrices = NSKeyedUnarchiver.unarchiveObject(with:UserDefaults.standard.object(forKey: "price") as! Data) as? [String]
     
     
     var retailerCheck = NSKeyedUnarchiver.unarchiveObject(with:UserDefaults.standard.object(forKey: "retailerCheck") as! Data) as? [String: NSInteger]
@@ -276,7 +276,7 @@ class FilterTableViewCell: UITableViewCell, UICollectionViewDataSource, UICollec
                 savedFilters!.deleteItems(at: [NSIndexPath(row: indexPath.row,section:0) as IndexPath]) //delete the cell
                 priceCheck![(filterCell.savedFilterLabel.text)!]=0 //update the filter collection
 //                pickedIndexes!.removeValue(forKey: filterCell.savedFilterLabel.text!) //remove from global dictionary
-                saveSizes()
+                savePrices()
                 saveIndexes()
                 filterCollection?.reloadData() //reload views
                 savedFilters?.reloadData()
@@ -296,7 +296,7 @@ class FilterTableViewCell: UITableViewCell, UICollectionViewDataSource, UICollec
                 savedFilters!.deleteItems(at: [NSIndexPath(row: indexPath.row,section:0) as IndexPath]) //delete the cell
                 priceCheck![(filterCell.savedFilterLabel.text)!]=0 //update the filter collection
                 pickedIndexes!.removeValue(forKey: filterCell.savedFilterLabel.text!) //remove from global dictionary
-                saveSizes()
+                savePrices()
                 saveIndexes()
                 filterCollection?.reloadData() //reload views
                 savedFilters?.reloadData()
@@ -444,7 +444,7 @@ class FilterTableViewCell: UITableViewCell, UICollectionViewDataSource, UICollec
 //                    let encodedProduct = NSKeyedArchiver.archivedData(withRootObject: pickedUserFilters)
 //                    let defaults = UserDefaults.standard
 //                    defaults.set(encodedProduct, forKey: "userFilters")
-                    saveSizes()
+                    savePrices()
                     savePickedIndexes()
                     saveUserFilters()
                     savedFilters?.reloadData()
@@ -467,7 +467,7 @@ class FilterTableViewCell: UITableViewCell, UICollectionViewDataSource, UICollec
                             }
                         }
                         print(pickedUserFilters?.count)
-                        saveSizes()
+                        savePrices()
                         savePickedIndexes()
                         saveUserFilters()
                         filterCollection?.reloadData()
@@ -578,7 +578,7 @@ class FilterTableViewCell: UITableViewCell, UICollectionViewDataSource, UICollec
         UserDefaults.standard.set(NSKeyedArchiver.archivedData(withRootObject: brandCheck as Any), forKey: "brandCheck")
     }
     
-    func saveSizes()
+    func savePrices()
     {
         UserDefaults.standard.set(NSKeyedArchiver.archivedData(withRootObject: pickedPrices as Any), forKey: "pickedPrices")
         UserDefaults.standard.set(NSKeyedArchiver.archivedData(withRootObject: priceCheck as Any), forKey: "priceCheck")

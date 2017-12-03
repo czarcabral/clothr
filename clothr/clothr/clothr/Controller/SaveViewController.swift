@@ -22,6 +22,7 @@ class SaveViewController: UIViewController, UITableViewDelegate, UITableViewData
     var savedNames=NSKeyedUnarchiver.unarchiveObject(with: UserDefaults.standard.object(forKey: "names") as! Data) as? [Any]
     var savedPrices=NSKeyedUnarchiver.unarchiveObject(with: UserDefaults.standard.object(forKey: "prices") as! Data) as? [Any]
     var savedURL=NSKeyedUnarchiver.unarchiveObject(with: UserDefaults.standard.object(forKey: "url") as! Data) as? [Any]
+    var savedBrand=NSKeyedUnarchiver.unarchiveObject(with: UserDefaults.standard.object(forKey: "savedBrandNames") as! Data) as? [Any]
     var saleBool=NSKeyedUnarchiver.unarchiveObject(with: UserDefaults.standard.object(forKey: "sales") as! Data) as? [String]
     
     @IBOutlet weak var tableview: UITableView!
@@ -95,6 +96,7 @@ class SaveViewController: UIViewController, UITableViewDelegate, UITableViewData
             cell.productPrice.text=priceCheck
         }
         cell.productName.text=(savedNames?[indexPath.row] as! String)
+        cell.productBrand.text="Brand: " + (savedBrand?[indexPath.row] as! String)
         return(cell)
     }
     
@@ -127,6 +129,7 @@ class SaveViewController: UIViewController, UITableViewDelegate, UITableViewData
             savedPrices?.remove(at: indexPath.row)
             savedURL?.remove(at: indexPath.row)
             saleBool?.remove(at: indexPath.row)
+            savedBrand?.remove(at: indexPath.row)
 //            let thisProduct: PSSProduct? = savedProducts![0] as? PSSProduct
 //            print(thisProduct?.name as Any)
             updateUserStorage()
@@ -175,6 +178,7 @@ class SaveViewController: UIViewController, UITableViewDelegate, UITableViewData
                 userData["savedProductURL"] = self.savedURL
                 userData["savedProductPrices"] = self.savedPrices
                 userData["saleBooleans"] = self.saleBool
+                userData["savedBrandNames"]=self.savedBrand
                 userData.saveInBackground()
             }
         }

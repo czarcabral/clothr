@@ -9,7 +9,7 @@
 import UIKit
 
 class DetailsViewController: UIViewController {
-
+    
     var originalCheck = false
     var imageIndex: NSInteger=0
     @IBOutlet weak var image: UIImageView!
@@ -18,12 +18,14 @@ class DetailsViewController: UIViewController {
     @IBOutlet weak var priceLabel: UILabel!
     @IBOutlet weak var availability: UILabel!
     @IBOutlet weak var SaleCheckLabel: UILabel!
+    
+    @IBOutlet weak var brandLabel: UILabel!
     var product = NSKeyedUnarchiver.unarchiveObject(with: UserDefaults.standard.object(forKey: "product") as! Data) as! PSSProduct
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        whiteBackground.layer.borderColor=UIColor.lightGray.cgColor
+    whiteBackground.layer.borderColor=UIColor.lightGray.cgColor
         whiteBackground.layer.borderWidth=4
         whiteBackground.layer.cornerRadius=10.5
         get_image(image)
@@ -54,6 +56,7 @@ class DetailsViewController: UIViewController {
         super.viewWillAppear(animated)
 //        get_image(image)
         nameLabel.text=product.name
+        brandLabel.text="Brand: " + product.brand.name
         if(product.isOnSale())
         {
             priceLabel.text=product.salePriceLabel

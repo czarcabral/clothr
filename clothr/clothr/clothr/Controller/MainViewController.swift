@@ -33,6 +33,7 @@ class ViewController: UIViewController {
     var savedPrices = [Any]()
     var savedURL = [Any]()
     var saleBool = [String]()
+    var savedBrandNames = [Any]()
     var pagingIndex=[String: NSNumber]() //dictionary with search term as a key, paging index as value
     var searchIndex: NSNumber=0
     var bufferIndex: NSInteger=0
@@ -49,7 +50,7 @@ class ViewController: UIViewController {
         SVProgressHUD.show()
         searchField.delegate = self
         // Do any additional setup after loading the view, typically from a nib.
-//        loadUserStorage()
+        loadUserStorage()
 //        let when = DispatchTime.now() + 1
 //        DispatchQueue.main.asyncAfter(deadline: when) {
 //            self.loadData(productName)
@@ -122,6 +123,7 @@ class ViewController: UIViewController {
                 print("error")
             } else if let user=query
             {
+                self.savedBrandNames=user["savedBrandNames"] as! [Any]
                 self.savedImages=user["savedProductImages"] as! [Any]
                 self.savedNames=user["savedProductNames"] as! [Any]
                 self.savedPrices=user["savedProductPrices"] as! [Any]
@@ -173,6 +175,7 @@ class ViewController: UIViewController {
                 userData["savedProductPrices"] = self.savedPrices
                 userData["pagingIndexes"] = self.pagingIndex
                 userData["saleBooleans"] = self.saleBool
+                userData["savedBrandNames"] = self.savedBrandNames
                 userData.saveInBackground()
             }
         }
@@ -189,6 +192,7 @@ class ViewController: UIViewController {
             searchIndex=pagingCheck //sets searching index to index saved in dictionary for searched product
         } else
         {
+            print("paging check false")
             print(productName)
             pagingIndex[productName as String!]=0
             updateUserStorage()
@@ -341,6 +345,7 @@ class ViewController: UIViewController {
                 savedNames.append(thisProduct?.name as Any)
                 savedPrices.append(thisProduct?.regularPriceLabel as Any)
                 savedURL.append(thisProduct?.buyURL.absoluteString as Any)
+                savedBrandNames.append(thisProduct?.brand.name as Any)
                 if(thisProduct?.isOnSale())!
                 {
                     saleBool.append((thisProduct?.salePriceLabel)!)
@@ -364,7 +369,20 @@ class ViewController: UIViewController {
         }
     }
 //-----------------------------------------save data for saved page--------------------------------//
-
+    @IBAction func saveFilters(_ sender: Any) {
+        if pagingIndex[productName as String!] == nil
+        {
+            pagingIndex[productName as String!]=0
+        } else
+        {
+            print(pagingIndex[productName as String] as Any)
+            pagingIndex[productName as String] = Int(truncating: pagingIndex[productName as String]!) + imageIndex as NSNumber  //saves the previous paging offset
+            //pagingIndex[productName as String] = pagingIndex[productName as String]?.intValue + imageIndex  //saves the previous paging offset
+            print(pagingIndex[productName as String] as Any)
+        }
+        updateUserStorage()
+    }
+    
     @IBAction func saveProducts(_ sender: Any) {
         if pagingIndex[productName as String!] == nil
         {
@@ -388,12 +406,14 @@ class ViewController: UIViewController {
         let encodedPrices = NSKeyedArchiver.archivedData(withRootObject: savedPrices)
         let encodedURL = NSKeyedArchiver.archivedData(withRootObject: savedURL)
         let encodedSales = NSKeyedArchiver.archivedData(withRootObject: saleBool)
+        let encodedBrands = NSKeyedArchiver.archivedData(withRootObject: savedBrandNames)
         let defaults = UserDefaults.standard
         defaults.set(encodedImages, forKey: "images")
         defaults.set(encodedNames, forKey: "names")
         defaults.set(encodedPrices, forKey: "prices")
         defaults.set(encodedURL, forKey: "url")
         defaults.set(encodedSales, forKey: "sales")
+        defaults.set(encodedBrands, forKey: "savedBrandNames")
         print("saved")
     }
 
@@ -445,12 +465,13 @@ class ViewController: UIViewController {
         self.navigationController?.setNavigationBarHidden(true, animated: animated)
         super.viewWillAppear(animated)
         loadUserStorage()
-//        let when = DispatchTime.now() + 2
-//        DispatchQueue.main.asyncAfter(deadline: when) {
+        let when = DispatchTime.now() + 1
+        DispatchQueue.main.asyncAfter(deadline: when) {
 //            print("JIIJIJJIJIJJI")
 //            print(productName)
             self.loadData(productName)
-//        }
+            imageIndex=0
+        }
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -530,7 +551,7 @@ extension ViewController : UITextFieldDelegate
             }
             
             let prices : [String] = ["0-25","25-50", "50-100", "100-150", "150-250", "250-500", "500-1000", "1000-2500", "2500-5000", "5000+"]
-            UserDefaults.standard.set(NSKeyedArchiver.archivedData(withRootObject: prices as Any), forKey: "prices")
+            UserDefaults.standard.set(NSKeyedArchiver.archivedData(withRootObject: prices as Any), forKey: "price")
             var priceCheck = [String: NSInteger]()
             var priceIndexes=[String:NSInteger]()
             for index in 0...prices.count-1
@@ -540,45 +561,20 @@ extension ViewController : UITextFieldDelegate
             }
             UserDefaults.standard.set(NSKeyedArchiver.archivedData(withRootObject: priceCheck as Any), forKey: "priceCheck")
             UserDefaults.standard.set(NSKeyedArchiver.archivedData(withRootObject: priceIndexes as Any), forKey: "priceIndexes")
-            //            let retailerCheck = [NSInteger](repeating:0, count:(retailers?.count)!)
-//            let brandCheck = [NSInteger](repeating:0, count:(brands?.count)!)
-            //        sizeCheck = [NSInteger](repeating:0, count:size.count)
-//            let colorCheck = [NSInteger](repeating:0, count:(colors?.count)!)
-            //        let retailerCheck = [NSInteger]()
-//            UserDefaults.standard.set(NSKeyedArchiver.archivedData(withRootObject: retailerIndexes as Any), forKey: "retailerIndexes")
-//            UserDefaults.standard.set(NSKeyedArchiver.archivedData(withRootObject: brandIndexes as Any), forKey: "brandIndexes")
-//            UserDefaults.standard.set(NSKeyedArchiver.archivedData(withRootObject: colorIndexes as Any), forKey: "colorIndexes")
             UserDefaults.standard.set(NSKeyedArchiver.archivedData(withRootObject: retailerCheck as Any), forKey: "retailerCheck")
-            //        let brandCheck = [NSInteger]()
             UserDefaults.standard.set(NSKeyedArchiver.archivedData(withRootObject: brandCheck as Any), forKey: "brandCheck")
-//                    let priceCheck=[NSInteger]()
-            
-            //        let colorCheck=[NSInteger]()
+
             UserDefaults.standard.set(NSKeyedArchiver.archivedData(withRootObject: colorCheck as Any), forKey: "colorCheck")
         }
         
-//        let savedImages=[Any]()
-//            UserDefaults.standard.set(NSKeyedArchiver.archivedData(withRootObject: savedImages as Any), forKey: "images")
-//        let brands = [Any]()
-//            UserDefaults.standard.set(NSKeyedArchiver.archivedData(withRootObject: brands as Any), forKey: "brand")
+
         let pickedBrands = [String]()
         UserDefaults.standard.set(NSKeyedArchiver.archivedData(withRootObject: pickedBrands as Any), forKey: "pickedBrands")
-//        let retailers = [Any]()
-//            UserDefaults.standard.set(NSKeyedArchiver.archivedData(withRootObject: retailers as Any), forKey: "retailer")
         let pickedRetailers=[String]()
         UserDefaults.standard.set(NSKeyedArchiver.archivedData(withRootObject: pickedRetailers as Any), forKey: "pickedRetailers")
         let pickedPrices = [String]()
         UserDefaults.standard.set(NSKeyedArchiver.archivedData(withRootObject: pickedPrices as Any), forKey: "pickedPrices")
-        
-////        let retailerCheck = [NSInteger]()
-//        UserDefaults.standard.set(NSKeyedArchiver.archivedData(withRootObject: retailerCheck as Any), forKey: "retailerCheck")
-////        let brandCheck = [NSInteger]()
-//        UserDefaults.standard.set(NSKeyedArchiver.archivedData(withRootObject: brandCheck as Any), forKey: "brandCheck")
-////        let sizeCheck=[NSInteger]()
-////        UserDefaults.standard.set(NSKeyedArchiver.archivedData(withRootObject: sizeCheck as Any), forKey: "sizeCheck")
-////        let colorCheck=[NSInteger]()
-//        UserDefaults.standard.set(NSKeyedArchiver.archivedData(withRootObject: colorCheck as Any), forKey: "colorCheck")
-        
+
         let colors = [Any]()
         UserDefaults.standard.set(NSKeyedArchiver.archivedData(withRootObject: colors as Any), forKey: "color")
         let pickedColors = [String]()

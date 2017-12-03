@@ -103,6 +103,7 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
 		savedObject["savedProductPrices"] = [Any]()
 		savedObject["savedProductURL"] = [Any]()
 		savedObject["saleBooleans"] = [String]()
+        savedObject["savedBrandNames"] = [Any]()
 		savedObject.saveInBackground() { (success,error) in
 			print("object saved")
 		}
