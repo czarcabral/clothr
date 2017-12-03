@@ -373,9 +373,21 @@ class FilterTableViewCell: UITableViewCell, UICollectionViewDataSource, UICollec
                     //set filter boolean to true so the cell's appearance will change
                         retailerCheck![filterCell.currentFilterLabel.text!]=1
                     //add the filter to the api
-                        let pickedRetailer: PSSRetailer? = (retailers![indexPath.row-1] as! PSSRetailer)
-                        let pickedFilter = PSSProductFilter(type: "Retailer", filterID: pickedRetailer?.retailerID)
-                        pickedRetailerFilters!.append(pickedFilter as Any)
+                        if let count = retailers?.count
+                        {
+                            for index in 0...count-1
+                            {
+                                let filter: PSSRetailer? = retailers![index] as? PSSRetailer
+                                if filter?.name==filterCell.currentFilterLabel.text
+                                {
+                                    let pickedRetailer: PSSRetailer? = (retailers![index] as! PSSRetailer)
+                                    let pickedFilter = PSSProductFilter(type: "Retailer", filterID: pickedRetailer?.retailerID)
+                                    pickedRetailerFilters!.append(pickedFilter as Any)
+
+                                    break
+                                }
+                            }
+                        }
                     //save the filter array
                         saveRetailers()
                     //reload collection views with new cell
@@ -415,11 +427,23 @@ class FilterTableViewCell: UITableViewCell, UICollectionViewDataSource, UICollec
                         pickedBrands!.append(filterCell.currentFilterLabel.text!)
                         savedFilters!.insertItems(at: [NSIndexPath(row: pickedBrands!.count-1,section:0) as IndexPath])
                         brandCheck![filterCell.currentFilterLabel.text!]=1
-                        let pickedBrand: PSSBrand? = (brands![indexPath.row-1] as! PSSBrand)
-                        let pickedFilter = PSSProductFilter(type: "Brand", filterID: pickedBrand?.brandID)
-                        print("filterid: ")
-                        print(pickedFilter?.filterID as Any)
-                        pickedBrandFilters!.append(pickedFilter as Any)
+                        if let count = brands?.count
+                        {
+                            for index in 0...count-1
+                            {
+                                let filter: PSSBrand? = brands![index] as? PSSBrand
+                                if filter?.name==filterCell.currentFilterLabel.text
+                                {
+                                    let pickedBrand: PSSBrand? = (brands![index] as! PSSBrand)
+                                    let pickedFilter = PSSProductFilter(type: "Brand", filterID: pickedBrand?.brandID)
+                                    print("filterid: ")
+                                    print(pickedFilter?.filterID as Any)
+                                    pickedBrandFilters!.append(pickedFilter as Any)
+
+                                    break
+                                }
+                            }
+                        }
                         saveBrands()
                         savedFilters?.reloadData()
                         filterCollection?.reloadData()
@@ -442,9 +466,20 @@ class FilterTableViewCell: UITableViewCell, UICollectionViewDataSource, UICollec
                     pickedPrices!.append(filterCell.currentFilterLabel.text!)
                     savedFilters!.insertItems(at: [NSIndexPath(row: pickedPrices!.count-1,section:0) as IndexPath])
                     priceCheck![filterCell.currentFilterLabel.text!]=1
-                        let pickedFilter = PSSProductFilter(type: "Price", filterID: (7+indexPath.row) as NSNumber)
-                        pickedPriceFilters!.append(pickedFilter as Any)
-                        print("filterid: ")
+                        if let count = prices?.count
+                        {
+                            for index in 0...count-1
+                            {
+                                if prices![index]==filterCell.currentFilterLabel.text
+                                {
+                                    let pickedFilter = PSSProductFilter(type: "Price", filterID: (7+index) as NSNumber)
+                                    pickedPriceFilters!.append(pickedFilter as Any)
+                                    print("filterid: ")
+
+                                    break
+                                }
+                            }
+                        }
                     savePrices()
                     savedFilters?.reloadData()
                     filterCollection?.reloadData()
@@ -465,9 +500,20 @@ class FilterTableViewCell: UITableViewCell, UICollectionViewDataSource, UICollec
                         pickedColors!.append(filterCell.currentFilterLabel.text!)
                         savedFilters!.insertItems(at: [NSIndexPath(row: pickedColors!.count-1,section:0) as IndexPath])
                         colorCheck![filterCell.currentFilterLabel.text!]=1
-                        let pickedColor: PSSColor? = (colors![indexPath.row] as! PSSColor)
-                        let pickedFilter = PSSProductFilter(type: "Color", filterID: pickedColor?.colorID)
-                        pickedColorFilters!.append(pickedFilter as Any)
+                        if let count = colors?.count
+                        {
+                            for index in 0...count-1
+                            {
+                                let filter: PSSColor? = brands![index] as? PSSColor
+                                if filter?.name==filterCell.currentFilterLabel.text
+                                {
+                                    let pickedColor: PSSColor? = (colors![index] as! PSSColor)
+                                    let pickedFilter = PSSProductFilter(type: "Color", filterID: pickedColor?.colorID)
+                                    pickedColorFilters!.append(pickedFilter as Any)
+                                    break
+                                }
+                            }
+                        }
                         saveColors()
                         savedFilters?.reloadData()
                         filterCollection?.reloadData()
