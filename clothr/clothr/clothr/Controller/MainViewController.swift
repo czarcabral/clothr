@@ -184,6 +184,7 @@ class ViewController: UIViewController {
     
     func loadData(_ search:NSString)
     {
+        image.isUserInteractionEnabled=true
         productName=search
         if let pagingCheck=pagingIndex[productName as String!]
         {
@@ -200,6 +201,7 @@ class ViewController: UIViewController {
         print(pagingIndex[productName as String!] as Any)
         print("Search index: ")
         print(searchIndex)
+        imageIndex=0
         let buffer = helperfunctions()
         
         buffer.fillProductBuffer(search as String!, searchIndex)
@@ -209,9 +211,24 @@ class ViewController: UIViewController {
             if let data = UserDefaults.standard.object(forKey: "name") as? NSData {
                 products = NSKeyedUnarchiver.unarchiveObject(with: data as Data) as! [Any]
             }
-            let thisProduct: PSSProduct? = products[imageIndex] as? PSSProduct
-            print("loadData: " + (thisProduct?.name)! as Any)
-            self.get_image(self.image)
+            if let returnedItem=products[0] as? String
+            {
+                if returnedItem=="overSet"
+                {
+                    self.pagingIndex[productName as String!]=0
+                    self.loadData(productName)
+                } else if returnedItem=="noItems"
+                {
+                    self.image.image = UIImage(named: "sorry")
+                    self.image.isUserInteractionEnabled=false
+                    SVProgressHUD.dismiss()
+                }
+            } else
+            {
+                let thisProduct: PSSProduct? = products[imageIndex] as? PSSProduct
+                print("loadData: " + (thisProduct?.name)! as Any)
+                self.get_image(self.image)
+            }
         }
         //        print("loadData: " + (thisProduct?.name)! as Any)
         //        get_image(image)
@@ -245,15 +262,15 @@ class ViewController: UIViewController {
 //            print("loadData: " + (thisProduct?.name)! as Any)
 //            print(productBuffer.count)
             products+=productBuffer
-            print(products.count)
-            print(products[11])
+//            print(products.count)
+//            print(products[11])
         }
     }
     
 //---------------------------------get image for swiping function--------------------------------//
     func get_image(_ imageView:UIImageView)
     {
-        if(imageIndex==products.count-5)
+        if(imageIndex==products.count-9)
         {
             //imageIndex=0
             loadExtraBuffer(productName)
@@ -470,7 +487,10 @@ class ViewController: UIViewController {
 //            print("JIIJIJJIJIJJI")
 //            print(productName)
             self.loadData(productName)
-            imageIndex=0
+//            if imageIndex>3
+//            {
+//            imageIndex=0
+//            }
         }
     }
 
@@ -582,8 +602,16 @@ extension ViewController : UITextFieldDelegate
         
         let pickedIndexes=[String: NSInteger]()
         UserDefaults.standard.set(NSKeyedArchiver.archivedData(withRootObject: pickedIndexes as Any), forKey: "pickedIndexes")
-        let pickedUserFilters=[Any]()
-            UserDefaults.standard.set(NSKeyedArchiver.archivedData(withRootObject: pickedUserFilters as Any), forKey: "pickedUserFilters")
+        let pickedRetailerFilters=[Any]()
+            UserDefaults.standard.set(NSKeyedArchiver.archivedData(withRootObject: pickedRetailerFilters as Any), forKey: "pickedRetailerFilters")
+        let pickedBrandFilters=[Any]()
+        UserDefaults.standard.set(NSKeyedArchiver.archivedData(withRootObject: pickedBrandFilters as Any), forKey: "pickedBrandFilters")
+        let pickedSizeFilters=[Any]()
+        UserDefaults.standard.set(NSKeyedArchiver.archivedData(withRootObject: pickedSizeFilters as Any), forKey: "pickedSizeFilters")
+        let pickedColorFilters=[Any]()
+        UserDefaults.standard.set(NSKeyedArchiver.archivedData(withRootObject: pickedColorFilters as Any), forKey: "pickedColorFilters")
+        
+        
     
     }
 }

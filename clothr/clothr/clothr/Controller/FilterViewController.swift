@@ -48,6 +48,7 @@ class FilterViewController: UIViewController, UITableViewDelegate, UITableViewDa
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//         var pickedUserFilters=NSKeyedUnarchiver.unarchiveObject(with:UserDefaults.standard.object(forKey: "pickedUserFilters") as! Data) as? [Any]
         if(selectedIndex == indexPath.row) {
             selectedIndex = -1
         } else {
