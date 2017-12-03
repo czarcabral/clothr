@@ -398,8 +398,18 @@ class FilterTableViewCell: UITableViewCell, UICollectionViewDataSource, UICollec
                     {
                         retailerCheck![filterCell.currentFilterLabel.text!]=0
                         pickedRetailers!.remove(at: pickedRetailers!.index(of: filterCell.currentFilterLabel.text!)!)
-                        let pickedRetailer: PSSRetailer? = (retailers![indexPath.row-1] as! PSSRetailer)
-                        removeRetailerFilter(pickedRetailer!)
+                        if let count = retailers?.count //removes the filter from the current filter selection in the API
+                        {
+                            for index in 0...count-1
+                            {
+                                let filter: PSSRetailer? = retailers![index] as? PSSRetailer
+                                if filter?.name==filterCell.currentFilterLabel.text
+                                {
+                                    removeRetailerFilter(filter!)
+                                    break
+                                }
+                            }
+                        }
                         saveRetailers()
                         filterCollection?.reloadData()
                         savedFilters?.reloadData()
@@ -436,8 +446,8 @@ class FilterTableViewCell: UITableViewCell, UICollectionViewDataSource, UICollec
                                 {
                                     let pickedBrand: PSSBrand? = (brands![index] as! PSSBrand)
                                     let pickedFilter = PSSProductFilter(type: "Brand", filterID: pickedBrand?.brandID)
-                                    print("filterid: ")
-                                    print(pickedFilter?.filterID as Any)
+//                                    print("filterid: ")
+//                                    print(pickedFilter?.filterID as Any)
                                     pickedBrandFilters!.append(pickedFilter as Any)
 
                                     break
@@ -452,8 +462,18 @@ class FilterTableViewCell: UITableViewCell, UICollectionViewDataSource, UICollec
                     {
                         brandCheck![filterCell.currentFilterLabel.text!]=0
                         pickedBrands!.remove(at: pickedBrands!.index(of: filterCell.currentFilterLabel.text!)!)
-                        let pickedBrand: PSSBrand? = (brands![indexPath.row-1] as! PSSBrand)
-                        removeBrandFilter(pickedBrand!)
+                        if let count = brands?.count//remove filter from API filters
+                        {
+                            for index in 0...count-1
+                            {
+                                let filter: PSSBrand? = brands![index] as? PSSBrand
+                                if filter?.name==filterCell.currentFilterLabel.text
+                                {
+                                    removeBrandFilter(filter!)
+                                    break
+                                }
+                            }
+                        }
                         saveBrands()
                         filterCollection?.reloadData()
                         savedFilters?.reloadData()
@@ -486,8 +506,17 @@ class FilterTableViewCell: UITableViewCell, UICollectionViewDataSource, UICollec
                     } else
                     {
                         priceCheck![filterCell.currentFilterLabel.text!]=0
-                        pickedPrices!.remove(at: pickedPrices!.index(of: filterCell.currentFilterLabel.text!)!)
-                        removePriceFilter((7+indexPath.row) as NSNumber)
+                        if let count = prices?.count
+                        {
+                            for index in 0...count-1
+                            {
+                                if prices![index]==filterCell.currentFilterLabel.text
+                                {
+                                    removePriceFilter((7+index) as NSNumber)
+                                    break
+                                }
+                            }
+                        }
                         savePrices()
                         filterCollection?.reloadData()
                         savedFilters?.reloadData()
@@ -521,8 +550,18 @@ class FilterTableViewCell: UITableViewCell, UICollectionViewDataSource, UICollec
                     {
                         colorCheck![filterCell.currentFilterLabel.text!]=0
                         pickedColors!.remove(at: pickedColors!.index(of: filterCell.currentFilterLabel.text!)!)
-                        let pickedColor: PSSColor? = (colors![indexPath.row] as! PSSColor)
-                        removeColorFilter(pickedColor!)
+                        if let count = colors?.count
+                        {
+                            for index in 0...count-1
+                            {
+                                let filter: PSSColor? = retailers![index] as? PSSColor
+                                if filter?.name==filterCell.savedFilterLabel.text
+                                {
+                                    removeColorFilter(filter!)
+                                    break
+                                }
+                            }
+                        }
                         saveColors()
                         filterCollection?.reloadData()
                         savedFilters?.reloadData()
