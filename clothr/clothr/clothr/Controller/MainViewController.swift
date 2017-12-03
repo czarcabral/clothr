@@ -123,7 +123,7 @@ class ViewController: UIViewController {
                 print("error")
             } else if let user=query
             {
-//                self.savedBrandNames=user["savedBrandNames"] as! [Any]
+                self.savedBrandNames=user["savedBrandNames"] as! [Any]
                 self.savedImages=user["savedProductImages"] as! [Any]
                 self.savedNames=user["savedProductNames"] as! [Any]
                 self.savedPrices=user["savedProductPrices"] as! [Any]
