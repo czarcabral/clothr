@@ -16,7 +16,7 @@ import UIKit
 import Parse
 import SVProgressHUD
 
-var imageIndex: NSInteger=0
+var imageIndex: Int=0
 var checker: NSInteger=0
 var check: NSInteger=0
 var productName: NSString = "men's shirt"
@@ -51,11 +51,7 @@ class ViewController: UIViewController {
         searchField.delegate = self
         // Do any additional setup after loading the view, typically from a nib.
         loadUserStorage()
-//        let when = DispatchTime.now() + 1
-//        DispatchQueue.main.asyncAfter(deadline: when) {
-//            self.loadData(productName)
-//        }
-        
+        archiveFilterData()
         //updateUserStorage()
         // set the x and y variable to be equal to the center of the image
         xCenter = image.center.x
@@ -64,11 +60,10 @@ class ViewController: UIViewController {
         buffer.fillBrandBuffer()
         buffer.fillRetailerBuffer()
         buffer.fillColorBuffer()
-//        buffer.fillCategoriesBuffer()
         
 //        buffer.fillSizeBuffer()
         // hide the back button
-        archiveFilterData()
+        
         self.navigationItem.setHidesBackButton(true, animated: false)
         let doubleTap = UITapGestureRecognizer(target: self, action: #selector(showDetails(gestureRecognizer:)))
         doubleTap.numberOfTapsRequired=2
@@ -157,6 +152,7 @@ class ViewController: UIViewController {
                 print("Error loading ")
             }
         }
+        print("UPDATED")
     }
     
 //-----------------------------updtaing paging info and saved arrays helper------------------//
@@ -177,6 +173,8 @@ class ViewController: UIViewController {
                 userData["saleBooleans"] = self.saleBool
                 userData["savedBrandNames"] = self.savedBrandNames
                 userData.saveInBackground()
+//                update
+//                userData.saveEventually()
             }
         }
     }
@@ -188,19 +186,12 @@ class ViewController: UIViewController {
         productName=search
         if let pagingCheck=pagingIndex[productName as String!]
         {
-            print("paging check: ")
-            print(pagingCheck)
             searchIndex=pagingCheck //sets searching index to index saved in dictionary for searched product
         } else
         {
-            print("paging check false")
-            print(productName)
             pagingIndex[productName as String!]=0
             updateUserStorage()
         }
-        print(pagingIndex[productName as String!] as Any)
-        print("Search index: ")
-        print(searchIndex)
         imageIndex=0
         let buffer = helperfunctions()
         
@@ -213,25 +204,21 @@ class ViewController: UIViewController {
             }
             if let returnedItem=products[0] as? String
             {
-                if returnedItem=="overSet"
-                {
+                if returnedItem=="overSet"                          //if the pageoffset is greater than paging index of api,
+                {                                                   //then restart at index 0
                     self.pagingIndex[productName as String!]=0
                     self.loadData(productName)
                 } else if returnedItem=="noItems"
                 {
-                    self.image.image = UIImage(named: "sorry")
-                    self.image.isUserInteractionEnabled=false
+                    self.image.image = UIImage(named: "sorry")      //if there are no such items in a search, return a sorry
+                    self.image.isUserInteractionEnabled=false       //picture disabled until is view is loaded again
                     SVProgressHUD.dismiss()
                 }
             } else
             {
-                let thisProduct: PSSProduct? = products[imageIndex] as? PSSProduct
-                print("loadData: " + (thisProduct?.name)! as Any)
                 self.get_image(self.image)
             }
         }
-        //        print("loadData: " + (thisProduct?.name)! as Any)
-        //        get_image(image)
     }
 
     override func didReceiveMemoryWarning() {
@@ -241,6 +228,7 @@ class ViewController: UIViewController {
     
 //---------------------------------load extra products in product array--------------------------------//
 
+    //function is called when original array needs more objects to be added. gives an "infinite" effext
     func loadExtraBuffer(_ search: NSString)
     {
         productName=search
@@ -258,12 +246,7 @@ class ViewController: UIViewController {
             if let data = UserDefaults.standard.object(forKey: "name") as? NSData {
                 productBuffer = NSKeyedUnarchiver.unarchiveObject(with: data as Data) as! [Any]
             }
-//            let thisProduct: PSSProduct? = products[products.count-1] as? PSSProduct
-//            print("loadData: " + (thisProduct?.name)! as Any)
-//            print(productBuffer.count)
             products+=productBuffer
-//            print(products.count)
-//            print(products[11])
         }
     }
     
@@ -276,13 +259,6 @@ class ViewController: UIViewController {
             loadExtraBuffer(productName)
         }
         let thisProduct: PSSProduct? = products[imageIndex] as? PSSProduct
-//        let testArray = thisProduct?.sizes
-//        for i in 0...((testArray?.count)!-1)
-//        {
-//            let test: PSSProductSize? = testArray![i] as? PSSProductSize
-////            test?.canonicalSize.sizeID
-//            print(test?.canonicalSize.sizeID)
-//        }
         let url = thisProduct?.image.url
         let session = URLSession.shared
         
@@ -343,20 +319,11 @@ class ViewController: UIViewController {
 
         if gestureRecognizer.state == .ended {
             if image.center.x < (view.bounds.width / 2 - 100) {
-                print("NOT Interested")
-//                let thisProduct: PSSProduct? = products[imageIndex-1] as? PSSProduct
-//                print(thisProduct?.colors[0] as Any)
-//                let color = thisProduct?.colors
-//                //print(color![0])
-//                let thiscolorarray: PSSProductColor? = color![0] as? PSSProductColor
-//                let pcolor: PSSColor? = thiscolorarray?.canonicalColors[0] as? PSSColor
-//                print(pcolor?.colorID as Any)
-//                print(thiscolor?.colorID as Any)
                 get_image(image)
             }
-
+        
+        //saves product details to database to be used by saved page
             if image.center.x > (view.bounds.width / 2 + 100) {
-                print("Interested in clothing item")
                 let thisProduct: PSSProduct? = products[imageIndex-1] as? PSSProduct
                 savedImages.append(thisProduct?.image.url.absoluteString as Any)
                 savedNames.append(thisProduct?.name as Any)
@@ -383,34 +350,26 @@ class ViewController: UIViewController {
             
             image.center = CGPoint(x: xCenter , y: yCenter)
             
+            //updates the database after every swipe, just in case user terminates the app or app crashes
+            if self.pagingIndex[productName as String!] == nil
+            {
+                self.pagingIndex[productName as String!]=0
+            } else
+            {
+                if let currentIndex = self.pagingIndex[productName as String]?.intValue
+                {
+                    self.pagingIndex[productName as String] = (currentIndex + 1) as NSNumber
+                }
+            }
+            updateUserStorage()
         }
     }
 //-----------------------------------------save data for saved page--------------------------------//
     @IBAction func saveFilters(_ sender: Any) {
-        if pagingIndex[productName as String!] == nil
-        {
-            pagingIndex[productName as String!]=0
-        } else
-        {
-            print(pagingIndex[productName as String] as Any)
-            pagingIndex[productName as String] = Int(truncating: pagingIndex[productName as String]!) + imageIndex as NSNumber  //saves the previous paging offset
-            //pagingIndex[productName as String] = pagingIndex[productName as String]?.intValue + imageIndex  //saves the previous paging offset
-            print(pagingIndex[productName as String] as Any)
-        }
         updateUserStorage()
     }
     
     @IBAction func saveProducts(_ sender: Any) {
-        if pagingIndex[productName as String!] == nil
-        {
-            pagingIndex[productName as String!]=0
-        } else
-        {
-            print(pagingIndex[productName as String] as Any)
-            pagingIndex[productName as String] = Int(truncating: pagingIndex[productName as String]!) + imageIndex as NSNumber  //saves the previous paging offset
-            //pagingIndex[productName as String] = pagingIndex[productName as String]?.intValue + imageIndex  //saves the previous paging offset
-            print(pagingIndex[productName as String] as Any)
-        }
         updateUserStorage()
         encodeData()
     }
@@ -431,43 +390,14 @@ class ViewController: UIViewController {
         defaults.set(encodedURL, forKey: "url")
         defaults.set(encodedSales, forKey: "sales")
         defaults.set(encodedBrands, forKey: "savedBrandNames")
-        print("saved")
     }
 
 //------------------------------------------search for what user wants---------------------------------//
    
     @IBAction func searchPressed(_ sender: Any) {
         products.removeAll()
-        if pagingIndex[productName as String!] == nil
-        {
-            pagingIndex[productName as String!]=0
-        } else
-        {
-            print(pagingIndex[productName as String] as Any)
-            pagingIndex[productName as String] = Int(truncating: pagingIndex[productName as String]!) + imageIndex as NSNumber  //saves the previous paging offset
-            //pagingIndex[productName as String] = pagingIndex[productName as String]?.intValue + imageIndex  //saves the previous paging offset
-            print(pagingIndex[productName as String] as Any)
-        }
-        
-        
-        //        print(pagingIndex[searchField.text as! String] as Any)
-        //            imageIndex=0
-        //            products.removeAll()
-        //        DispatchQueue.main.async(execute: {
         loadData(searchField.text! as NSString)
-        //        })
         imageIndex=0
-        
-        let when = DispatchTime.now() + 2 // change 2 to desired number of seconds
-        DispatchQueue.main.asyncAfter(deadline: when) {
-            //loadData(searchField.text! as NSString)
-            let thisProduct: PSSProduct? = products[imageIndex] as? PSSProduct
-            print("searchPressed: " + (thisProduct?.name)! as Any)
-            //productName=searchField.text! as NSString
-            //self.get_image(self.image)
-        }
-    
-       
     }
     
 //------------------------------------------search field functions---------------------------------------//
@@ -481,16 +411,10 @@ class ViewController: UIViewController {
         SVProgressHUD.show()
         self.navigationController?.setNavigationBarHidden(true, animated: animated)
         super.viewWillAppear(animated)
-        loadUserStorage()
+        loadUserStorage()   //reload the user storage when returning to the page
         let when = DispatchTime.now() + 1
         DispatchQueue.main.asyncAfter(deadline: when) {
-//            print("JIIJIJJIJIJJI")
-//            print(productName)
-            self.loadData(productName)
-//            if imageIndex>3
-//            {
-//            imageIndex=0
-//            }
+            self.loadData(productName)  //reload the page with new filters added or when returning from saved page
         }
     }
 
@@ -500,6 +424,8 @@ class ViewController: UIViewController {
     }
     
 }
+
+
 
 //------------------------------------------extension for search field---------------------------------------//
 extension ViewController : UITextFieldDelegate
@@ -524,48 +450,36 @@ extension ViewController : UITextFieldDelegate
             let colors = NSKeyedUnarchiver.unarchiveObject(with: UserDefaults.standard.object(forKey: "color") as! Data) as? [Any]
             
             UserDefaults.standard.set(NSKeyedArchiver.archivedData(withRootObject: retailers as Any), forKey: "retailer")
-            //        let brandCheck = [NSInteger]()
             UserDefaults.standard.set(NSKeyedArchiver.archivedData(withRootObject: brands as Any), forKey: "brand")
+            UserDefaults.standard.set(NSKeyedArchiver.archivedData(withRootObject: colors as Any), forKey: "color")
             var retailerCheck = [String: NSInteger]()
-            var retailerIndexes = [String: NSInteger]()
             var brandCheck=[String:NSInteger]()
-            var brandIndexes=[String:NSInteger]()
-            var colorIndexes=[String:NSInteger]()
             var colorCheck=[String: NSInteger]()
             
             
-            if let list=retailers?.count
+            if let list=retailers?.count    //setting up retailer dictionary for UI in filters page
             {
-//                print("retailer count: ")
-//                print(retailerIndex.count)
                 for index in 0...list-1
                 {
                     let retailer: PSSRetailer? = retailers![index] as? PSSRetailer
-                    retailerIndexes[(retailer?.name)!] = index
                     retailerCheck[(retailer?.name)!] = 0
                 }
-//                print(retailerIndex.count)
             }
             
-            if let list=brands?.count
+            if let list=brands?.count   //setting up brand dictionary for UI in filters page
             {
-//                print("brand count: ")
-//                print(brandIndex.count)
                 for index in 0...list-1
                 {
                     let brand: PSSBrand? = brands![index] as? PSSBrand
-                    brandIndexes[(brand?.name)!] = index
                     brandCheck[(brand?.name)!] = 0
                 }
-//                print(brandIndex.count)
             }
             
-            if let list=colors?.count
+            if let list=colors?.count   //setting up color dictionary for UI in filters page
             {
                 for index in 0...list-1
                 {
                     let color: PSSColor? = colors![index] as? PSSColor
-                    colorIndexes[(color?.name)!] = index
                     colorCheck[(color?.name)!] = 0
                 }
             }
@@ -574,13 +488,15 @@ extension ViewController : UITextFieldDelegate
             UserDefaults.standard.set(NSKeyedArchiver.archivedData(withRootObject: prices as Any), forKey: "price")
             var priceCheck = [String: NSInteger]()
             var priceIndexes=[String:NSInteger]()
-            for index in 0...prices.count-1
+            
+            for index in 0...prices.count-1 //setting up dictionary for UI in filters page
             {
                 priceIndexes[prices[index]]=index
                 priceCheck[prices[index]]=0
             }
+            
+            //saving dictionaries
             UserDefaults.standard.set(NSKeyedArchiver.archivedData(withRootObject: priceCheck as Any), forKey: "priceCheck")
-            UserDefaults.standard.set(NSKeyedArchiver.archivedData(withRootObject: priceIndexes as Any), forKey: "priceIndexes")
             UserDefaults.standard.set(NSKeyedArchiver.archivedData(withRootObject: retailerCheck as Any), forKey: "retailerCheck")
             UserDefaults.standard.set(NSKeyedArchiver.archivedData(withRootObject: brandCheck as Any), forKey: "brandCheck")
 
@@ -600,14 +516,13 @@ extension ViewController : UITextFieldDelegate
         let pickedColors = [String]()
         UserDefaults.standard.set(NSKeyedArchiver.archivedData(withRootObject: pickedColors as Any), forKey: "pickedColors")
         
-        let pickedIndexes=[String: NSInteger]()
-        UserDefaults.standard.set(NSKeyedArchiver.archivedData(withRootObject: pickedIndexes as Any), forKey: "pickedIndexes")
+        //initialize saved filters from each filter set
         let pickedRetailerFilters=[Any]()
             UserDefaults.standard.set(NSKeyedArchiver.archivedData(withRootObject: pickedRetailerFilters as Any), forKey: "pickedRetailerFilters")
         let pickedBrandFilters=[Any]()
         UserDefaults.standard.set(NSKeyedArchiver.archivedData(withRootObject: pickedBrandFilters as Any), forKey: "pickedBrandFilters")
         let pickedSizeFilters=[Any]()
-        UserDefaults.standard.set(NSKeyedArchiver.archivedData(withRootObject: pickedSizeFilters as Any), forKey: "pickedSizeFilters")
+        UserDefaults.standard.set(NSKeyedArchiver.archivedData(withRootObject: pickedSizeFilters as Any), forKey: "pickedPriceFilters")
         let pickedColorFilters=[Any]()
         UserDefaults.standard.set(NSKeyedArchiver.archivedData(withRootObject: pickedColorFilters as Any), forKey: "pickedColorFilters")
         

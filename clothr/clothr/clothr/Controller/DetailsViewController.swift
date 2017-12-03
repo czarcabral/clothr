@@ -54,20 +54,11 @@ class DetailsViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.setNavigationBarHidden(true, animated: animated)
         super.viewWillAppear(animated)
-//        get_image(image)
         nameLabel.text=product.name
-//        if(product.brand.name == nil)
-//        {
-//            brandLabel.text="Brand: Not Available"
-//        } else
-//        {
-//            brandLabel.text="Brand: " + product.brand.name
-//        }
         if let hi:String = product.brand.name
         {
             brandLabel.text="Brand: " + hi
         }
-//        brandLabel.text="Brand: " + product.brand.name
         if(product.isOnSale())
         {
             priceLabel.text=product.salePriceLabel

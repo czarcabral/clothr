@@ -48,19 +48,12 @@ class FilterViewController: UIViewController, UITableViewDelegate, UITableViewDa
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//         var pickedUserFilters=NSKeyedUnarchiver.unarchiveObject(with:UserDefaults.standard.object(forKey: "pickedUserFilters") as! Data) as? [Any]
         if(selectedIndex == indexPath.row) {
             selectedIndex = -1
         } else {
             selectedIndex = indexPath.row
         }
-//        let selected = tableView.dequeueReusableCell(withIdentifier: "filterCell", for: indexPath) as! FilterTableViewCell
-//        if selected.label.text == filterArray[indexPath.row]
-//        {
-//            selectedIndex=indexPath.row
-//        }
         self.filterTable.beginUpdates()
-//        self.filterTable.reloadRows(at: [indexPath], with: UITableViewRowAnimation.automatic )
         self.filterTable.endUpdates()
     }
     

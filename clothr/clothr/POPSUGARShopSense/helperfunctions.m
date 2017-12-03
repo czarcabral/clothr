@@ -70,6 +70,7 @@ typedef void(^myCompletion)(BOOL);
 -(void) searchQuery:(NSString *)searchTerm :(NSNumber*)pagingIndex :(myCompletion) compblock{
     PSSProductQuery *productQuery = [[PSSProductQuery alloc] init];
     productQuery.searchTerm = searchTerm;
+    
     NSData *filterData = [[NSUserDefaults standardUserDefaults] objectForKey:@"pickedRetailerFilters"];
     NSArray *filters = [NSKeyedUnarchiver unarchiveObjectWithData:filterData];
     [productQuery addProductFilters:filters];
@@ -77,7 +78,6 @@ typedef void(^myCompletion)(BOOL);
     filterData = [[NSUserDefaults standardUserDefaults] objectForKey:@"pickedBrandFilters"];
     filters = [NSKeyedUnarchiver unarchiveObjectWithData:filterData];
     printf("%lu", (unsigned long)filters.count);
-//    filters.append
     [productQuery addProductFilters:filters];
     filterData = [[NSUserDefaults standardUserDefaults] objectForKey:@"pickedSizeFilters"];
     filters = [NSKeyedUnarchiver unarchiveObjectWithData:filterData];
@@ -87,12 +87,7 @@ typedef void(^myCompletion)(BOOL);
     filters = [NSKeyedUnarchiver unarchiveObjectWithData:filterData];
     printf("%lu", (unsigned long)filters.count);
     [productQuery addProductFilters:filters];
-//    if(filters.count>0){
-//    PSSProductFilter *thisfilter = productQuery.productFilters[(NSUInteger)0];
-//    printf("filterid2: %d", [thisfilter.filterID integerValue]);
-//    }
-//    printf("filtercount: %d", filters.count);
-//    [productQuery addProductFilters:filters];
+    
     printf("here: %s\n", [productQuery.searchTerm UTF8String]);
     __weak typeof(self) weakSelf = self;
     [[PSSClient sharedClient] searchProductsWithQuery:productQuery offset:pagingIndex limit:[NSNumber numberWithInt:10] success:^(NSUInteger totalCount, NSArray *availableHistogramTypes, NSArray *products) {
@@ -100,24 +95,14 @@ typedef void(^myCompletion)(BOOL);
         weakSelf.products = products;
         PSSProduct *thisProduct = self.products[(NSUInteger)0];
         printf("Archive name: %s\n", [thisProduct.name UTF8String]);
-        printf("Archive count: %lu\n", (unsigned long)totalCount);
-        //        printf("website url: %s\n", [thisProduct. UTF8String]); NSNumber *myNum = @(myNsIntValue);
-        NSNumber *total= @(totalCount);
-        printf("total: %d", total);
-        if(pagingIndex>total)       //if the current item index > the total amount of items returned from api
+        printf("Archive count: %lu\n", (unsigned long)totalCount);\
+        if (totalCount<5)        //if there are no items returned from the api
         {
-            NSArray *overset = @[@"overSet"];
-            NSUserDefaults *data = [NSUserDefaults standardUserDefaults];
-            [data setObject:[NSKeyedArchiver archivedDataWithRootObject:overset] forKey:@"name"];
-            [data synchronize];
-        } else if (totalCount==0)        //if there are no items returned from the api
-        {
-            printf("TOTAL=========0");
             NSArray *noItems = @[@"noItems"];
             NSUserDefaults *data = [NSUserDefaults standardUserDefaults];
             [data setObject:[NSKeyedArchiver archivedDataWithRootObject:noItems] forKey:@"name"];
             [data synchronize];
-        } else
+        }  else
         {
         NSUserDefaults *data = [NSUserDefaults standardUserDefaults];
         [data setObject:[NSKeyedArchiver archivedDataWithRootObject:products] forKey:@"name"];
@@ -127,7 +112,6 @@ typedef void(^myCompletion)(BOOL);
         PSSProduct *thisProduct2 = buffer[(NSUInteger)0];
         printf("Unarchived name2: %s\n", [thisProduct2.name UTF8String]);
         }
-        //        check=true;
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Request failed with error: %@", error);
@@ -140,7 +124,6 @@ typedef void(^myCompletion)(BOOL);
 {
     __weak typeof(self) weakSelf = self;
     [[PSSClient sharedClient] getBrandsSuccess:^(NSArray *brands) {
-//        weakSelf.brands = brands;
         for(int i=0;i<200;i++)
         {
             [weakSelf.brands addObject:brands[i]];
@@ -157,7 +140,6 @@ typedef void(^myCompletion)(BOOL);
 {
     __weak typeof(self) weakSelf = self;
     [[PSSClient sharedClient] getSizesSuccess:^(NSArray *sizes) {
-        //        weakSelf.brands = brands;
         printf("%lu", (unsigned long)sizes.count);
         for(int i=0;i<5;i++)
         {
@@ -175,7 +157,6 @@ typedef void(^myCompletion)(BOOL);
 {
     __weak typeof(self) weakSelf = self;
     [[PSSClient sharedClient] getColorsSuccess:^(NSArray *colors) {
-        //        weakSelf.brands = brands;
         for(int i=0;i<14;i++)
         {
             [weakSelf.colors addObject:colors[i]];
@@ -193,7 +174,6 @@ typedef void(^myCompletion)(BOOL);
 {
     __weak typeof(self) weakSelf = self;
     [[PSSClient sharedClient] getRetailersSuccess:^(NSArray *retailers) {
-//        weakSelf.retailers = retailers;
         for(int i=0;i<200;i++)
         {
             [weakSelf.retailers addObject:retailers[i]];
@@ -211,7 +191,6 @@ typedef void(^myCompletion)(BOOL);
     __weak typeof(self) weakSelf = self;
     [[PSSClient sharedClient] categoryTreeFromCategoryID:nil depth:nil success:^(PSSCategoryTree *categoryTree) {
         weakSelf.categories = categoryTree.rootCategory.childCategories;
-//        [weakSelf.tableView reloadData];
         NSUserDefaults *data = [NSUserDefaults standardUserDefaults];
         [data setObject:[NSKeyedArchiver archivedDataWithRootObject:categoryTree.rootCategory.childCategories] forKey:@"categories"];
         [data synchronize];
@@ -223,7 +202,6 @@ typedef void(^myCompletion)(BOOL);
 - (void)encodeWithCoder:(nonnull NSCoder *)encoder {
     [encoder encodeObject:self.product forKey:@"name"];
     [encoder encodeObject:self.salePriceLabel forKey:@"salePriceLabel"];
-    //[encoder encodeObject:self.product forKey:@"product"];
 }
 
 - (id)initWithCoder:(nonnull NSCoder *)decoder {
@@ -231,7 +209,6 @@ typedef void(^myCompletion)(BOOL);
     {
         self.product = [decoder decodeObjectForKey:@"name"];
         self.salePriceLabel=[decoder decodeObjectForKey:@"salePriceLabel"];
-        //self.product = [decoder decodeObjectForKey:@"product"];
     }
     return self;
 }

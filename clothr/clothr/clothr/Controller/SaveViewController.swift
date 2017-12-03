@@ -17,7 +17,6 @@ var checker2: NSInteger=5
 class SaveViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     let vc = ViewController()
-//    let products = UserDefaults.standard.object(forKey: "products") as! Data
     var savedImages=NSKeyedUnarchiver.unarchiveObject(with: UserDefaults.standard.object(forKey: "images") as! Data) as? [Any]
     var savedNames=NSKeyedUnarchiver.unarchiveObject(with: UserDefaults.standard.object(forKey: "names") as! Data) as? [Any]
     var savedPrices=NSKeyedUnarchiver.unarchiveObject(with: UserDefaults.standard.object(forKey: "prices") as! Data) as? [Any]
@@ -42,15 +41,8 @@ class SaveViewController: UIViewController, UITableViewDelegate, UITableViewData
 //------------------------------------method to get middle image for swiping page-----------------------------------------//
     func getProductImage(_ imageView:UIImageView, _ cell:SaveControllerTableViewCell, _ index: Int)
     {
-//        if(savedIndex>=savedProducts!.count)
-//                {
-//                    savedIndex=0
-//                }
-//        print(savedIndex)
-        //let thisProduct: PSSProduct? = savedImages![index] as? PSSProduct
         let url = NSURL(string: savedImages![index] as! String)
         let request = URLRequest(url: url! as URL)
-//        print(thisProduct?.buyURL as Any)
         let session = URLSession.shared
         
         let task = session.dataTask(with: request, completionHandler: {
@@ -82,12 +74,12 @@ class SaveViewController: UIViewController, UITableViewDelegate, UITableViewData
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! SaveControllerTableViewCell
         getProductImage(cell.productImage, cell,indexPath.row)
-        let priceCheck = saleBool![indexPath.row]
+        let priceCheck = saleBool![indexPath.row]       //if there is a sale, use the sale price instead
         if(priceCheck=="-1")
         {
             cell.productPrice.text=(savedPrices?[indexPath.row] as! String)
             cell.productSale.text=""
-        } else
+        } else  //if there is a sale, use sale price and put regular price below
         {
             let attributeString: NSMutableAttributedString =  NSMutableAttributedString(string: savedPrices?[indexPath.row] as! String)
             attributeString.addAttribute(NSAttributedStringKey.strikethroughStyle, value: 2, range: NSMakeRange(0, attributeString.length))
@@ -103,15 +95,11 @@ class SaveViewController: UIViewController, UITableViewDelegate, UITableViewData
 //------------------------------------bring user to product's URL to buy-----------------------------------------//
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        //let thisProduct: PSSProduct? = savedProducts![indexPath.row] as? PSSProduct
-        print("cell selected")
         let urlString = NSURL(string: savedURL![indexPath.row] as! String)
         let url = URL(string: savedURL![indexPath.row] as! String)
         let vc = SFSafariViewController(url: url!)
-//        present(vc, animated: true, completion: nil)
         if #available(iOS 10.0, *) {
             present(vc, animated: true, completion: nil)
-//            UIApplication.shared.open((thisProduct?.buyURL)!, options: [:], completionHandler: nil)
         } else {
             UIApplication.shared.openURL(urlString! as URL)
         }
@@ -123,15 +111,12 @@ class SaveViewController: UIViewController, UITableViewDelegate, UITableViewData
     {
         if editingStyle==UITableViewCellEditingStyle.delete
         {
-//            print(savedImages?.count as Any)
             savedImages?.remove(at: indexPath.row)
             savedNames?.remove(at: indexPath.row)
             savedPrices?.remove(at: indexPath.row)
             savedURL?.remove(at: indexPath.row)
             saleBool?.remove(at: indexPath.row)
             savedBrand?.remove(at: indexPath.row)
-//            let thisProduct: PSSProduct? = savedProducts![0] as? PSSProduct
-//            print(thisProduct?.name as Any)
             updateUserStorage()
             tableView.reloadData()
         }
