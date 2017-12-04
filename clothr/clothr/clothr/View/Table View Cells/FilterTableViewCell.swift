@@ -505,6 +505,7 @@ class FilterTableViewCell: UITableViewCell, UICollectionViewDataSource, UICollec
                     filterCollection?.reloadData()
                     } else
                     {
+                        pickedPrices!.remove(at: pickedPrices!.index(of: filterCell.currentFilterLabel.text!)!)
                         priceCheck![filterCell.currentFilterLabel.text!]=0
                         if let count = prices?.count
                         {
@@ -533,7 +534,7 @@ class FilterTableViewCell: UITableViewCell, UICollectionViewDataSource, UICollec
                         {
                             for index in 0...count-1
                             {
-                                let filter: PSSColor? = brands![index] as? PSSColor
+                                let filter: PSSColor? = colors![index] as? PSSColor
                                 if filter?.name==filterCell.currentFilterLabel.text
                                 {
                                     let pickedColor: PSSColor? = (colors![index] as! PSSColor)
