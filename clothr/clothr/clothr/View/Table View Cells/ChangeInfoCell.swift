@@ -48,7 +48,7 @@ class ChangeInfoCell: UITableViewCell {
         
         alert.addAction(yes)
         alert.addAction(no)
-        UIApplication.shared.keyWindow?.rootViewController?.present(alert, animated: true, completion: nil)
+        alert.show()
     }
     
     // Tries to delete the user's account from the Parse database
