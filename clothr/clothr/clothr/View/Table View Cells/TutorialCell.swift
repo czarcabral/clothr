@@ -18,6 +18,7 @@ class TutorialCell: UITableViewCell {
             guard let item = item as? SettingsViewModelTutorialItem else {
                 return
             }
+            tutorialScroll.contentSize.height = 1200
             
             tutorialText?.text = item.tutorial
         }
