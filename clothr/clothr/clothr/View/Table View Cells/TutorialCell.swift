@@ -11,6 +11,8 @@ import UIKit
 class TutorialCell: UITableViewCell {
     @IBOutlet weak var tutorialText: UITextView?
     
+    @IBOutlet weak var tutorialScroll: UIScrollView!
+    
     var item: SettingsViewModelItem? {
         didSet {
             guard let item = item as? SettingsViewModelTutorialItem else {
