@@ -330,7 +330,7 @@ class FilterTableViewCell: UITableViewCell, UICollectionViewDataSource, UICollec
                 {
                     for index in 0...count-1
                     {
-                        let filter: PSSColor? = retailers![index] as? PSSColor
+                        let filter: PSSColor? = colors![index] as? PSSColor
                         if filter?.name==filterCell.savedFilterLabel.text
                         {
                             removeColorFilter(filter!)
@@ -555,8 +555,8 @@ class FilterTableViewCell: UITableViewCell, UICollectionViewDataSource, UICollec
                         {
                             for index in 0...count-1
                             {
-                                let filter: PSSColor? = retailers![index] as? PSSColor
-                                if filter?.name==filterCell.savedFilterLabel.text
+                                let filter: PSSColor? = colors![index] as? PSSColor
+                                if filter?.name==filterCell.currentFilterLabel.text
                                 {
                                     removeColorFilter(filter!)
                                     break
