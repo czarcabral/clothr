@@ -40,14 +40,17 @@ class SettingsViewController: UIViewController {
     // Log out the current User and return to start screen
     @IBAction func logOutPressed(_ sender: Any) {
         let alert = UIAlertController(title:"Logout of Clothr?", message:nil, preferredStyle: .alert)
-        let yes = UIAlertAction(title: "Cancel", style: .destructive, handler: { (action) -> Void in
+        let left = UIAlertAction(title: "Cancel", style: .default, handler: { (action) -> Void in
+            // Nothing
+        })
+        let right = UIAlertAction(title: "Continue", style: .default, handler: { (action) -> Void in
             self.tryLogout()
         })
-        let no = UIAlertAction(title: "Continue", style: .default, handler: { (action) -> Void in })
 
-        alert.addAction(yes)
-        alert.addAction(no)
-        alert.show()
+        alert.addAction(left)
+        alert.addAction(right)
+        
+        present(alert, animated: true, completion: nil)
     }
     
     // Try to Log out the current User

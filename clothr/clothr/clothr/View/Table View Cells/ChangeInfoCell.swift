@@ -65,15 +65,48 @@ class ChangeInfoCell: UITableViewCell {
         UIApplication.shared.keyWindow?.rootViewController = viewController
     }
     
-    //  Deletes the account
+    // Deletes the account
     func deleteAccount(success: Bool) {
         print("success = \(success)")
         PFUser.logOut()
         returnStartView()
     }
     
-    // reset password
+    // When reset password is pressed, have the user enter their new credentials in an alert box
     @IBAction func resetPasswordPressed(_ sender: Any) {
-        PFUser.requestPasswordResetForEmail(inBackground: (userEmail?.text)!)
+        let alert = UIAlertController(title:"Warning", message:"Are you sure you want to reset your password?", preferredStyle: .alert)
+        
+        alert.addTextField(configurationHandler: { (_ textField : UITextField!) -> Void in
+            textField.placeholder = "Current Password"
+            textField.isSecureTextEntry = true
+        })
+        alert.addTextField(configurationHandler: { (_ textField : UITextField!) -> Void in
+            textField.placeholder = "New Password"
+            textField.isSecureTextEntry = true
+        })
+        alert.addTextField(configurationHandler: {(_ textField: UITextField) -> Void in
+            textField.placeholder = "New Password, again"
+            textField.isSecureTextEntry = true
+        })
+
+        let left = UIAlertAction(title: "Save", style: .default, handler: { (action) -> Void in
+            self.tryResetPassword(alert)
+        })
+        let right = UIAlertAction(title: "Cancel", style: .default, handler: { (action) -> Void in
+            // Nothing here
+        })
+        alert.addAction(left)
+        alert.addAction(right)
+        
+        alert.show()
+    }
+    
+    // Try to reset the new password
+    func tryResetPassword(_ alert: UIAlertController) {
+        let oldPasswordTF = alert.textFields![0] as UITextField
+        let newPassword1TF = alert.textFields![1] as UITextField
+        let newPassword2TF = alert.textFields![2] as UITextField
+        
+        PFUser.current()?.password = newPassword1TF.text
     }
 }
