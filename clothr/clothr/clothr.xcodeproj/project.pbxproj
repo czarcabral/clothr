@@ -663,11 +663,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = FEZCP5264Y;
+				DEVELOPMENT_TEAM = 2QBYA2EHE3;
 				INFOPLIST_FILE = clothr/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.clothr;
+				PRODUCT_BUNDLE_IDENTIFIER = com.clothr.tmp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = bridging.h;
 				SWIFT_VERSION = 4.0;
@@ -681,11 +681,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = FEZCP5264Y;
+				DEVELOPMENT_TEAM = 2QBYA2EHE3;
 				INFOPLIST_FILE = clothr/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.clothr;
+				PRODUCT_BUNDLE_IDENTIFIER = com.clothr.tmp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = bridging.h;
 				SWIFT_VERSION = 4.0;
